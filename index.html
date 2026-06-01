@@ -273,6 +273,30 @@ select option{background:#111118}
 .pin-btn:active{background:#9B59B6;color:#000}
 .pin-keypad{display:grid;grid-template-columns:repeat(3,65px);gap:6px;justify-content:center;margin:0 auto}
 
+
+/* ═══ FROM UPLOADED — missing classes ═══ */
+.abadge{font-size:9px;font-weight:800;padding:3px 9px;border-radius:50px;display:inline-block;margin-bottom:4px}
+.akb{font-size:9px;color:var(--sub);padding-top:7px;border-top:1px solid #2A2A4A;line-height:1.6}
+.algocard-count{font-size:9px;color:var(--mu)}
+.algocard-title{font-size:12px;font-weight:800;display:flex;align-items:center;gap:6px}
+.algolist{display:flex;flex-direction:column;gap:8px}
+.algotags{display:flex;flex-wrap:wrap;gap:4px}
+.aname{font-size:15px;font-weight:900;margin-bottom:2px}
+.asl{font-size:8px;color:var(--mu)}
+.astats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.asv{font-size:14px;font-weight:900}
+.atitle{font-size:10px;color:var(--sub);margin-bottom:8px}
+.badge{font-size:9px;font-weight:800;padding:3px 9px;border-radius:50px;display:inline-block;margin-bottom:6px}
+.chatheader{background:linear-gradient(135deg,rgba(155,89,182,.2),rgba(233,30,154,.1));padding:12px 14px;border-bottom:1px solid #2A2A4A}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.htag{text-align:center;color:var(--sub);font-size:10px;margin-top:3px}
+.modal-closebtn{width:100%;background:linear-gradient(135deg,var(--p),#6C3483);border:none;color:#fff;border-radius:9px;padding:12px;font-weight:800;font-size:13px;cursor:pointer;touch-action:manipulation}
+.modal-drag{width:36px;height:4px;background:#2A2A4A;border-radius:2px;margin:0 auto 14px}
+.modal-sub{font-size:10px;color:var(--sub);margin-bottom:12px;line-height:1.6}
+.modal-title{font-size:16px;font-weight:900;margin-bottom:5px}
+.modal-topics{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.quickgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.statbox{background:var(--card);border:1px solid #2A2A4A;border-radius:10px;padding:10px 6px;text-align:center}
 </style>
 </head>
 <body>
@@ -312,7 +336,9 @@ select option{background:#111118}
     <div class="qcard" id="qa-chat"><span class="qi">💬</span><span class="ql">Chat</span><span class="qs">Ask Me</span></div>
   </div>
   <div class="sec">🔌 Connected Systems</div>
-  <div id="h-int-status" class="card" style="font-size:10px;line-height:2;color:var(--sub)">Loading integrations...</div>
+  <div 
+  <div style="display:flex;align-items:center;gap:6px;padding:8px 0;border-bottom:1px solid #2A2A4A"><div id="status-dot" style="width:8px;height:8px;border-radius:50%;background:#00E676;box-shadow:0 0 6px #00E676"></div><span id="status-txt" style="font-size:10px;color:var(--ok);font-weight:700">All Systems Operational</span></div>
+  id="h-int-status" class="card" style="font-size:10px;line-height:2;color:var(--sub)">Loading integrations...</div>
 </div>
 
 <!-- ═══ MASTERY ═══ -->
@@ -371,6 +397,14 @@ select option{background:#111118}
       <div style="display:flex;align-items:center;gap:8px"><div style="width:10px;height:10px;border-radius:50%;background:var(--g);flex-shrink:0"></div><strong style="color:var(--g)">LEGENDARY</strong><span style="color:var(--mu)">95–100%</span></div>
     </div>
   </div>
+
+  <!-- ═══ BEHAVIOR / ALGO / DOMAIN MASTERY BARS ═══ -->
+  <div class="sec">🧠 My Behavior Science Mastery</div>
+  <div id="mastery-beh"></div>
+  <div class="sec">⚡ My Algorithm Mastery</div>
+  <div id="mastery-alg"></div>
+  <div class="sec">🌍 My Domain Mastery</div>
+  <div id="mastery-dom"></div>
 </div>
 
 <!-- ═══ BOTS ═══ -->
@@ -2203,7 +2237,7 @@ function showPage(id){
   curPage=id;
   // Tab hooks — all wrapped in try/catch
   if(id==='home')      setTimeout(function(){try{updateHomeStats();}catch(e){}},100);
-  if(id==='mastery')   setTimeout(function(){try{calcMastery();updateMasteryUI();saveGlobalBalances();}catch(e){}},100);
+  if(id==='mastery')   setTimeout(function(){try{if(typeof buildMastery==='function')buildMastery();calcMastery();updateMasteryUI();saveGlobalBalances();}catch(e){}},100);
   if(id==='bots')      setTimeout(function(){try{updateBotUI();if(typeof updateBotsUI==='function')updateBotsUI();}catch(e){}},100);
   if(id==='learning')  setTimeout(function(){try{buildDomains();updateLearningUI();updateLearnHeader();}catch(e){}},100);
   if(id==='mining')    setTimeout(function(){try{buildCoins();renderCoins();if(typeof updateMiningAgentPanel==='function')updateMiningAgentPanel();if(typeof updateMineTransferPanel==='function')updateMineTransferPanel();if(typeof buildTokenSendCoinList==='function')buildTokenSendCoinList();}catch(e){}},100);
@@ -3950,7 +3984,17 @@ function buildAlgos(){
       +'</div>'
       +'<div style="margin-top:8px;line-height:1.8">'+tagsHTML+'</div>'
       + analysisHTML;
-    list.appendChild(card);
+    (function(alg){
+    card.style.cursor='pointer';
+    card.addEventListener('click',function(){
+      if(typeof openModal==='function'){
+        openModal({n:alg.n,ico:alg.ico,
+          sub:'My mastery of '+alg.n+' — '+alg.count+' algorithms I know and apply.',
+          topics:alg.topics||[]});
+      }
+    });
+  })(a);
+  list.appendChild(card);
   });
 
   // Also add "all topics" flat list toggle
@@ -5162,7 +5206,60 @@ setInterval(function(){
 }, 30 * 60 * 1000);
 
 // Also run wallet UI refresh every 10 seconds when wallet tab open
-setInterval(function(){
+setInterval
+// ═══ FROM UPLOADED — missing functions ═══
+function buildMastery(){
+  if(masteryBuilt)return; masteryBuilt=true;
+  // Behavior mastery bars
+  var bel = document.getElementById('mastery-beh');
+  BEH.forEach(function(m){
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:8px';
+    row.innerHTML =
+      '<span style="font-size:14px">'+m.ico+'</span>'+
+      '<div style="flex:1"><div style="font-size:10px;font-weight:700;margin-bottom:3px">'+m.n+'</div>'+
+      '<div style="height:4px;background:#2A2A4A;border-radius:2px"><div style="height:100%;width:100%;background:linear-gradient(90deg,var(--p),var(--h));border-radius:2px"></div></div></div>'+
+      '<span style="font-size:9px;color:var(--ok);font-weight:700">MASTERED</span>';
+    bel.appendChild(row);
+  });
+  // Algo mastery bars
+  var ael = document.getElementById('mastery-alg');
+  ALG.forEach(function(a){
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:8px';
+    row.innerHTML =
+      '<span style="font-size:14px">'+a.ico+'</span>'+
+      '<div style="flex:1"><div style="font-size:10px;font-weight:700;margin-bottom:3px">'+a.n+' ('+a.count+')</div>'+
+      '<div style="height:4px;background:#2A2A4A;border-radius:2px"><div style="height:100%;width:100%;background:linear-gradient(90deg,#3498DB,var(--ok));border-radius:2px"></div></div></div>'+
+      '<span style="font-size:9px;color:var(--ok);font-weight:700">MASTERED</span>';
+    ael.appendChild(row);
+  });
+  // Domain chips
+  var del = document.getElementById('mastery-dom');
+  DOMAINS27.forEach(function(d,i){
+    var chip = document.createElement('div');
+    chip.style.cssText = 'display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid #2A2A4A;border-radius:8px;padding:8px 10px;margin-bottom:6px;justify-content:space-between';
+    chip.innerHTML =
+      '<div style="display:flex;align-items:center;gap:7px">'+
+        '<span style="font-size:9px;font-weight:900;color:var(--p);width:16px">'+(i+1)+'</span>'+
+        '<span style="font-size:13px">'+d.ico+'</span>'+
+        '<span style="font-size:10px;font-weight:700">'+d.n+'</span>'+
+      '</div>'+
+      '<span style="font-size:9px;color:var(--ok);font-weight:700">&#x2714; ACTIVE</span>';
+    del.appendChild(chip);
+  });
+}
+function fmtChange(c) {
+  var n = parseFloat(c)||0;
+  return (n>=0?'+':'')+n.toFixed(2)+'%';
+}
+function fmtPrice(p) {
+  if(!p) return '...';
+  if(p>=1000) return '$'+p.toLocaleString(undefined,{maximumFractionDigits:0});
+  if(p>=1)    return '$'+p.toFixed(2);
+  return '$'+p.toFixed(4);
+}
+(function(){
   if(typeof curPage !== 'undefined' && curPage === 'wallet') updateWalletUI();
 }, 10000);
 
