@@ -6,16 +6,21 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>👑 TaTatalicious — Unified</title>
 <style>
-/* HARD PAGE HIDE — belt+suspenders */
-.page:not(.active){display:none!important;height:0!important;overflow:hidden!important;pointer-events:none!important}
+/* ═══ CANONICAL PAGE VISIBILITY — Championship v9 FINAL ═══ */
+/* All pages hidden by default */
+.page { display: none !important; padding: 12px 11px 80px; max-width: 620px; margin: 0 auto; }
+/* Only the active page shows */
+.page.active { display: block !important; }
+/* Belt-and-suspenders: non-active pages NEVER bleed through */
+.page:not(.active) { display: none !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; }
+/* ══════════════════════════════════════════════════════════ */
+
 
 /* FALLBACK — ensures page renders even if CSS vars fail */
 body{background:#08080F!important;color:#fff!important}
 #topbar{background:#1A1A2E!important;border-bottom:2px solid #9B59B6!important}
 #botnav{background:#0A0A14!important;border-top:2px solid #2A2A4A!important}
 #content{display:block!important;position:fixed!important;top:50px!important;bottom:60px!important;left:0!important;right:0!important;overflow-y:auto!important}
-.page{display:none}
-.page.active{display:block!important}
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
@@ -31,8 +36,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMa
 .ldot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 #content{position:fixed;top:50px;bottom:60px;left:0;right:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.page{display:none;padding:12px 11px 26px;max-width:620px;margin:0 auto}
-.page.active{display:block}
+
 #botnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0A0A14;border-top:2px solid #2A2A4A;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;z-index:999}
 #botnav::-webkit-scrollbar{display:none}
 .nb{min-width:52px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;background:none;border:none;color:var(--mu);font-size:7.5px;font-weight:700;cursor:pointer;padding:3px 2px;gap:1px;touch-action:manipulation;flex-shrink:0}
@@ -226,7 +230,6 @@ select option{background:#111118}
 .fincard-desc{font-size:8px;color:var(--sub);line-height:1.4}
 .fincard-action{background:var(--p);color:#fff;border:none;border-radius:6px;padding:5px 10px;font-size:8px;font-weight:700;cursor:pointer;margin-top:6px}
 
-
 /* ─── ALGO TAB ─── */
 .algocard{background:#0A0A1A;border:1px solid #2a2a4a;border-radius:12px;padding:12px;margin-bottom:10px}
 .algocard-head{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
@@ -234,7 +237,6 @@ select option{background:#111118}
 .algotag{background:#1a1a3a;border:1px solid #333;color:#888;border-radius:4px;padding:2px 6px;font-size:7px;display:inline-block;margin:1px}
 .algo-analysis{display:none;margin-top:10px;border-top:1px solid #1a1a3a;padding-top:8px}
 .algo-analysis-card{background:#050510;border-left:3px solid #9B59B6;border-radius:0 8px 8px 0;padding:8px;margin-bottom:5px}
-
 
 /* ─── ADMIN PANEL ─── */
 #admin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;overflow-y:auto}
@@ -282,7 +284,7 @@ select option{background:#111118}
 <div id="content">
 
 <!-- ═══ HOME ═══ -->
-<div class="page active" id="page-home">
+<div class="page" id="page-home" style="display:none">
   <span class="crown">👑</span>
   <div class="htitle">TaTatalicious</div>
   <div style="text-align:center;color:var(--p);font-size:11px;font-weight:700;margin:4px 0 6px">Supreme Master AI · 10,101 Agent Commander</div>
@@ -2178,34 +2180,40 @@ document.getElementById('chatinput').addEventListener('keydown',function(e){if(e
 var curPage='home';
 var PAGES=['home','mastery','bots','learning','mining','stocks','crypto','wallet','chat','knowledge','behavior','algos','finteam','domains'];
 function showPage(id){
+  // guard
+  if(!id||!PAGES.includes(id)) return;
+  // hide all pages
   PAGES.forEach(function(p){
     var pg=document.getElementById('page-'+p);
     var nb=document.getElementById('nav-'+p);
-    if(pg) pg.classList.remove('active');
+    if(pg){ pg.classList.remove('active'); pg.style.display='none'; }
     if(nb) nb.classList.remove('active');
   });
+  // show target page
   var pg=document.getElementById('page-'+id);
   var nb=document.getElementById('nav-'+id);
-  if(pg) pg.classList.add('active');
+  if(pg){ pg.classList.add('active'); pg.style.display='block'; }
   if(nb) nb.classList.add('active');
+  // scroll to top
   var ct=document.getElementById('content');
   if(ct) ct.scrollTop=0;
+  window.scrollTo(0,0);
   curPage=id;
-  // ── Tab-specific hooks (all inline, no override needed) ──
-  if(id==='home')      setTimeout(function(){updateHomeStats();},100);
-  if(id==='mastery')   setTimeout(function(){calcMastery();updateMasteryUI();saveGlobalBalances();},100);
-  if(id==='bots')      setTimeout(function(){updateBotUI();if(typeof updateBotsUI==='function')updateBotsUI();},100);
-  if(id==='learning')  setTimeout(function(){buildDomains();updateLearningUI();updateLearnHeader();},100);
-  if(id==='mining')    setTimeout(function(){buildCoins();renderCoins();if(typeof updateMiningAgentPanel==='function')updateMiningAgentPanel();if(typeof updateMineTransferPanel==='function')updateMineTransferPanel();if(typeof buildTokenSendCoinList==='function')buildTokenSendCoinList();},100);
-  if(id==='stocks')    setTimeout(function(){if(typeof loadStocksData==='function')loadStocksData();fetchAlpaca();if(!document.getElementById('stk-signals')||!document.getElementById('stk-signals').children.length)genSignals();},100);
-  if(id==='crypto')    setTimeout(function(){fetchMarket();fetchSignals();if(typeof loadCryptoData==='function')loadCryptoData();},100);
-  if(id==='wallet')    setTimeout(function(){renderWallet();renderAutoWithdrawStatus();updateWalletUI();if(typeof renderWalletTxLog==='function')renderWalletTxLog();if(typeof renderWalletPortfolio==='function')renderWalletPortfolio();},100);
-  if(id==='chat')      setTimeout(function(){if(typeof initChat==='function')initChat();},100);
-  if(id==='knowledge') setTimeout(function(){var el=document.getElementById('domain-grid');if(el)el.innerHTML='';if(typeof buildKnowledge==='function')buildKnowledge();},100);
-  if(id==='behavior')  setTimeout(function(){var el=document.getElementById('beh-list');if(el)el.innerHTML='';if(typeof buildBehavior==='function')buildBehavior();},100);
-  if(id==='algos')     setTimeout(function(){if(typeof algBuilt!=='undefined')algBuilt=false;if(typeof buildAlgos==='function')buildAlgos();},100);
-  if(id==='finteam')   setTimeout(function(){if(typeof buildFinTeam==='function')buildFinTeam();},100);
-  if(id==='domains')   setTimeout(function(){build27();var el=document.getElementById('domain-list');if(el)el.innerHTML='';if(typeof buildDomains==='function')buildDomains();},100);
+  // ── Tab-specific hooks ──
+  if(id==='home')      setTimeout(function(){try{updateHomeStats();}catch(e){}},100);
+  if(id==='mastery')   setTimeout(function(){try{calcMastery();updateMasteryUI();saveGlobalBalances();}catch(e){}},100);
+  if(id==='bots')      setTimeout(function(){try{updateBotUI();if(typeof updateBotsUI==='function')updateBotsUI();}catch(e){}},100);
+  if(id==='learning')  setTimeout(function(){try{buildDomains();updateLearningUI();updateLearnHeader();}catch(e){}},100);
+  if(id==='mining')    setTimeout(function(){try{buildCoins();renderCoins();if(typeof updateMiningAgentPanel==='function')updateMiningAgentPanel();if(typeof updateMineTransferPanel==='function')updateMineTransferPanel();if(typeof buildTokenSendCoinList==='function')buildTokenSendCoinList();}catch(e){}},100);
+  if(id==='stocks')    setTimeout(function(){try{if(typeof loadStocksData==='function')loadStocksData();fetchAlpaca();if(!document.getElementById('stk-signals')||!document.getElementById('stk-signals').children.length)genSignals();}catch(e){}},100);
+  if(id==='crypto')    setTimeout(function(){try{fetchMarket();fetchSignals();if(typeof loadCryptoData==='function')loadCryptoData();}catch(e){}},100);
+  if(id==='wallet')    setTimeout(function(){try{renderWallet();renderAutoWithdrawStatus();updateWalletUI();if(typeof renderWalletTxLog==='function')renderWalletTxLog();if(typeof renderWalletPortfolio==='function')renderWalletPortfolio();}catch(e){}},100);
+  if(id==='chat')      setTimeout(function(){try{if(typeof initChat==='function')initChat();}catch(e){}},100);
+  if(id==='knowledge') setTimeout(function(){try{if(typeof buildKnowledge==='function')buildKnowledge();}catch(e){}},100);
+  if(id==='behavior')  setTimeout(function(){try{if(typeof buildBehavior==='function')buildBehavior();}catch(e){}},100);
+  if(id==='algos')     setTimeout(function(){try{if(typeof buildAlgos==='function')buildAlgos();}catch(e){}},100);
+  if(id==='finteam')   setTimeout(function(){try{if(typeof buildFinTeam==='function')buildFinTeam();}catch(e){}},100);
+  if(id==='domains')   setTimeout(function(){try{if(typeof build27==='function')build27();}catch(e){}},100);
 }
 PAGES.forEach(function(p){
   var nb=document.getElementById('nav-'+p);if(nb)nb.addEventListener('click',function(){showPage(p);});
@@ -5093,6 +5101,7 @@ function loadGlobalBalances(){
 }
 (function(){
 loadState();
+  showPage('home');
 loadGlobalBalances(); // restore cached balances
 calcMastery();
 updateMasteryUI();
