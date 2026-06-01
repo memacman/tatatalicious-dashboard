@@ -6,15 +6,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>👑 TaTatalicious — Unified</title>
 <style>
-/* ═══ CANONICAL PAGE VISIBILITY — Championship v9 FINAL ═══ */
-/* All pages hidden by default */
-.page { display: none !important; padding: 12px 11px 80px; max-width: 620px; margin: 0 auto; }
-/* Only the active page shows */
+/* ═══ PAGE VISIBILITY — v9 FINAL (no !important wars) ═══ */
+.page { display: none; padding: 12px 11px 80px; max-width: 620px; margin: 0 auto; }
 .page.active { display: block !important; }
-/* Belt-and-suspenders: non-active pages NEVER bleed through */
-.page:not(.active) { display: none !important; height: 0 !important; overflow: hidden !important; pointer-events: none !important; }
-/* ══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════ */
 
+/* All pages hidden by default */
+
+/* Only the active page shows */
+
+/* Belt-and-suspenders: non-active pages NEVER bleed through */
+
+/* ══════════════════════════════════════════════════════════ */
 
 /* FALLBACK — ensures page renders even if CSS vars fail */
 body{background:#08080F!important;color:#fff!important}
@@ -284,7 +287,7 @@ select option{background:#111118}
 <div id="content">
 
 <!-- ═══ HOME ═══ -->
-<div class="page" id="page-home" style="display:none">
+<div class="page" id="page-home">
   <span class="crown">👑</span>
   <div class="htitle">TaTatalicious</div>
   <div style="text-align:center;color:var(--p);font-size:11px;font-weight:700;margin:4px 0 6px">Supreme Master AI · 10,101 Agent Commander</div>
@@ -2180,26 +2183,25 @@ document.getElementById('chatinput').addEventListener('keydown',function(e){if(e
 var curPage='home';
 var PAGES=['home','mastery','bots','learning','mining','stocks','crypto','wallet','chat','knowledge','behavior','algos','finteam','domains'];
 function showPage(id){
-  // guard
   if(!id||!PAGES.includes(id)) return;
-  // hide all pages
+  // Hide ALL pages — setAttribute beats any CSS specificity
   PAGES.forEach(function(p){
     var pg=document.getElementById('page-'+p);
     var nb=document.getElementById('nav-'+p);
-    if(pg){ pg.classList.remove('active'); pg.style.display='none'; }
+    if(pg){ pg.classList.remove('active'); pg.setAttribute('style','display:none'); }
     if(nb) nb.classList.remove('active');
   });
-  // show target page
+  // Show target page
   var pg=document.getElementById('page-'+id);
   var nb=document.getElementById('nav-'+id);
-  if(pg){ pg.classList.add('active'); pg.style.display='block'; }
+  if(pg){ pg.classList.add('active'); pg.setAttribute('style','display:block'); }
   if(nb) nb.classList.add('active');
-  // scroll to top
+  // Scroll to top
   var ct=document.getElementById('content');
   if(ct) ct.scrollTop=0;
   window.scrollTo(0,0);
   curPage=id;
-  // ── Tab-specific hooks ──
+  // Tab hooks — all wrapped in try/catch
   if(id==='home')      setTimeout(function(){try{updateHomeStats();}catch(e){}},100);
   if(id==='mastery')   setTimeout(function(){try{calcMastery();updateMasteryUI();saveGlobalBalances();}catch(e){}},100);
   if(id==='bots')      setTimeout(function(){try{updateBotUI();if(typeof updateBotsUI==='function')updateBotsUI();}catch(e){}},100);
