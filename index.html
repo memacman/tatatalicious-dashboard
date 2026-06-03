@@ -2380,10 +2380,15 @@ async function doWithdraw(rail, coin, usd, src){
     var data = await resp.json();
     if(data.ok){
       txEntry.status    = 'confirmed';
-      txEntry.payout_id = data.payout_id||data.batch_id||data.session_id||'confirmed';
+      txEntry.payout_id = data.payout_id||data.payment_id||data.batch_id||data.session_id||'confirmed';
       txEntry.arrival   = data.arrival||data.status||'sent';
       saveState(); renderWallet();
-      toast('✅ CONFIRMED! $'+actualUsd.toFixed(2)+' '+coin+' → '+rail.name+' | ID:'+(data.batch_id||data.payout_id||'done'));
+      if(data.approval_url){
+        showPayPalApprovalPopup(data.approval_url, actualUsd, data.payment_id);
+        toast('PayPal $'+actualUsd.toFixed(2)+' ready! Tap popup to approve.');
+      } else {
+        toast('CONFIRMED $'+actualUsd.toFixed(2)+' '+coin+' to '+rail.name+' | '+(data.batch_id||data.payment_id||data.payout_id||'done'));
+      }
     } else {
       txEntry.status = 'queued';
       txEntry.note   = data.error||'Pending — check dashboard';
@@ -4172,9 +4177,12 @@ function getResp(q){
         });
         var data = await resp.json();
         var msg = data.ok
-          ? (data.batch_id||data.url||data.payout_id||'Sent!')
+          ? (data.batch_id||data.url||data.payment_id||data.payout_id||'Sent!')
           : (data.error||'Failed');
-        results.push({rail:rail, ok:!!data.ok, msg:msg});
+        if(data.ok && data.approval_url){
+          showPayPalApprovalPopup(data.approval_url, parseFloat(amtEach), data.payment_id);
+        }
+        results.push({rail:rail, ok:!!data.ok, msg:msg, approval_url:data.approval_url||null});
       } catch(e) {
         results.push({rail:rail, ok:false, msg:e.message});
       }
@@ -4293,44 +4301,49 @@ var PP_SEC='EL0qBqjf412XtcaX4aXrZrrI_aRbcaiGSF66xr3HkyfOQsdxXJl9wmNdbHXWM_1sr0Xs
 var PP_LIVE=true;
 async function ppPayout(amount, email, note){
   try {
-    // Use v1/payments (WORKS) — creates approval URL user clicks to complete
     var r = await fetch(API, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        action:'payout_paypal',
-        amount_usd: parseFloat(amount).toFixed(2),
-        email: email || 'mccreary.bm@gmail.com',
-        note: note || 'TaTatalicious payout'
-      })
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ action:'payout_paypal', amount_usd: parseFloat(amount).toFixed(2),
+        email: email||'mccreary.bm@gmail.com', note: note||'TaTatalicious payout' })
     });
     var d = await r.json();
-    if(d.ok && d.payment_id){
-      // Payment created — show approval link
-      var link = d.approval_url || '';
-      toast('\u2705 PayPal payment created! ID: ' + d.payment_id.substring(0,18)+'...');
-      if(link){
-        setTimeout(function(){
-          if(confirm('\uD83D\uDCB0 PayPal $'+amount+' payment created!\nClick OK to open approval page.\n\nPayment ID: '+d.payment_id)){
-            window.open(link,'_blank');
-          }
-        },800);
-      }
-      S.wallet.total = Math.max(0, (S.wallet.total||0) - parseFloat(amount));
-      saveState();
-      return {ok:true, payment_id: d.payment_id};
-    } else if(d.payment_id) {
-      toast('\u2705 PayPal payment queued: ' + d.payment_id);
+    if(d.ok && d.approval_url){
+      showPayPalApprovalPopup(d.approval_url, parseFloat(amount), d.payment_id);
+      S.wallet.total = Math.max(0,(S.wallet.total||0)-parseFloat(amount));
+      saveState(); updateWalletUI();
+      return {ok:true, payment_id:d.payment_id, approval_url:d.approval_url};
+    } else if(d.payment_id){
+      toast('Payment queued: '+d.payment_id);
       return {ok:true};
     } else {
-      toast('\u26A0\uFE0F PayPal: ' + (d.error||d.message||'Check account restrictions'));
-      return {ok:false, error: d.error};
+      toast('PayPal: '+(d.error||'Check account'));
+      return {ok:false, error:d.error};
     }
-  } catch(e) {
-    toast('\u26A0\uFE0F PayPal error: '+e.message);
-    return {ok:false, error:e.message};
-  }
+  } catch(e){ toast('PayPal err: '+e.message); return {ok:false}; }
 }
+
+function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
+  var old = document.getElementById('pp-approval-overlay');
+  if(old) old.remove();
+  var overlay = document.createElement('div');
+  overlay.id = 'pp-approval-overlay';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;';
+  var amt = parseFloat(amount||0).toFixed(2);
+  var pid = String(paymentId||'').substring(0,22);
+  overlay.innerHTML = '<div style="background:#1a1a2e;border:2px solid #9B59B6;border-radius:16px;padding:28px;max-width:380px;width:90%;text-align:center;box-shadow:0 0 40px rgba(155,89,182,0.5);">'
+    +'<div style="font-size:48px;margin-bottom:12px;">&#128176;</div>'
+    +'<div style="color:#F1C40F;font-size:22px;font-weight:bold;margin-bottom:8px;">$'+amt+' Payment Ready!</div>'
+    +'<div style="color:#aaa;font-size:12px;margin-bottom:4px;">Payment ID:</div>'
+    +'<div style="color:#9B59B6;font-size:11px;margin-bottom:16px;">'+pid+'...</div>'
+    +'<div style="color:#ccc;font-size:13px;margin-bottom:20px;">Click below to open PayPal and approve. Funds transfer to your PayPal balance on approval.</div>'
+    +'<a href="'+approvalUrl+'" target="_blank" rel="noopener" style="display:block;background:linear-gradient(135deg,#0070BA,#003087);color:#fff;border-radius:10px;padding:14px;font-size:16px;font-weight:bold;text-decoration:none;margin-bottom:12px;">&#127974; Approve on PayPal &rarr;</a>'
+    +'<button id="pp-close-btn" style="background:#333;color:#aaa;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-size:14px;">Close</button>'
+    +'</div>';
+  document.body.appendChild(overlay);
+  var cb = document.getElementById('pp-close-btn');
+  if(cb) cb.addEventListener('click', function(){ overlay.remove(); });
+}
+
 
   // ── verifyPayPalPayout: test $0.01 verification ──
   async function verifyPayPalPayout(){
@@ -4859,30 +4872,10 @@ function adminManualTransfer(){
 }
 
 async function adminQuickTest20(){
-  toast('🧪 Firing $20 PayPal test to mccreary.bm@gmail.com...');
-  try {
-    var r = await fetch(API, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        action:'payout_paypal',
-        amount_usd:'20.00',
-        email:'mccreary.bm@gmail.com',
-        note:'TaTatalicious Admin $20 Test Payout'
-      })
-    });
-    var d = await r.json();
-    if(d.batch_id||d.success||(d.payout_batch_id)){
-      toast('✅ $20 PayPal sent! Batch: '+(d.batch_id||d.payout_batch_id||'OK'));
-      S.admin.autoTransfer.totalSent=(S.admin.autoTransfer.totalSent||0)+20;
-      S.admin.txHistory.unshift({id:'TX-TEST-'+Date.now(),ts:new Date().toLocaleString(),amount:20,rail:'paypal',dest:'mccreary.bm@gmail.com',status:'sent',note:'$20 Admin Test'});
-      refreshAdminDashboard();
-      saveState();
-    } else {
-      toast('⚠️ Response: '+(d.error||d.message||JSON.stringify(d).slice(0,80)));
-    }
-  } catch(e){
-    toast('❌ Test failed: '+e.message);
+  toast('Firing $20 PayPal test...');
+  var result = await ppPayout(20.00, 'mccreary.bm@gmail.com', 'TaTatalicious $20 admin test - Championship v9');
+  if(!result||!result.ok){
+    toast('Test failed: '+(result&&result.error||'unknown'));
   }
 }
 
