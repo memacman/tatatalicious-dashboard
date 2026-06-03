@@ -6,6 +6,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>👑 TaTatalicious — Unified</title>
 <style>
+/* ═══ LAYOUT FIXES v9 FINAL ═══ */
+html,body{margin:0;padding:0;overflow:hidden;height:100%;background:#0A0A14}
+#topbar{position:fixed;top:0;left:0;right:0;height:50px;z-index:1000;background:#1A1A2E;border-bottom:2px solid #9B59B6;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+#content{position:fixed!important;top:50px!important;bottom:60px!important;left:0!important;right:0!important;overflow-y:auto!important;overflow-x:hidden;-webkit-overflow-scrolling:touch;z-index:1}
+#botnav{position:fixed!important;bottom:0!important;left:0!important;right:0!important;height:60px!important;z-index:1000!important;background:#0A0A14!important;border-top:2px solid #2A2A4A!important;display:flex!important;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#botnav::-webkit-scrollbar{display:none}
+/* Nav buttons — fully clickable */
+.nb{min-width:52px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;background:none;border:none;color:#888;font-size:9px;cursor:pointer;padding:4px 2px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+.nb .ico{font-size:17px;margin-bottom:2px;display:block}
+.nb.active{color:#9B59B6}
+.nb:active{opacity:0.7}
+
 /* ═══ PAGE VISIBILITY — v9 FINAL (no !important wars) ═══ */
 .page { display: none; padding: 12px 11px 80px; max-width: 620px; margin: 0 auto; }
 .page.active { display: block !important; }
@@ -22,8 +34,6 @@
 /* FALLBACK — ensures page renders even if CSS vars fail */
 body{background:#08080F!important;color:#fff!important}
 #topbar{background:#1A1A2E!important;border-bottom:2px solid #9B59B6!important}
-#botnav{background:#0A0A14!important;border-top:2px solid #2A2A4A!important}
-#content{display:block!important;position:fixed!important;top:50px!important;bottom:60px!important;left:0!important;right:0!important;overflow-y:auto!important}
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
@@ -38,9 +48,6 @@ html,body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMa
 .lpill{display:flex;align-items:center;gap:3px;background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.3);border-radius:50px;padding:3px 8px}
 .ldot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-#content{position:fixed;top:50px;bottom:60px;left:0;right:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
-
-#botnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0A0A14;border-top:2px solid #2A2A4A;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;z-index:999}
 #botnav::-webkit-scrollbar{display:none}
 .nb{min-width:52px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;background:none;border:none;color:var(--mu);font-size:7.5px;font-weight:700;cursor:pointer;padding:3px 2px;gap:1px;touch-action:manipulation;flex-shrink:0}
 .nb .ico{font-size:17px}
@@ -2201,6 +2208,9 @@ function showPage(id){
   if(ct) ct.scrollTop=0;
   window.scrollTo(0,0);
   curPage=id;
+  // Clear any stuck overlays when switching tabs
+  var stuckModal = document.getElementById('pp-approval-overlay');
+  if(stuckModal && id !== 'wallet') { /* keep approval popup */ }
   // Tab hooks — all wrapped in try/catch
   if(id==='home')      setTimeout(function(){try{updateHomeStats();}catch(e){}},100);
   if(id==='mastery')   setTimeout(function(){try{calcMastery();updateMasteryUI();saveGlobalBalances();}catch(e){}},100);
@@ -5119,6 +5129,61 @@ function loadGlobalBalances(){
     console.log('[TaTa] 💾 Global balances restored from cache');
   }catch(e){console.warn('[TaTa] Balance restore error:',e);}
 }
+
+// ═══ UNIVERSAL CLICK DELEGATION (mobile failsafe) ═══
+document.addEventListener('click', function(e){
+  var t = e.target;
+  // Walk up 3 levels to find nav button
+  for(var i=0;i<4;i++){
+    if(!t) break;
+    var id = t.id||'';
+    if(id.indexOf('nav-')===0){
+      var pg = id.replace('nav-','');
+      if(typeof showPage==='function' && PAGES.indexOf(pg)>=0){
+        showPage(pg);
+        return;
+      }
+    }
+    t = t.parentElement;
+  }
+}, true); // capture phase — fires before anything else
+
+// ═══ TOUCH DELEGATION (iOS Safari fix) ═══
+document.addEventListener('touchend', function(e){
+  var t = e.target;
+  for(var i=0;i<4;i++){
+    if(!t) break;
+    var id = t.id||'';
+    if(id.indexOf('nav-')===0){
+      var pg = id.replace('nav-','');
+      if(typeof showPage==='function' && PAGES.indexOf(pg)>=0){
+        e.preventDefault();
+        showPage(pg);
+        return;
+      }
+    }
+    t = t.parentElement;
+  }
+}, {passive:false});
+
+// ═══ MODAL ESCAPE: click outside closes any stuck modal ═══
+document.addEventListener('click', function(e){
+  var pm = document.getElementById('payout-modal');
+  if(pm && pm.style.display !== 'none'){
+    if(e.target === pm){ // clicked the backdrop
+      if(typeof closePayoutModal==='function') closePayoutModal();
+    }
+  }
+  var mb = document.getElementById('modalbg');
+  if(mb && (mb.style.display==='flex'||mb.classList.contains('show'))){
+    if(e.target === mb){ mb.style.display='none'; mb.classList.remove('show'); }
+  }
+  var ao = document.getElementById('admin-overlay');
+  if(ao && ao.style.display !== 'none'){
+    if(e.target === ao){ if(typeof closeAdmin==='function') closeAdmin(); }
+  }
+});
+
 (function(){
 loadState();
   showPage('home');
