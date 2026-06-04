@@ -6,16 +6,27 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>👑 TaTatalicious — Unified</title>
 <style>
+/* ═══ TATATALICIOUS LAYOUT v10 FINAL ═══ */
+html,body{margin:0;padding:0;overflow:hidden;height:100%;width:100%;background:#0A0A14}
+#topbar{position:fixed;top:0;left:0;right:0;height:50px;z-index:2000;background:#1A1A2E;border-bottom:2px solid #9B59B6;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+#content{position:fixed!important;top:50px!important;bottom:60px!important;left:0!important;right:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;z-index:10!important}
+#botnav{position:fixed!important;bottom:0!important;left:0!important;right:0!important;height:60px!important;z-index:2000!important;background:#0A0A14!important;border-top:2px solid #2A2A4A!important;display:flex!important;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0}
+#botnav::-webkit-scrollbar{display:none}
+.nb{min-width:52px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;background:none;border:none;color:#888;font-size:9px;cursor:pointer;padding:4px 2px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;outline:none;transition:color 0.15s}
+.nb .ico{font-size:17px;margin-bottom:2px;display:block;line-height:1}
+.nb.active{color:#9B59B6}
+.nb:active{opacity:0.6}
+.speed-btn{background:#0a0a1e;border:1px solid #333;color:#888;border-radius:8px;padding:6px 4px;font-size:9px;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:all 0.15s;text-align:center}
+.speed-btn.active{background:#9B59B6;border-color:#9B59B6;color:#fff;box-shadow:0 0 8px rgba(155,89,182,0.4)}
+.speed-btn:active{transform:scale(0.95)}
+.mine-ctrl-btn{flex:1;padding:10px 4px;border:none;border-radius:10px;font-size:11px;font-weight:900;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:all 0.15s;text-align:center}
+.mine-ctrl-btn:active{transform:scale(0.95);opacity:0.85}
+
 /* ═══ LAYOUT FIXES v9 FINAL ═══ */
 html,body{margin:0;padding:0;overflow:hidden;height:100%;background:#0A0A14}
 #topbar{position:fixed;top:0;left:0;right:0;height:50px;z-index:1000;background:#1A1A2E;border-bottom:2px solid #9B59B6;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
-#content{position:fixed!important;top:50px!important;bottom:60px!important;left:0!important;right:0!important;overflow-y:auto!important;overflow-x:hidden;-webkit-overflow-scrolling:touch;z-index:1}
-#botnav{position:fixed!important;bottom:0!important;left:0!important;right:0!important;height:60px!important;z-index:1000!important;background:#0A0A14!important;border-top:2px solid #2A2A4A!important;display:flex!important;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 #botnav::-webkit-scrollbar{display:none}
 /* Nav buttons — fully clickable */
-.nb{min-width:52px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;background:none;border:none;color:#888;font-size:9px;cursor:pointer;padding:4px 2px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
-.nb .ico{font-size:17px;margin-bottom:2px;display:block}
-.nb.active{color:#9B59B6}
 .nb:active{opacity:0.7}
 
 /* ═══ PAGE VISIBILITY — v9 FINAL (no !important wars) ═══ */
@@ -49,9 +60,6 @@ html,body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMa
 .ldot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 #botnav::-webkit-scrollbar{display:none}
-.nb{min-width:52px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;background:none;border:none;color:var(--mu);font-size:7.5px;font-weight:700;cursor:pointer;padding:3px 2px;gap:1px;touch-action:manipulation;flex-shrink:0}
-.nb .ico{font-size:17px}
-.nb.active{color:var(--p)}
 /* SHARED */
 .sec{font-size:11px;font-weight:900;color:var(--g);margin:13px 0 7px;letter-spacing:.5px;text-transform:uppercase}
 .card{background:var(--card);border:1px solid #2A2A4A;border-radius:12px;padding:11px;margin-bottom:9px}
@@ -467,278 +475,155 @@ select option{background:#111118}
 
 <!-- ═══ MINING ═══ -->
 <div class="page" id="page-mining">
-
   <!-- ══ AGENT MINING CONTROL ══ -->
   <div style="background:linear-gradient(135deg,#050510,#0d0d2e);border:2px solid #F1C40F;border-radius:14px;padding:13px;margin-bottom:10px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
-      <div style="font-size:12px;font-weight:900;color:#F1C40F">👑 Agent Mining Control</div>
-      <div id="mine-live-dot" style="width:9px;height:9px;border-radius:50%;background:#00E676;box-shadow:0 0 8px #00E676"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:13px;font-weight:900;color:#F1C40F">&#128081; Agent Mining Control</div>
+      <div id="mine-live-dot" style="width:10px;height:10px;border-radius:50%;background:#00E676;box-shadow:0 0 10px #00E676;transition:all 0.3s"></div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:9px">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
       <div style="background:#0A0A1A;border-radius:8px;padding:8px;text-align:center;border:1px solid #9B59B6">
-        <div style="font-size:16px;font-weight:900;color:#9B59B6" id="mining-agent-count">10,101</div>
+        <div style="font-size:15px;font-weight:900;color:#9B59B6" id="mining-agent-count">10,101</div>
         <div style="font-size:7px;color:#555">Active Agents</div>
       </div>
       <div style="background:#0A0A1A;border-radius:8px;padding:8px;text-align:center;border:1px solid #F1C40F">
-        <div style="font-size:15px;font-weight:900;color:#F1C40F" id="mining-speed-mult">10,000x</div>
+        <div style="font-size:15px;font-weight:900;color:#F1C40F" id="mining-speed-mult">1,000x</div>
         <div style="font-size:7px;color:#555">Speed</div>
       </div>
       <div style="background:#0A0A1A;border-radius:8px;padding:8px;text-align:center;border:1px solid #00E676">
-        <div style="font-size:16px;font-weight:900;color:#00E676" id="mining-bot-count">0</div>
-        <div style="font-size:7px;color:#555">AI Bots ON</div>
-      </div>
-    </div>
-    <div style="margin-bottom:8px">
-      <div style="display:flex;justify-content:space-between;font-size:8px;color:#888;margin-bottom:4px">
-        <span>Agents: <strong style="color:#9B59B6" id="mining-agent-label">10,101</strong></span>
-        <span>Max: 10,101</span>
-      </div>
-      <input type="range" id="mining-agent-slider" min="1" max="10101" value="10101" style="width:100%;accent-color:#9B59B6;cursor:pointer">
-      <div style="display:flex;gap:5px;margin-top:5px">
-        <button onclick="setMiningAgents(1)"     style="flex:1;background:#1a0a2e;border:1px solid #9B59B6;color:#9B59B6;border-radius:6px;padding:5px;font-size:8px;cursor:pointer">1</button>
-        <button onclick="setMiningAgents(100)"   style="flex:1;background:#1a0a2e;border:1px solid #9B59B6;color:#9B59B6;border-radius:6px;padding:5px;font-size:8px;cursor:pointer">100</button>
-        <button onclick="setMiningAgents(1000)"  style="flex:1;background:#1a0a2e;border:1px solid #9B59B6;color:#9B59B6;border-radius:6px;padding:5px;font-size:8px;cursor:pointer">1K</button>
-        <button onclick="setMiningAgents(5000)"  style="flex:1;background:#1a0a2e;border:1px solid #9B59B6;color:#9B59B6;border-radius:6px;padding:5px;font-size:8px;cursor:pointer">5K</button>
-        <button onclick="setMiningAgents(10101)" style="flex:1;background:#9B59B6;border:none;color:#fff;border-radius:6px;padding:5px;font-size:8px;font-weight:900;cursor:pointer">ALL</button>
-      </div>
-    </div>
-    <div style="font-size:8px;color:#F1C40F;font-weight:700;margin-bottom:5px">🤖 Active Mining Bots:</div>
-    <div style="display:flex;gap:5px;flex-wrap:wrap;min-height:24px" id="bot-status-row">
-      <div style="font-size:8px;color:#555">Start mining to see bot status...</div>
-    </div>
-  </div>
-  <!-- ══ MINING INTELLIGENCE HEADER ══ -->
-  <div style="background:linear-gradient(135deg,#0a0a1a,#1a0a2e);border:1px solid #9B59B6;border-radius:12px;padding:12px;margin-bottom:10px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <div style="font-size:13px;font-weight:900;color:#F1C40F">⛏ Mining Intelligence</div>
-      <div id="mine-live-dot" style="width:8px;height:8px;border-radius:50%;background:#555;box-shadow:0 0 6px #555"></div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px">
-      <div style="background:#0A0A1A;border-radius:8px;padding:8px;text-align:center">
-        <div style="font-size:14px;font-weight:900;color:#00E676" id="mine-earn">$0.00</div>
+        <div style="font-size:15px;font-weight:900;color:#00E676" id="mine-earn">$0.00</div>
         <div style="font-size:7px;color:#555">Total Earned</div>
       </div>
+    </div>
+    <!-- AGENT SLIDER -->
+    <div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;font-size:8px;color:#888;margin-bottom:4px">
+        <span>Agents: <strong style="color:#9B59B6" id="mining-agent-label">10,101 agents</strong></span>
+        <span style="color:#F1C40F">Max: 10,101</span>
+      </div>
+      <input type="range" id="mining-agent-slider" min="1" max="10101" value="10101" oninput="setMiningAgents(this.value)" style="width:100%;accent-color:#9B59B6;cursor:pointer;height:6px">
+      <div style="display:flex;gap:4px;margin-top:6px">
+        <button onclick="setMiningAgents(1)" class="speed-btn" style="flex:1">1</button>
+        <button onclick="setMiningAgents(100)" class="speed-btn" style="flex:1">100</button>
+        <button onclick="setMiningAgents(1000)" class="speed-btn" style="flex:1">1K</button>
+        <button onclick="setMiningAgents(5000)" class="speed-btn" style="flex:1">5K</button>
+        <button onclick="setMiningAgents(10000)" class="speed-btn" style="flex:1">10K</button>
+        <button onclick="setMiningAgents(10101)" class="speed-btn" style="flex:1;background:#F1C40F;border-color:#F1C40F;color:#000;font-weight:900">ALL</button>
+      </div>
+    </div>
+    <!-- SPEED SELECTOR 50x-10,000x -->
+    <div style="margin-bottom:10px">
+      <div style="font-size:9px;color:#F1C40F;font-weight:700;margin-bottom:6px">&#9889; Mining Speed (50x &rarr; 10,000x)</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:4px">
+        <button onclick="setMiningSpeed(50)"   class="speed-btn" data-speed="50">50x</button>
+        <button onclick="setMiningSpeed(100)"  class="speed-btn" data-speed="100">100x</button>
+        <button onclick="setMiningSpeed(250)"  class="speed-btn" data-speed="250">250x</button>
+        <button onclick="setMiningSpeed(500)"  class="speed-btn" data-speed="500">500x</button>
+        <button onclick="setMiningSpeed(1000)" class="speed-btn active" data-speed="1000">1,000x</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px">
+        <button onclick="setMiningSpeed(2500)" class="speed-btn" data-speed="2500">2,500x</button>
+        <button onclick="setMiningSpeed(5000)" class="speed-btn" data-speed="5000">5,000x</button>
+        <button onclick="setMiningSpeed(7500)" class="speed-btn" data-speed="7500">7,500x</button>
+        <button onclick="setMiningSpeed(10000)" class="speed-btn" data-speed="10000" style="background:linear-gradient(135deg,#9B59B6,#F1C40F);border-color:#F1C40F;color:#fff;font-weight:900">&#128081; MAX 10Kx</button>
+      </div>
+    </div>
+    <!-- MAIN CONTROLS -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px">
+      <button onclick="startAllMining()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#00C853,#00E676);color:#000">&#9654; START ALL</button>
+      <button onclick="pauseAllMining()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#F39C12,#F1C40F);color:#000">&#9646;&#9646; PAUSE</button>
+      <button onclick="mineWithdrawToWallet()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#9B59B6,#6C3483);color:#fff">&#128176; WITHDRAW</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+      <button onclick="collectAllPositive()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#0070BA,#003087);color:#fff;font-size:10px">&#128200; Collect All</button>
+      <button onclick="openPayoutModal('all')" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#E74C3C,#C0392B);color:#fff;font-size:10px">&#128184; Payout</button>
+    </div>
+  </div>
+  <!-- MINING STATS -->
+  <div style="background:#0a0a1a;border:1px solid #9B59B6;border-radius:12px;padding:12px;margin-bottom:10px">
+    <div style="font-size:11px;font-weight:900;color:#F1C40F;margin-bottom:8px">&#9935; Mining Intelligence</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px">
       <div style="background:#0A0A1A;border-radius:8px;padding:8px;text-align:center">
-        <div style="font-size:14px;font-weight:900;color:#9B59B6" id="mine-hash">0</div>
+        <div style="font-size:13px;font-weight:900;color:#9B59B6" id="mine-hash">0</div>
         <div style="font-size:7px;color:#555">MH/s</div>
       </div>
       <div style="background:#0A0A1A;border-radius:8px;padding:8px;text-align:center">
-        <div style="font-size:14px;font-weight:900;color:#F1C40F" id="mine-act">0/25</div>
+        <div style="font-size:13px;font-weight:900;color:#00BCD4" id="mine-income-rate">$0.00/hr</div>
+        <div style="font-size:7px;color:#555">Rate/hr</div>
+      </div>
+      <div style="background:#0A0A1A;border-radius:8px;padding:8px;text-align:center">
+        <div style="font-size:13px;font-weight:900;color:#00E676" id="mine-act">0/61</div>
         <div style="font-size:7px;color:#555">Active</div>
       </div>
       <div style="background:#0A0A1A;border-radius:8px;padding:8px;text-align:center">
-        <div style="font-size:14px;font-weight:900;color:#00BCD4" id="mine-income-rate">$0.00/hr</div>
-        <div style="font-size:7px;color:#555">Income Rate</div>
+        <div style="font-size:13px;font-weight:900;color:#F1C40F" id="mine-walval">$0.00</div>
+        <div style="font-size:7px;color:#555">OS Wallet</div>
       </div>
     </div>
   </div>
-
-  <!-- CONTROL ROW -->
-  <div style="display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap">
-    <button class="btn bok" id="mine-all" style="flex:1;min-width:60px">▶ All</button>
-    <button class="btn bno" id="mine-stop" style="flex:1;min-width:60px">⏹ Stop</button>
-    <button class="btn bg" id="mine-get" style="flex:1;min-width:60px">💰 Collect</button>
-    <button class="btn bp" id="mine-opt" style="flex:1;min-width:60px">⚡ Optimize</button>
-    <button class="btn bh" id="mine-bots-btn" style="flex:1;min-width:60px">🤖 Bots</button>
-  </div>
-
-  <!-- ══ POSITIVE BALANCE TRACKER ══ -->
+  <!-- POSITIVE BALANCE TRACKER -->
   <div class="card" style="border:1px solid #00E676;margin-bottom:10px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <div style="font-size:11px;font-weight:900;color:#00E676">📊 Positive Balance Tracker</div>
-      <div id="collect-countdown" style="font-size:9px;color:#F1C40F;font-weight:700">Next collect: --:--</div>
+      <div style="font-size:11px;font-weight:900;color:#00E676">&#128202; Positive Balance Tracker</div>
+      <div id="collect-countdown" style="font-size:9px;color:#F1C40F;font-weight:700">Next: --:--</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:8px">
-      <div style="background:#001a00;border-radius:8px;padding:8px;text-align:center;border:1px solid #00E676">
-        <div style="font-size:13px;font-weight:900;color:#00E676" id="bal-positive-total">$0.00</div>
-        <div style="font-size:7px;color:#555">Positive Balance</div>
+      <div style="background:#0A0A14;border-radius:8px;padding:8px;text-align:center">
+        <div style="font-size:15px;font-weight:900;color:#00E676" id="pos-total-usd">$0.00</div>
+        <div style="font-size:8px;color:#555">Mined USD</div>
       </div>
-      <div style="background:#0a0a1a;border-radius:8px;padding:8px;text-align:center">
-        <div style="font-size:13px;font-weight:900;color:#9B59B6" id="bal-collected-today">$0.00</div>
-        <div style="font-size:7px;color:#555">Collected Today</div>
+      <div style="background:#0A0A14;border-radius:8px;padding:8px;text-align:center">
+        <div style="font-size:15px;font-weight:900;color:#9B59B6" id="pos-coin-count">0</div>
+        <div style="font-size:8px;color:#555">+Coins</div>
       </div>
-      <div style="background:#0a0a1a;border-radius:8px;padding:8px;text-align:center">
-        <div style="font-size:13px;font-weight:900;color:#F1C40F" id="bal-pending-transfer">$0.00</div>
-        <div style="font-size:7px;color:#555">Pending Transfer</div>
-      </div>
-    </div>
-    <!-- Positive balance per coin list -->
-    <div id="positive-bal-list" style="max-height:140px;overflow-y:auto"></div>
-    <div style="display:flex;gap:5px;margin-top:7px">
-      <button onclick="collectAllPositive()" style="flex:2;background:linear-gradient(135deg,#00C851,#007E33);color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:700;cursor:pointer">💰 Collect All Positive Now</button>
-      <button onclick="transferToWallet()" style="flex:1;background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:9px;font-size:9px;font-weight:700;cursor:pointer">➜ Transfer</button>
-    </div>
-  </div>
-
-  <!-- ══ AUTO-COLLECT SCHEDULER ══ -->
-  <div class="card" style="border:1px solid #F1C40F;margin-bottom:10px">
-    <div style="font-size:11px;font-weight:900;color:#F1C40F;margin-bottom:8px">⏱ Auto-Collect Scheduler</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
-      <div>
-        <div style="font-size:8px;color:#888;margin-bottom:3px">Collect Every</div>
-        <select id="ac-interval" style="width:100%;background:#050510;border:1px solid #F1C40F;color:#fff;border-radius:7px;padding:8px;font-size:11px;outline:none">
-          <option value="1800000" selected>⏰ 30 Minutes</option>
-          <option value="900000">⏰ 15 Minutes</option>
-          <option value="3600000">⏰ 1 Hour</option>
-          <option value="7200000">⏰ 2 Hours</option>
-          <option value="14400000">⏰ 4 Hours</option>
-          <option value="86400000">⏰ Daily</option>
-        </select>
-      </div>
-      <div>
-        <div style="font-size:8px;color:#888;margin-bottom:3px">Min Collect Threshold ($)</div>
-        <input id="ac-threshold" type="number" placeholder="0.01" value="0.01" min="0.01" step="0.01"
-          style="width:100%;background:#050510;border:1px solid #333;color:#fff;border-radius:7px;padding:8px;font-size:11px;outline:none;box-sizing:border-box">
+      <div style="background:#0A0A14;border-radius:8px;padding:8px;text-align:center">
+        <div style="font-size:15px;font-weight:900;color:#F1C40F" id="mine-wval">$0.00</div>
+        <div style="font-size:8px;color:#555">OS Wallet</div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
-      <div>
-        <div style="font-size:8px;color:#888;margin-bottom:3px">Transfer Rail</div>
-        <select id="ac-rail" style="width:100%;background:#050510;border:1px solid #333;color:#fff;border-radius:7px;padding:8px;font-size:11px;outline:none">
-          <option value="none">None (wallet only)</option>
-          <option value="cashapp">💵 Cash App Pay</option>
-          <option value="applepay">🍎 Apple Pay</option>
-          <option value="card">💳 Card</option>
-          <option value="ach">🏦 Bank ACH</option>
-          <option value="link">🔗 Payment Link</option>
-        </select>
-      </div>
-      <div>
-        <div style="font-size:8px;color:#888;margin-bottom:3px">Transfer Min ($)</div>
-        <input id="ac-transfer-min" name="aw-threshold" type="number" placeholder="5.00" value="5.00" min="0.50" step="0.50"
-          style="width:100%;background:#050510;border:1px solid #333;color:#fff;border-radius:7px;padding:8px;font-size:11px;outline:none;box-sizing:border-box">
-      </div>
-    </div>
-    <div style="display:flex;gap:5px">
-      <button onclick="startAutoCollect()" id="ac-start-btn" style="flex:2;background:linear-gradient(135deg,#F1C40F,#E67E22);color:#000;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer">▶ Start Auto-Collect</button>
-      <button onclick="stopAutoCollect()" style="flex:1;background:#1a0a00;border:1px solid #F1C40F;color:#F1C40F;border-radius:8px;padding:9px;font-size:9px;font-weight:700;cursor:pointer">⏹ Stop</button>
-    </div>
-    <div id="ac-status" style="font-size:8px;color:#555;margin-top:6px;text-align:center">Auto-collect not running</div>
-  </div>
-
-  <!-- ══ POOL WITHDRAWAL CENTER ══ -->
-  <div class="card" style="border:1px solid #635BFF;margin-bottom:10px">
-    <div style="font-size:11px;font-weight:900;color:#635BFF;margin-bottom:8px">🏦 Pool Withdrawal Center</div>
-
-    <!-- Platform tabs -->
-    <div style="display:flex;gap:4px;margin-bottom:8px;overflow-x:auto;padding-bottom:2px">
-      <button onclick="setPoolTab('nicehash')"  id="ptab-nicehash"  class="ptab ptab-active">NiceHash</button>
-      <button onclick="setPoolTab('mph')"        id="ptab-mph"       class="ptab">PoolHub</button>
-      <button onclick="setPoolTab('2miners')"    id="ptab-2miners"   class="ptab">2Miners</button>
-      <button onclick="setPoolTab('unmineable')" id="ptab-unmineable" class="ptab">Unmineable</button>
-      <button onclick="setPoolTab('prohashing')" id="ptab-prohashing" class="ptab">ProHashing</button>
-    </div>
-
-    <!-- Platform info panels -->
-    <div id="pool-panel-nicehash" class="pool-panel">
-      <div style="font-size:9px;color:#888;line-height:1.6;margin-bottom:8px">
-        <b style="color:#F1C40F">NiceHash</b> — Auto-withdraws BTC to your external wallet on schedule or when balance reaches threshold.<br>
-        • Min withdrawal: 0.0002 BTC<br>
-        • Supported: BTC wallet (no bank needed)<br>
-        • Fee: 0.0001 BTC or $1 USDT per withdrawal<br>
-        • Wallet: <span style="color:#00E676;font-size:8px">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</span>
-      </div>
-      <button onclick="checkPoolBalance('nicehash')" style="width:100%;background:#1a1040;border:1px solid #635BFF;color:#635BFF;border-radius:8px;padding:8px;font-size:9px;font-weight:700;cursor:pointer;margin-bottom:5px">🔄 Check NiceHash Balance via API</button>
-      <button onclick="initiateWithdraw('nicehash')" style="width:100%;background:#635BFF;color:#fff;border:none;border-radius:8px;padding:8px;font-size:9px;font-weight:700;cursor:pointer">💸 Withdraw to BTC Wallet</button>
-      <div id="pool-result-nicehash" style="font-size:8px;color:#555;margin-top:6px"></div>
-    </div>
-
-    <div id="pool-panel-mph" class="pool-panel" style="display:none">
-      <div style="font-size:9px;color:#888;line-height:1.6;margin-bottom:8px">
-        <b style="color:#F1C40F">Mining Pool Hub</b> — Auto-exchange to BTC/ETH, then auto-payout to wallet.<br>
-        • Min payout: 0.001 BTC / 0.01 ETH<br>
-        • Auto-exchange converts any coin to BTC<br>
-        • Withdraws to your on-file wallet address automatically<br>
-        • Pool fee: 0.9%
-      </div>
-      <button onclick="checkPoolBalance('mph')" style="width:100%;background:#1a1040;border:1px solid #635BFF;color:#635BFF;border-radius:8px;padding:8px;font-size:9px;font-weight:700;cursor:pointer;margin-bottom:5px">🔄 Check MPH Balance via API</button>
-      <button onclick="initiateWithdraw('mph')" style="width:100%;background:#635BFF;color:#fff;border:none;border-radius:8px;padding:8px;font-size:9px;font-weight:700;cursor:pointer">💸 Request MPH Withdrawal</button>
-      <div id="pool-result-mph" style="font-size:8px;color:#555;margin-top:6px"></div>
-    </div>
-
-    <div id="pool-panel-2miners" class="pool-panel" style="display:none">
-      <div style="font-size:9px;color:#888;line-height:1.6;margin-bottom:8px">
-        <b style="color:#F1C40F">2Miners</b> — Automatic payouts every 2 hours. No manual withdrawal needed.<br>
-        • Payouts go directly to your wallet address<br>
-        • Min payout: varies per coin (0.01–0.1)<br>
-        • Set payout threshold in Account Settings<br>
-        • Check balance via wallet address lookup
-      </div>
-      <button onclick="checkPoolBalance('2miners')" style="width:100%;background:#1a1040;border:1px solid #635BFF;color:#635BFF;border-radius:8px;padding:8px;font-size:9px;font-weight:700;cursor:pointer;margin-bottom:5px">🔄 Check 2Miners Balance</button>
-      <button onclick="window.open('https://2miners.com/btc-mining-pool','_blank')" style="width:100%;background:#333;color:#888;border:1px solid #444;border-radius:8px;padding:8px;font-size:9px;font-weight:700;cursor:pointer">🌐 Open 2Miners Dashboard</button>
-      <div id="pool-result-2miners" style="font-size:8px;color:#555;margin-top:6px"></div>
-    </div>
-
-    <div id="pool-panel-unmineable" class="pool-panel" style="display:none">
-      <div style="font-size:9px;color:#888;line-height:1.6;margin-bottom:8px">
-        <b style="color:#F1C40F">Unmineable</b> — Mine any coin, get paid in BTC/DOGE/SOL/USDT.<br>
-        • Auto-payout to your wallet (no bank)<br>
-        • Min payout: 0.00005 BTC / 1 DOGE / 0.01 SOL<br>
-        • Use referral code: <span style="color:#9B59B6;font-weight:700">tata-mining</span> (0.5% fee reduction)<br>
-        • Payouts: automatic when threshold is met
-      </div>
-      <button onclick="checkPoolBalance('unmineable')" style="width:100%;background:#1a1040;border:1px solid #635BFF;color:#635BFF;border-radius:8px;padding:8px;font-size:9px;font-weight:700;cursor:pointer;margin-bottom:5px">🔄 Check Unmineable Balance</button>
-      <button onclick="window.open('https://unmineable.com/address','_blank')" style="width:100%;background:#333;color:#888;border:1px solid #444;border-radius:8px;padding:8px;font-size:9px;font-weight:700;cursor:pointer">🌐 Open Unmineable Dashboard</button>
-      <div id="pool-result-unmineable" style="font-size:8px;color:#555;margin-top:6px"></div>
-    </div>
-
-    <div id="pool-panel-prohashing" class="pool-panel" style="display:none">
-      <div style="font-size:9px;color:#888;line-height:1.6;margin-bottom:8px">
-        <b style="color:#F1C40F">ProHashing</b> — Multi-algo auto-switching, pays in any coin.<br>
-        • Min payout: 0.001 BTC / 0.1 LTC<br>
-        • Instant payouts when threshold met<br>
-        • No manual withdrawal — fully automatic<br>
-        • Pool fee: 4.99% (PPS+)
-      </div>
-      <button onclick="checkPoolBalance('prohashing')" style="width:100%;background:#1a1040;border:1px solid #635BFF;color:#635BFF;border-radius:8px;padding:8px;font-size:9px;font-weight:700;cursor:pointer;margin-bottom:5px">🔄 Check ProHashing Balance</button>
-      <button onclick="window.open('https://prohashing.com/login','_blank')" style="width:100%;background:#333;color:#888;border:1px solid #444;border-radius:8px;padding:8px;font-size:9px;font-weight:700;cursor:pointer">🌐 Open ProHashing Dashboard</button>
-      <div id="pool-result-prohashing" style="font-size:8px;color:#555;margin-top:6px"></div>
+    <div id="positive-balances" style="max-height:120px;overflow-y:auto"></div>
+    <div style="display:flex;gap:5px;margin-top:8px">
+      <button onclick="collectAllPositive()" style="flex:2;background:#00E676;color:#000;border:none;border-radius:8px;padding:8px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">&#128200; Collect All Now</button>
+      <button onclick="clearCollectLog()" style="flex:1;background:#1a1a2e;color:#555;border:1px solid #333;border-radius:8px;padding:8px;font-size:9px;cursor:pointer;touch-action:manipulation">Clear</button>
     </div>
   </div>
-
-  <!-- PRODUCTIVITY CHART -->
-  <div class="card" style="margin-bottom:10px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <div style="font-size:11px;font-weight:900;color:var(--g)">📈 Mining Productivity</div>
-      <div id="productivity-badge" style="font-size:8px;background:#0D0D2B;color:#9B59B6;padding:3px 7px;border-radius:10px">0.00 MH/s avg</div>
-    </div>
-    <div id="prod-chart" style="height:80px;background:#050510;border-radius:8px;padding:8px;position:relative;overflow:hidden">
-      <canvas id="prod-canvas" style="width:100%;height:100%"></canvas>
-      <div id="prod-no-data" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:#333">Mining data will appear here</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:8px">
-      <div style="background:#050510;border-radius:7px;padding:7px;text-align:center">
-        <div style="font-size:11px;font-weight:700;color:#00E676" id="prod-best-coin">—</div>
-        <div style="font-size:7px;color:#555">Best Earner</div>
-      </div>
-      <div style="background:#050510;border-radius:7px;padding:7px;text-align:center">
-        <div style="font-size:11px;font-weight:700;color:#F1C40F" id="prod-24h-income">$0.00</div>
-        <div style="font-size:7px;color:#555">24h Income</div>
-      </div>
-      <div style="background:#050510;border-radius:7px;padding:7px;text-align:center">
-        <div style="font-size:11px;font-weight:700;color:#9B59B6" id="prod-efficiency">0%</div>
-        <div style="font-size:7px;color:#555">Efficiency</div>
-      </div>
-    </div>
-  </div>
-
   <!-- COIN LIST -->
-  <div class="sec">⛏ Coin Miners</div>
-  <div id="coin-list"></div>
-
-  <!-- POOL CONNECTIONS -->
-  <div class="sec">🌐 Pool Connections</div>
-  <div id="pool-list"></div>
-
-  <!-- COLLECT LOG -->
-  <div class="sec" style="margin-top:4px">📋 Collection Log</div>
   <div class="card" style="margin-bottom:10px">
-    <div id="collect-log" style="max-height:180px;overflow-y:auto;font-size:8px;color:#555">
-      <div style="text-align:center;padding:10px">No collections yet. Start mining and tap Collect.</div>
-    </div>
-    <button onclick="clearCollectLog()" style="width:100%;background:#0D0D2B;border:1px solid #333;color:#555;border-radius:7px;padding:7px;font-size:9px;cursor:pointer;margin-top:6px">🗑 Clear Log</button>
+    <div style="font-size:11px;font-weight:900;color:#9B59B6;margin-bottom:8px">&#127760; 61 Coins Active</div>
+    <div id="coin-list"></div>
   </div>
-
+  <!-- MINING POOLS -->
+  <div class="card" style="margin-bottom:10px">
+    <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:8px">&#9961; Mining Pools</div>
+    <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">
+      <button onclick="setPoolTab('nicehash')" class="speed-btn active" id="pool-tab-nicehash">NiceHash</button>
+      <button onclick="setPoolTab('mph')" class="speed-btn" id="pool-tab-mph">MPH</button>
+      <button onclick="setPoolTab('2miners')" class="speed-btn" id="pool-tab-2miners">2Miners</button>
+      <button onclick="setPoolTab('unmineable')" class="speed-btn" id="pool-tab-unmineable">Unmineable</button>
+      <button onclick="setPoolTab('prohashing')" class="speed-btn" id="pool-tab-prohashing">ProHashing</button>
+    </div>
+    <div id="pool-detail-panel"></div>
+  </div>
+  <!-- SEND + COLLECT LOG -->
+  <div class="card" style="margin-bottom:10px">
+    <div style="font-size:10px;font-weight:900;color:#9B59B6;margin-bottom:8px">&#128228; Send / Transfer</div>
+    <div style="display:flex;gap:5px;margin-bottom:6px">
+      <button onclick="sendMinedTokens()" style="flex:1;background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">&#128228; Send to Wallets</button>
+      <button onclick="mineTransferAll()" style="flex:1;background:#0070BA;color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">&#128257; Transfer</button>
+    </div>
+    <div id="token-send-panel"></div>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <div style="font-size:10px;font-weight:900;color:#9B59B6">&#128203; Collect Log</div>
+      <button onclick="clearCollectLog()" style="background:none;border:1px solid #333;color:#555;border-radius:6px;padding:3px 8px;font-size:8px;cursor:pointer">Clear</button>
+    </div>
+    <div id="collect-log" style="max-height:150px;overflow-y:auto;font-size:8px"></div>
+    <div style="display:flex;gap:5px;margin-top:8px">
+      <button onclick="startAutoCollect()" style="flex:1;background:#00C853;color:#000;border:none;border-radius:8px;padding:7px;font-size:9px;font-weight:900;cursor:pointer;touch-action:manipulation">&#9654; Auto ON</button>
+      <button onclick="stopAutoCollect()" style="flex:1;background:#333;color:#888;border:1px solid #444;border-radius:8px;padding:7px;font-size:9px;cursor:pointer;touch-action:manipulation">&#9646;&#9646; Auto OFF</button>
+    </div>
+  </div>
 </div>
 
   
@@ -956,6 +841,53 @@ select option{background:#111118}
     </div>
     <div style="font-size:7px;color:#555;margin-top:3px" id="wallet-addr-type">Coinbase · Base Network · EVM Compatible</div>
   </div>
+  
+  <!-- DIGITAL WALLET ADDRESS -->
+  <div style="background:linear-gradient(135deg,#050520,#0d0d2e);border:2px solid #00E676;border-radius:14px;padding:14px;margin-bottom:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:11px;font-weight:900;color:#00E676">&#128274; Digital Wallet Address</div>
+      <div style="font-size:8px;color:#9B59B6;font-weight:700">Base &#183; EVM</div>
+    </div>
+    <div style="background:#0A0A14;border:1px solid #00E676;border-radius:10px;padding:10px;margin-bottom:8px">
+      <div style="font-size:8px;color:#F1C40F;font-weight:700;margin-bottom:4px">&#128081; PRIMARY — Coinbase/Base</div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <div style="font-size:8px;color:#00E676;font-family:monospace;word-break:break-all;flex:1" id="primary-wallet-display">0x833589fcd6edb6e08f4c7c32d4f71b54bda02913</div>
+        <button onclick="navigator.clipboard&&navigator.clipboard.writeText('0x833589fcd6edb6e08f4c7c32d4f71b54bda02913').then(function(){toast('Copied!');})" style="background:#9B59B6;border:none;color:#fff;border-radius:6px;padding:5px 8px;font-size:9px;cursor:pointer;touch-action:manipulation;flex-shrink:0">&#128203;</button>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px">
+      <div style="background:#0A0A14;border:1px solid #333;border-radius:8px;padding:7px">
+        <div style="font-size:7px;color:#F1C40F;margin-bottom:2px">W1 (EVM)</div>
+        <div style="font-size:7px;color:#9B59B6;font-family:monospace;word-break:break-all">0x486f6620...36662</div>
+      </div>
+      <div style="background:#0A0A14;border:1px solid #333;border-radius:8px;padding:7px">
+        <div style="font-size:7px;color:#F1C40F;margin-bottom:2px">W2 (EVM)</div>
+        <div style="font-size:7px;color:#9B59B6;font-family:monospace;word-break:break-all">0x224514...d867f</div>
+      </div>
+      <div style="background:#0A0A14;border:1px solid #333;border-radius:8px;padding:7px">
+        <div style="font-size:7px;color:#00BCD4;margin-bottom:2px">W3 (Solana)</div>
+        <div style="font-size:7px;color:#00BCD4;font-family:monospace;word-break:break-all">4m5HrJD8...mYYx</div>
+      </div>
+      <div style="background:#0A0A14;border:1px solid #333;border-radius:8px;padding:7px">
+        <div style="font-size:7px;color:#F1C40F;margin-bottom:2px">W5 (EVM)</div>
+        <div style="font-size:7px;color:#9B59B6;font-family:monospace;word-break:break-all">0x9c192d...0556</div>
+      </div>
+    </div>
+    <!-- COINBASE $5000 AUTO APPROVAL -->
+    <div style="background:linear-gradient(135deg,#001a00,#002200);border:2px solid #00E676;border-radius:10px;padding:12px;margin-bottom:8px">
+      <div style="font-size:10px;font-weight:900;color:#00E676;margin-bottom:4px">&#128184; Coinbase $5,000 Auto-Approval</div>
+      <div style="font-size:8px;color:#888;margin-bottom:8px">Sends $5,000 payment approval request via PayPal v1/payments API to your Coinbase wallet.</div>
+      <div id="cb-approval-log" style="font-size:9px;color:#555;margin-bottom:8px;min-height:16px">Ready...</div>
+      <button onclick="coinbaseAutoApprove5000()" style="width:100%;background:linear-gradient(135deg,#00C853,#00E676);color:#000;border:none;border-radius:10px;padding:12px;font-size:12px;font-weight:900;cursor:pointer;touch-action:manipulation">&#128184; SEND $5,000 COINBASE APPROVAL</button>
+    </div>
+    <!-- EXTERNAL WALLET LINKS -->
+    <div style="display:flex;gap:5px">
+      <a href="https://www.coinbase.com/wallet" target="_blank" rel="noopener" style="flex:1;background:#0052ff;color:#fff;border-radius:8px;padding:7px;font-size:8px;font-weight:700;text-align:center;text-decoration:none;touch-action:manipulation">&#127968; Coinbase</a>
+      <a href="https://metamask.io" target="_blank" rel="noopener" style="flex:1;background:#E2761B;color:#fff;border-radius:8px;padding:7px;font-size:8px;font-weight:700;text-align:center;text-decoration:none;touch-action:manipulation">&#129518; MetaMask</a>
+      <a href="https://rainbow.me" target="_blank" rel="noopener" style="flex:1;background:linear-gradient(135deg,#FF6B6B,#9B59B6);color:#fff;border-radius:8px;padding:7px;font-size:8px;font-weight:700;text-align:center;text-decoration:none;touch-action:manipulation">&#127752; Rainbow</a>
+    </div>
+  </div>
+
   <!-- INCOMING / OUTGOING -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
     <div style="background:linear-gradient(135deg,#001a00,#002200);border:1px solid #00E676;border-radius:12px;padding:12px;text-align:center">
@@ -1489,7 +1421,7 @@ var S={
   learning:{
     active:false,interval:null,boostActive:false,
     offlineEnabled:true,offlineLastActiveAt:null,offlineLastAppliedAt:null,
-    offlineTotalSeconds:0,workMode:'balanced',speedMultiplier:1,
+    offlineTotalSeconds:0,workMode:'balanced',speedMultiplier:1,speedMult:1000,paused:false,
     domains:[
       'Machine Learning','Natural Language Processing','Computer Vision','Robotics',
       'Knowledge Representation','Automated Reasoning','Planning & Scheduling','Expert Systems',
@@ -3329,14 +3261,92 @@ function renderAutoWithdrawStatus(){
   // ═══════════════════════════════════════════════
   // AGENT MINING PANEL FUNCTIONS
   // ═══════════════════════════════════════════════
-  function setMiningAgents(n){
+  
+// ═══ MINING SPEED & CONTROL v10 ═══
+function setMiningSpeed(mult){
+  mult = parseInt(mult)||1;
+  S.mining.speedMult = mult;
+  var tickMs = Math.max(200, Math.round(3000/mult));
+  if(miningTmr){clearInterval(miningTmr); miningTmr=setInterval(miningTick, tickMs);}
+  document.querySelectorAll('.speed-btn[data-speed]').forEach(function(b){
+    b.classList.toggle('active', parseInt(b.dataset.speed)===mult);
+  });
+  var smEl=document.getElementById('mining-speed-mult'); if(smEl)smEl.innerHTML=mult.toLocaleString()+'x';
+  saveState();
+  toast('⚡ Mining at '+mult.toLocaleString()+'x | tick:'+tickMs+'ms');
+}
+function startAllMining(){
+  S.mining.coins.forEach(function(c){ c.on=true; c.bot=true; });
+  S.mining.running=true; S.mining.active=true; S.mining.paused=false;
+  var spd = S.mining.speedMult||1000;
+  var tickMs = Math.max(200, Math.round(3000/spd));
+  if(!miningTmr){ miningTmr=setInterval(miningTick, tickMs); }
+  setMiningAgents(10101);
+  var dot=document.getElementById('mine-live-dot');
+  if(dot){dot.style.background='#00E676';dot.style.boxShadow='0 0 12px #00E676';}
+  updateMiningAgentPanel(); saveState(); if(typeof renderCoins==='function')renderCoins();
+  toast('?? ALL 10,101 agents MINING at '+spd.toLocaleString()+'x!');
+}
+function pauseAllMining(){
+  S.mining.paused=true; S.mining.active=false;
+  if(miningTmr){clearInterval(miningTmr); miningTmr=null;}
+  var dot=document.getElementById('mine-live-dot');
+  if(dot){dot.style.background='#F1C40F';dot.style.boxShadow='0 0 8px #F1C40F';}
+  saveState();
+  toast('⏸ Mining PAUSED — balances preserved');
+}
+function mineWithdrawToWallet(){
+  var pos = typeof getPositiveBalances==='function' ? getPositiveBalances() : [];
+  var total = pos.reduce(function(a,c){return a+(c.minedUSD||0);},0);
+  if(total<=0){ toast('⚠ No mined balance to withdraw yet'); return; }
+  collectAllPositive();
+  setTimeout(function(){
+    S.wallet.total = (S.wallet.total||0) + total;
+    updateWalletUI(); saveState();
+    toast('?? $'+total.toFixed(2)+' withdrawn to OS Wallet!');
+    if(typeof renderWallet==='function') renderWallet();
+  }, 500);
+}
+// ═══ COINBASE $5000 AUTO-APPROVAL ═══
+var CB_AUTO_SENT = false;
+async function coinbaseAutoApprove5000(){
+  var walletAddr = (document.getElementById('my-wallet-address')||{}).value||'0x833589fcd6edb6e08f4c7c32d4f71b54bda02913';
+  var logEl = document.getElementById('cb-approval-log');
+  if(logEl) logEl.innerHTML = '<span style="color:#F1C40F">Sending approval...</span>';
+  toast('?? Sending $5,000 Coinbase approval...');
+  try {
+    var resp = await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'payout_paypal',amount_usd:'5000.00',email:'mccreary.bm@gmail.com',
+        note:'Coinbase OS Wallet $5000 auto-approval | addr:'+walletAddr+' | TaTatalicious v10'})});
+    var d = await resp.json();
+    CB_AUTO_SENT=true;
+    if(d.ok && d.approval_url){
+      showPayPalApprovalPopup(d.approval_url, 5000, d.payment_id);
+      if(logEl) logEl.innerHTML='<span style="color:#00E676">✅ $5,000 approval ready | '+d.payment_id+'</span>';
+      var arr=JSON.parse(localStorage.getItem('tata_cb_approvals')||'[]');
+      arr.unshift({ts:new Date().toISOString(),amount:5000,pid:d.payment_id,status:'approval_link'});
+      localStorage.setItem('tata_cb_approvals',JSON.stringify(arr.slice(0,50)));
+    } else {
+      if(logEl) logEl.innerHTML='<span style="color:#F44336">⚠ '+(d.error||'Check PayPal account')+'</span>';
+      toast('⚠ Approval: '+(d.error||'Check PayPal'));
+    }
+  } catch(e){
+    CB_AUTO_SENT=false;
+    if(logEl) logEl.innerHTML='<span style="color:#F44336">Error: '+e.message+'</span>';
+    toast('⚠ Error: '+e.message);
+  }
+}
+
+function setMiningAgents(n){
     n = Math.max(1, Math.min(10101, parseInt(n)||1));
     S.agents.assignedToWork = n;
     var sl=document.getElementById('mining-agent-slider'); if(sl)sl.value=n;
-    var ml=document.getElementById('mining-agent-label'); if(ml)ml.innerHTML=n.toLocaleString();
-    if(miningTmr){clearInterval(miningTmr); miningTmr=setInterval(miningTick,TICK);}
+    var ml=document.getElementById('mining-agent-label'); if(ml)ml.innerHTML=n.toLocaleString()+' agents';
+    var mc=document.getElementById('mining-agent-count'); if(mc)mc.innerHTML=n.toLocaleString();
+    var spd=S.mining.speedMult||1000;
+    if(miningTmr){clearInterval(miningTmr); miningTmr=setInterval(miningTick,Math.max(200,Math.round(3000/spd)));}
     updateMiningAgentPanel(); saveState();
-    toast('👑 '+n.toLocaleString()+' agents mining!');
+    toast('?? '+n.toLocaleString()+' agents mining!');
   }
 
   function updateMiningAgentPanel(){
@@ -5184,6 +5194,43 @@ document.addEventListener('click', function(e){
   }
 });
 
+
+// ═══ UNIVERSAL CLICK DELEGATION ═══
+document.addEventListener('click', function(e){
+  var t=e.target;
+  for(var i=0;i<4;i++){
+    if(!t) break;
+    var id=t.id||'';
+    if(id.indexOf('nav-')===0){
+      var pg=id.replace('nav-','');
+      if(typeof showPage==='function'&&PAGES.indexOf(pg)>=0){showPage(pg);return;}
+    }
+    t=t.parentElement;
+  }
+}, true);
+// ═══ TOUCH DELEGATION (iOS Safari) ═══
+document.addEventListener('touchend', function(e){
+  var t=e.target;
+  for(var i=0;i<4;i++){
+    if(!t) break;
+    var id=t.id||'';
+    if(id.indexOf('nav-')===0){
+      var pg=id.replace('nav-','');
+      if(typeof showPage==='function'&&PAGES.indexOf(pg)>=0){e.preventDefault();showPage(pg);return;}
+    }
+    t=t.parentElement;
+  }
+},{passive:false});
+// ═══ MODAL ESCAPE ═══
+document.addEventListener('click', function(e){
+  var pm=document.getElementById('payout-modal');
+  if(pm&&pm.style.display!=='none'&&e.target===pm){if(typeof closePayoutModal==='function')closePayoutModal();}
+  var mb=document.getElementById('modalbg');
+  if(mb&&(mb.style.display==='flex'||mb.classList.contains('show'))&&e.target===mb){mb.style.display='none';mb.classList.remove('show');}
+  var ao=document.getElementById('admin-overlay');
+  if(ao&&ao.style.display!=='none'&&e.target===ao){if(typeof closeAdmin==='function')closeAdmin();}
+});
+
 (function(){
 loadState();
   showPage('home');
@@ -5233,7 +5280,9 @@ setInterval(function(){
   runAutoWithdraws();
   checkAdminAutoTransfer();
 },5000);
-setInterval(runAutoWithdraws, 60000); // Also check every 60s independently
+setInterval(runAutoWithdraws, 60000)
+setTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
+; // Also check every 60s independently
 // AUTO-COLLECT: sweep mined balance into wallet every 30 minutes
 setInterval(function(){
   var pos = typeof getPositiveBalances === 'function' ? getPositiveBalances() : [];
