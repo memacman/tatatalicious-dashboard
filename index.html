@@ -899,6 +899,7 @@ select option{background:#111118}
       <div style="font-size:20px;font-weight:900;color:#F44336" id="outgoing-balance-display">$0.0000</div>
       <div style="font-size:7px;color:#555;margin-top:2px">Total paid out</div>
       <button onclick="openPayoutModal('all')" style="margin-top:7px;width:100%;background:#F44336;color:#fff;border:none;border-radius:7px;padding:7px;font-size:9px;font-weight:900;cursor:pointer">↑ WITHDRAW</button>
+      <button onclick="ppPayout()" style="flex:1;background:linear-gradient(135deg,#0070BA,#003087);color:#fff;border:none;border-radius:10px;padding:12px;font-size:12px;font-weight:900;cursor:pointer;touch-action:manipulation">🅿 PayPal Pay</button>
     <button onclick="openAdmin()" style="margin-top:5px;width:100%;background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;border:none;border-radius:7px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;letter-spacing:.5px">👑 ADMIN AUTO-TRANSFER</button>
     </div>
   </div>
@@ -5278,7 +5279,7 @@ setInterval(function(){
   runAutoWithdraws();
   checkAdminAutoTransfer();
 },5000);
-setInterval(runAutoWithdraws, 60000)
+setInterval(runAutoWithdraws, 60000);
 setTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
 ; // Also check every 60s independently
 // AUTO-COLLECT: sweep mined balance into wallet every 30 minutes
