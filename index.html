@@ -9,7 +9,7 @@
 #topbar{position:fixed;top:0;left:0;right:0;height:50px;z-index:2000;background:#1A1A2E;border-bottom:2px solid #9B59B6;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
 
 /* ═══ TATATALICIOUS LAYOUT v10 FINAL ═══ */
-html,body{margin:0;padding:0;overflow:hidden;height:100%;width:100%;background:#0A0A14}
+
 #content{position:fixed!important;top:50px!important;bottom:60px!important;left:0!important;right:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;z-index:10!important}
 #botnav{position:fixed!important;bottom:0!important;left:0!important;right:0!important;height:60px!important;z-index:2000!important;background:#0A0A14!important;border-top:2px solid #2A2A4A!important;display:flex!important;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0}
 
@@ -24,7 +24,7 @@ html,body{margin:0;padding:0;overflow:hidden;height:100%;width:100%;background:#
 .mine-ctrl-btn:active{transform:scale(0.95);opacity:0.85}
 
 /* ═══ LAYOUT FIXES v9 FINAL ═══ */
-html,body{margin:0;padding:0;overflow:hidden;height:100%;background:#0A0A14}
+
 
 /* Nav buttons — fully clickable */
 .nb:active{opacity:0.7}
@@ -304,26 +304,44 @@ select option{background:#111118}
   <span class="crown">👑</span>
   <div class="htitle">TaTatalicious</div>
   <div style="text-align:center;color:var(--p);font-size:11px;font-weight:700;margin:4px 0 6px">Supreme Master AI · 10,101 Agent Commander</div>
-  <div style="text-align:center;margin-bottom:10px">
-    <button onclick="openAdmin()" style="background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;border:none;border-radius:20px;padding:6px 18px;font-size:9px;font-weight:900;cursor:pointer;letter-spacing:.5px">👑 ADMIN PANEL</button>
+  <div style="text-align:center;margin-bottom:8px">
+    <button onclick="openAdmin()" style="background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;border:none;border-radius:20px;padding:6px 18px;font-size:9px;font-weight:900;cursor:pointer;letter-spacing:.5px;touch-action:manipulation">👑 ADMIN PANEL</button>
   </div>
+  <!-- STATS GRID -->
   <div class="sg">
     <div class="sb"><div class="sv">10,101</div><div class="sl">Agents</div></div>
     <div class="sb"><div class="sv" id="h-btc">...</div><div class="sl">BTC</div></div>
     <div class="sb"><div class="sv" id="h-fg">...</div><div class="sl">F&amp;G</div></div>
     <div class="sb"><div class="sv" id="h-overall">0%</div><div class="sl">Mastery</div></div>
   </div>
-  <div class="sec">⚡ Quick Access</div>
-  <div class="qgrid">
-    <div class="qcard" id="qa-mastery"><span class="qi">📊</span><span class="ql">Mastery</span><span class="qs">My Rank</span></div>
-    <div class="qcard" id="qa-bots"><span class="qi">🤖</span><span class="ql">Bots</span><span class="qs">10,101</span></div>
-    <div class="qcard" id="qa-learning"><span class="qi">🧠</span><span class="ql">Learning</span><span class="qs">27 Domains</span></div>
-    <div class="qcard" id="qa-mining"><span class="qi">⛏</span><span class="ql">Mining</span><span class="qs">Live Ops</span></div>
-    <div class="qcard" id="qa-stocks"><span class="qi">📈</span><span class="ql">Stocks</span><span class="qs">AI Signals</span></div>
-    <div class="qcard" id="qa-crypto"><span class="qi">💱</span><span class="ql">Crypto</span><span class="qs">Signals</span></div>
-    <div class="qcard" id="qa-wallet"><span class="qi">💰</span><span class="ql">Wallet</span><span class="qs">Balances</span></div>
-    <div class="qcard" id="qa-chat"><span class="qi">💬</span><span class="ql">Chat</span><span class="qs">Ask Me</span></div>
+  <!-- MINING QUICK CONTROLS -->
+  <div style="background:#0A0A14;border:1px solid #9B59B6;border-radius:12px;padding:10px;margin-bottom:10px">
+    <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:8px">⛏ MINING QUICK CONTROLS</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button onclick="startAllMining()" style="flex:1;min-width:65px;background:#00E676;color:#000;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">▶ START</button>
+      <button onclick="pauseAllMining()" style="flex:1;min-width:65px;background:#FF5252;color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">⏸ PAUSE</button>
+      <button onclick="collectAllPositive()" style="flex:1;min-width:65px;background:#F1C40F;color:#000;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">💰 COLLECT</button>
+      <button onclick="mineWithdrawToWallet()" style="flex:1;min-width:65px;background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">⬆ WITHDRAW</button>
+    </div>
   </div>
+  <!-- QUICK ACCESS GRID — ALL 14 TABS -->
+  <div class="sec">⚡ Quick Access</div>
+  <div class="qgrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
+    <div class="qcard" id="qa-mining"    onclick="showPage('mining')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">⛏</span><span class="ql">Mining</span><span class="qs">61 Coins</span></div>
+    <div class="qcard" id="qa-wallet"    onclick="showPage('wallet')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">💰</span><span class="ql">Wallet</span><span class="qs">Balance</span></div>
+    <div class="qcard" id="qa-crypto"    onclick="showPage('crypto')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">💱</span><span class="ql">Crypto</span><span class="qs">Signals</span></div>
+    <div class="qcard" id="qa-mastery"   onclick="showPage('mastery')"   style="cursor:pointer;touch-action:manipulation"><span class="qi">📊</span><span class="ql">Mastery</span><span class="qs">My Rank</span></div>
+    <div class="qcard" id="qa-bots"      onclick="showPage('bots')"      style="cursor:pointer;touch-action:manipulation"><span class="qi">🤖</span><span class="ql">Bots</span><span class="qs">10,101</span></div>
+    <div class="qcard" id="qa-learning"  onclick="showPage('learning')"  style="cursor:pointer;touch-action:manipulation"><span class="qi">🧠</span><span class="ql">Learn</span><span class="qs">27 Domains</span></div>
+    <div class="qcard" id="qa-stocks"    onclick="showPage('stocks')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">📈</span><span class="ql">Stocks</span><span class="qs">AI Signals</span></div>
+    <div class="qcard" id="qa-algos"     onclick="showPage('algos')"     style="cursor:pointer;touch-action:manipulation"><span class="qi">⚡</span><span class="ql">Algos</span><span class="qs">246 Suite</span></div>
+    <div class="qcard" id="qa-behavior"  onclick="showPage('behavior')"  style="cursor:pointer;touch-action:manipulation"><span class="qi">🧬</span><span class="ql">Behavior</span><span class="qs">Psychology</span></div>
+    <div class="qcard" id="qa-domains"   onclick="showPage('domains')"   style="cursor:pointer;touch-action:manipulation"><span class="qi">📖</span><span class="ql">27 Dom</span><span class="qs">Knowledge</span></div>
+    <div class="qcard" id="qa-knowledge" onclick="showPage('knowledge')" style="cursor:pointer;touch-action:manipulation"><span class="qi">🌍</span><span class="ql">World</span><span class="qs">Education</span></div>
+    <div class="qcard" id="qa-finteam"   onclick="showPage('finteam')"   style="cursor:pointer;touch-action:manipulation"><span class="qi">💼</span><span class="ql">FinTeam</span><span class="qs">7 Agents</span></div>
+    <div class="qcard" id="qa-chat"      onclick="showPage('chat')"      style="cursor:pointer;touch-action:manipulation"><span class="qi">💬</span><span class="ql">Chat</span><span class="qs">AI Convo</span></div>
+  </div>
+  <!-- CONNECTED SYSTEMS -->
   <div class="sec">🔌 Connected Systems</div>
   <div id="h-int-status" class="card" style="font-size:10px;line-height:2;color:var(--sub)">Loading integrations...</div>
 </div>
@@ -528,12 +546,12 @@ select option{background:#111118}
     </div>
     <!-- MAIN CONTROLS -->
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px">
-      <button onclick="startAllMining()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#00C853,#00E676);color:#000">&#9654; START ALL</button>
-      <button onclick="pauseAllMining()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#F39C12,#F1C40F);color:#000">&#9646;&#9646; PAUSE</button>
+      <button id="mine-all" onclick="startAllMining()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#00C853,#00E676);color:#000">&#9654; START ALL</button>
+      <button id="mine-stop" onclick="pauseAllMining()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#F39C12,#F1C40F);color:#000">&#9646;&#9646; PAUSE</button>
       <button onclick="mineWithdrawToWallet()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#9B59B6,#6C3483);color:#fff">&#128176; WITHDRAW</button>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-      <button onclick="collectAllPositive()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#0070BA,#003087);color:#fff;font-size:10px">&#128200; Collect All</button>
+      <button id="mine-get" onclick="collectAllPositive()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#0070BA,#003087);color:#fff;font-size:10px">&#128200; Collect All</button>
       <button onclick="openPayoutModal('all')" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#E74C3C,#C0392B);color:#fff;font-size:10px">&#128184; Payout</button>
     </div>
   </div>
@@ -1980,7 +1998,7 @@ function openRailForm(railId){
   renderRails();
   renderAutoWithdrawStatus();
 }
-document.getElementById('rail-link-btn').addEventListener('click',function(){
+(document.getElementById('rail-link-btn')||{addEventListener:function(){}}).addEventListener('click',function(){
   var rail=S.wallet.paymentRails[activeRailId];if(!rail)return;
   var handle=(document.getElementById('rail-handle').value||'').trim();
   if(!handle){toast('⚠ Enter a handle, email, or phone');return;}
@@ -1989,8 +2007,8 @@ document.getElementById('rail-link-btn').addEventListener('click',function(){
   document.getElementById('rail-link-form').style.display='none';
   renderRails();saveState();toast('🔗 '+rail.name+' linked as '+handle+'!');
 });
-document.getElementById('rail-cancel-btn').addEventListener('click',function(){document.getElementById('rail-link-form').style.display='none';});
-document.getElementById('rail-grid').addEventListener('click',function(e){
+(document.getElementById('rail-cancel-btn')||{addEventListener:function(){}}).addEventListener('click',function(){document.getElementById('rail-link-form').style.display='none';});
+(document.getElementById('rail-grid')||{addEventListener:function(){}}).addEventListener('click',function(e){
   var card=e.target.closest('[data-rail]');if(!card)return;openRailForm(card.getAttribute('data-rail'));
 });
 
@@ -2107,13 +2125,13 @@ function build27(){
 // ════════════════════════════════════════
 // [getResp v1 removed — v2 below]
 
-document.getElementById('chatsend').addEventListener('click',function(){
+(document.getElementById('chatsend')||{addEventListener:function(){}}).addEventListener('click',function(){
   var inp=document.getElementById('chatinput'),q=inp.value.trim();if(!q)return;
   inp.value='';var msgs=document.getElementById('chatmsgs');
   var um=document.createElement('div');um.className='cmsg user';um.textContent=q;msgs.appendChild(um);msgs.scrollTop=99999;
   setTimeout(function(){var bm=document.createElement('div');bm.className='cmsg bot';bm.textContent=getResp(q);msgs.appendChild(bm);msgs.scrollTop=99999;},400);
 });
-document.getElementById('chatinput').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('chatsend').click();});
+(document.getElementById('chatinput')||{addEventListener:function(){}}).addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('chatsend').click();});
 
 // ════════════════════════════════════════
 // NAV
@@ -2166,30 +2184,30 @@ PAGES.forEach(function(p){
 // ════════════════════════════════════════
 // WIRE ALL BUTTONS
 // ════════════════════════════════════════
-document.getElementById('learn-start').addEventListener('click',function(){S.learning.active?pauseLearning():startLearning();});
-document.getElementById('learn-stop').addEventListener('click',function(){pauseLearning();});
-document.getElementById('learn-boost').addEventListener('click',function(){
+(document.getElementById('learn-start')||{addEventListener:function(){}}).addEventListener('click',function(){S.learning.active?pauseLearning():startLearning();});
+(document.getElementById('learn-stop')||{addEventListener:function(){}}).addEventListener('click',function(){pauseLearning();});
+(document.getElementById('learn-boost')||{addEventListener:function(){}}).addEventListener('click',function(){
   S.learning.boostActive=!S.learning.boostActive;
   var wm=S.agents.workMode,base=wm==='learning'?1.7:wm==='mining'?0.75:1.0;
   txt('l-speed',S.learning.boostActive?(base*1.5).toFixed(1)+'×':base.toFixed(1)+'×');
   toast(S.learning.boostActive?'⚡ BOOST ON — extra 1.5×!':'⚡ Boost off');
 });
-document.getElementById('learn-mode-sel').addEventListener('change',function(){setWorkMode(this.value);});
-document.getElementById('learn-spd-sel').addEventListener('change',function(){S.learning.speedMultiplier=parseInt(this.value);toast('⚡ Speed: '+this.options[this.selectedIndex].text);});
-document.getElementById('mine-all').addEventListener('click',startAll);
-document.getElementById('mine-stop').addEventListener('click',stopAll);
-document.getElementById('mine-get').addEventListener('click',collectAll);
-document.getElementById('mine-opt').addEventListener('click',optAll);
-document.getElementById('mine-bots-btn').addEventListener('click',botAll);
-document.getElementById('bot-act-all').addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){S.agents.levels[k].active=true;});S.agents.assignedToWork=10101;document.getElementById('assign-slider').value=10101;updateBotUI();saveState();toast('✅ ALL 10,101 agents ACTIVATED!');});
-document.getElementById('bot-deact-all').addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){if(S.agents.levels[k].tier!=='MASTER')S.agents.levels[k].active=false;});S.agents.assignedToWork=1;document.getElementById('assign-slider').value=1;updateBotUI();saveState();toast('❌ Bots deactivated (Master stays on)');});
-document.getElementById('bot-learn-all').addEventListener('click',function(){setWorkMode('learning');startLearning();});
-document.getElementById('bot-mine-all').addEventListener('click',function(){setWorkMode('mining');startAll();});
+(document.getElementById('learn-mode-sel')||{addEventListener:function(){}}).addEventListener('change',function(){setWorkMode(this.value);});
+(document.getElementById('learn-spd-sel')||{addEventListener:function(){}}).addEventListener('change',function(){S.learning.speedMultiplier=parseInt(this.value);toast('⚡ Speed: '+this.options[this.selectedIndex].text);});
+(document.getElementById('mine-all')||{addEventListener:function(){}}).addEventListener('click',startAll);
+(document.getElementById('mine-stop')||{addEventListener:function(){}}).addEventListener('click',stopAll);
+(document.getElementById('mine-get')||{addEventListener:function(){}}).addEventListener('click',collectAll);
+(document.getElementById('mine-opt')||{addEventListener:function(){}}).addEventListener('click',optAll);
+(document.getElementById('mine-bots-btn')||{addEventListener:function(){}}).addEventListener('click',botAll);
+(document.getElementById('bot-act-all')||{addEventListener:function(){}}).addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){S.agents.levels[k].active=true;});S.agents.assignedToWork=10101;document.getElementById('assign-slider').value=10101;updateBotUI();saveState();toast('✅ ALL 10,101 agents ACTIVATED!');});
+(document.getElementById('bot-deact-all')||{addEventListener:function(){}}).addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){if(S.agents.levels[k].tier!=='MASTER')S.agents.levels[k].active=false;});S.agents.assignedToWork=1;document.getElementById('assign-slider').value=1;updateBotUI();saveState();toast('❌ Bots deactivated (Master stays on)');});
+(document.getElementById('bot-learn-all')||{addEventListener:function(){}}).addEventListener('click',function(){setWorkMode('learning');startLearning();});
+(document.getElementById('bot-mine-all')||{addEventListener:function(){}}).addEventListener('click',function(){setWorkMode('mining');startAll();});
 document.querySelectorAll('.mode-btn').forEach(function(b){b.addEventListener('click',function(){setWorkMode(this.getAttribute('data-mode'));});});
-document.getElementById('assign-slider').addEventListener('input',function(){S.agents.assignedToWork=parseInt(this.value); if(miningTmr){clearInterval(miningTmr);miningTmr=setInterval(miningTick,TICK);}txt('assign-val',S.agents.assignedToWork.toLocaleString());});
-document.getElementById('gen-sigs').addEventListener('click',genSignals);
-document.getElementById('stk-refresh').addEventListener('click',function(){genSignals();toast('🔄 Signals refreshed!');});
-document.getElementById('crypto-refresh').addEventListener('click',function(){fetchMarket();fetchSignals();toast('🔄 Refreshing crypto data...');});
+(document.getElementById('assign-slider')||{addEventListener:function(){}}).addEventListener('input',function(){S.agents.assignedToWork=parseInt(this.value); if(miningTmr){clearInterval(miningTmr);miningTmr=setInterval(miningTick,TICK);}txt('assign-val',S.agents.assignedToWork.toLocaleString());});
+(document.getElementById('gen-sigs')||{addEventListener:function(){}}).addEventListener('click',genSignals);
+(document.getElementById('stk-refresh')||{addEventListener:function(){}}).addEventListener('click',function(){genSignals();toast('🔄 Signals refreshed!');});
+(document.getElementById('crypto-refresh')||{addEventListener:function(){}}).addEventListener('click',function(){fetchMarket();fetchSignals();toast('🔄 Refreshing crypto data...');});
 var _wsync = document.getElementById('wallet-sync');
 if(_wsync) _wsync.addEventListener('click',function(){fetchPrices();renderWallet();toast('🔄 Syncing prices...');});
 var _el_aw_save_btn = document.getElementById('aw-save-btn');
@@ -2199,14 +2217,14 @@ if(_el_aw_off_btn) _el_aw_off_btn.addEventListener('click',disableAutoWithdraw);
 var _el_aw_now_btn = document.getElementById('aw-now-btn');
 if(_el_aw_now_btn) _el_aw_now_btn.addEventListener('click',withdrawNow);
 // Sync selectors when rail changes
-document.getElementById('aw-rail-sel').addEventListener('change',function(){
+(document.getElementById('aw-rail-sel')||{addEventListener:function(){}}).addEventListener('change',function(){
   var r=S.wallet.paymentRails[this.value];if(!r)return;
   var cs=document.getElementById('aw-coin-sel');if(cs&&r.autoCoin)cs.value=r.autoCoin;
   var ts=document.getElementById('aw-threshold');if(ts&&r.autoThreshold)ts.value=r.autoThreshold;
   var is=document.getElementById('aw-interval-sel');if(is&&r.autoIntervalMins)is.value=r.autoIntervalMins;
 });
-document.getElementById('modal-close').addEventListener('click',function(){document.getElementById('modalbg').classList.remove('show');});
-document.getElementById('modalbg').addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
+(document.getElementById('modal-close')||{addEventListener:function(){}}).addEventListener('click',function(){document.getElementById('modalbg').classList.remove('show');});
+(document.getElementById('modalbg')||{addEventListener:function(){}}).addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
 
 // ════════════════════════════════════════
 // HELPERS
