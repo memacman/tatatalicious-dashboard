@@ -3511,9 +3511,8 @@ function setMiningAgents(n){
   }
 
   // Override showPage to update panels on tab switch
-  
-  
-  // 30-min auto-collect
+
+// 30-min auto-collect
   setInterval(function(){
     var pos=typeof getPositiveBalances==='function'?getPositiveBalances():[];
     var total=pos.reduce(function(a,c){return a+(c.minedUSD||0);},0);
@@ -3684,7 +3683,6 @@ function setMiningAgents(n){
 // NAV
 // ============================================================
 
-  
 // ── 7-Agent AI Financial Team ──
 var FIN_TEAM = [
   { name:'Alpha',  ico:'🧠', role:'Chief Strategist',      color:'#9B59B6',
@@ -3747,8 +3745,7 @@ function finTeamAction(action){
   }, 2000);
 }
 
-  
-  var knowledgeBuilt=false, behBuilt=false, algBuilt=false, masteryBuilt=false;
+var knowledgeBuilt=false, behBuilt=false, algBuilt=false, masteryBuilt=false;
 
   // ══ BUILD FUNCTIONS (from attached) ══
   function buildKnowledge(){
