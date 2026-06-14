@@ -6,6 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>👑 TaTatalicious — Unified</title>
 <style>
+
 #topbar{position:fixed;top:0;left:0;right:0;height:50px;z-index:2000;background:#1A1A2E;border-bottom:2px solid #9B59B6;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
 
 /* ═══ TATATALICIOUS LAYOUT v10 FINAL ═══ */
@@ -325,19 +326,19 @@ select option{background:#111118}
   <!-- QUICK ACCESS GRID — ALL 14 TABS -->
   <div class="sec">⚡ Quick Access</div>
   <div class="qgrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
-    <div class="qcard" id="qa-mining"    onclick="showPage('mining')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">⛏</span><span class="ql">Mining</span><span class="qs">61 Coins</span></div>
-    <div class="qcard" id="qa-wallet"    onclick="showPage('wallet')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">💰</span><span class="ql">Wallet</span><span class="qs">Balance</span></div>
-    <div class="qcard" id="qa-crypto"    onclick="showPage('crypto')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">💱</span><span class="ql">Crypto</span><span class="qs">Signals</span></div>
-    <div class="qcard" id="qa-mastery"   onclick="showPage('mastery')"   style="cursor:pointer;touch-action:manipulation"><span class="qi">📊</span><span class="ql">Mastery</span><span class="qs">My Rank</span></div>
-    <div class="qcard" id="qa-bots"      onclick="showPage('bots')"      style="cursor:pointer;touch-action:manipulation"><span class="qi">🤖</span><span class="ql">Bots</span><span class="qs">10,101</span></div>
-    <div class="qcard" id="qa-learning"  onclick="showPage('learning')"  style="cursor:pointer;touch-action:manipulation"><span class="qi">🧠</span><span class="ql">Learn</span><span class="qs">27 Domains</span></div>
-    <div class="qcard" id="qa-stocks"    onclick="showPage('stocks')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">📈</span><span class="ql">Stocks</span><span class="qs">AI Signals</span></div>
-    <div class="qcard" id="qa-algos"     onclick="showPage('algos')"     style="cursor:pointer;touch-action:manipulation"><span class="qi">⚡</span><span class="ql">Algos</span><span class="qs">246 Suite</span></div>
-    <div class="qcard" id="qa-behavior"  onclick="showPage('behavior')"  style="cursor:pointer;touch-action:manipulation"><span class="qi">🧬</span><span class="ql">Behavior</span><span class="qs">Psychology</span></div>
-    <div class="qcard" id="qa-domains"   onclick="showPage('domains')"   style="cursor:pointer;touch-action:manipulation"><span class="qi">📖</span><span class="ql">27 Dom</span><span class="qs">Knowledge</span></div>
-    <div class="qcard" id="qa-knowledge" onclick="showPage('knowledge')" style="cursor:pointer;touch-action:manipulation"><span class="qi">🌍</span><span class="ql">World</span><span class="qs">Education</span></div>
-    <div class="qcard" id="qa-finteam"   onclick="showPage('finteam')"   style="cursor:pointer;touch-action:manipulation"><span class="qi">💼</span><span class="ql">FinTeam</span><span class="qs">7 Agents</span></div>
-    <div class="qcard" id="qa-chat"      onclick="showPage('chat')"      style="cursor:pointer;touch-action:manipulation"><span class="qi">💬</span><span class="ql">Chat</span><span class="qs">AI Convo</span></div>
+    <div class="qcard" id="qa-mining"    data-page="mining" onclick="showPage('mining')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">⛏</span><span class="ql">Mining</span><span class="qs">61 Coins</span></div>
+    <div class="qcard" id="qa-wallet"    data-page="wallet" onclick="showPage('wallet')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">💰</span><span class="ql">Wallet</span><span class="qs">Balance</span></div>
+    <div class="qcard" id="qa-crypto"    data-page="crypto" onclick="showPage('crypto')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">💱</span><span class="ql">Crypto</span><span class="qs">Signals</span></div>
+    <div class="qcard" id="qa-mastery"   data-page="mastery" onclick="showPage('mastery')"   style="cursor:pointer;touch-action:manipulation"><span class="qi">📊</span><span class="ql">Mastery</span><span class="qs">My Rank</span></div>
+    <div class="qcard" id="qa-bots"      data-page="bots" onclick="showPage('bots')"      style="cursor:pointer;touch-action:manipulation"><span class="qi">🤖</span><span class="ql">Bots</span><span class="qs">10,101</span></div>
+    <div class="qcard" id="qa-learning"  data-page="learning" onclick="showPage('learning')"  style="cursor:pointer;touch-action:manipulation"><span class="qi">🧠</span><span class="ql">Learn</span><span class="qs">27 Domains</span></div>
+    <div class="qcard" id="qa-stocks"    data-page="stocks" onclick="showPage('stocks')"    style="cursor:pointer;touch-action:manipulation"><span class="qi">📈</span><span class="ql">Stocks</span><span class="qs">AI Signals</span></div>
+    <div class="qcard" id="qa-algos"     data-page="algos" onclick="showPage('algos')"     style="cursor:pointer;touch-action:manipulation"><span class="qi">⚡</span><span class="ql">Algos</span><span class="qs">246 Suite</span></div>
+    <div class="qcard" id="qa-behavior"  data-page="behavior" onclick="showPage('behavior')"  style="cursor:pointer;touch-action:manipulation"><span class="qi">🧬</span><span class="ql">Behavior</span><span class="qs">Psychology</span></div>
+    <div class="qcard" id="qa-domains"   data-page="domains" onclick="showPage('domains')"   style="cursor:pointer;touch-action:manipulation"><span class="qi">📖</span><span class="ql">27 Dom</span><span class="qs">Knowledge</span></div>
+    <div class="qcard" id="qa-knowledge" data-page="knowledge" onclick="showPage('knowledge')" style="cursor:pointer;touch-action:manipulation"><span class="qi">🌍</span><span class="ql">World</span><span class="qs">Education</span></div>
+    <div class="qcard" id="qa-finteam"   data-page="finteam" onclick="showPage('finteam')"   style="cursor:pointer;touch-action:manipulation"><span class="qi">💼</span><span class="ql">FinTeam</span><span class="qs">7 Agents</span></div>
+    <div class="qcard" id="qa-chat"      data-page="chat" onclick="showPage('chat')"      style="cursor:pointer;touch-action:manipulation"><span class="qi">💬</span><span class="ql">Chat</span><span class="qs">AI Convo</span></div>
   </div>
   <!-- CONNECTED SYSTEMS -->
   <div class="sec">🔌 Connected Systems</div>
@@ -852,6 +853,8 @@ select option{background:#111118}
         onchange="saveWalletAddress(this.value)" onblur="saveWalletAddress(this.value)">
       <button onclick="copyWalletAddress()" style="background:#9B59B6;border:none;color:#fff;border-radius:6px;padding:5px 8px;font-size:8px;cursor:pointer">📋</button>
     </div>
+<div style="background:#0A0A1E;border:1px solid #9B59B6;border-radius:10px;padding:12px;margin:8px 0"><div style="color:#F1C40F;font-size:11px;font-weight:700">⚡ WALLET 2 — BASE NETWORK</div><div style="color:#fff;font-size:10px;word-break:break-all;margin:4px 0">0x2245141f8b387798392e734be9477f281dad867f</div>
+<div style="background:#0A0A1E;border:1px solid #14F195;border-radius:10px;padding:12px;margin:8px 0"><div style="color:#14F195;font-size:11px;font-weight:700">🌐 WALLET 3 — SOLANA</div><div style="color:#fff;font-size:10px;word-break:break-all;margin:4px 0">4m5HrJD8JVrBRYW4f66bRvC3Umy7wGGKE3iWQwEwmYYx</div><button onclick="navigator.clipboard.writeText('4m5HrJD8JVrBRYW4f66bRvC3Umy7wGGKE3iWQwEwmYYx').then(()=>toast('✅ SOL copied!'))" style="background:#14F195;color:#000;border:none;border-radius:6px;padding:5px 12px;font-size:11px;cursor:pointer">📋 Copy SOL</button></div><button onclick="navigator.clipboard.writeText('0x2245141f8b387798392e734be9477f281dad867f').then(()=>toast('✅ W2 copied!'))" style="background:#9B59B6;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:11px;cursor:pointer">📋 Copy W2</button></div>
     <div style="font-size:7px;color:#555;margin-top:3px" id="wallet-addr-type">Coinbase · Base Network · EVM Compatible</div>
   </div>
   
@@ -1067,7 +1070,7 @@ select option{background:#111118}
 <!-- NAV -->
 </div><!-- #content -->
 <div id="botnav">
-  <button class="nb active" id="nav-home" onclick="showPage('home')"><span class="ico">🏠</span>Home</button>
+  <button class="nb active" id="nav-home" data-page="home" onclick="showPage('home')"><span class="ico">🏠</span>Home</button>
   <button class="nb" id="nav-mastery" onclick="showPage('mastery')"><span class="ico">📊</span>Mastery</button>
   <button class="nb" id="nav-bots" onclick="showPage('bots')"><span class="ico">🤖</span>Bots</button>
   <button class="nb" id="nav-learning" onclick="showPage('learning')"><span class="ico">📚</span>Learn</button>
@@ -1768,6 +1771,7 @@ function pauseLearning(){
 // LEARNING UI (myninja updateDomainUI)
 // ════════════════════════════════════════
 var domsBuilt=false;
+// SM-2 Spaced Repetition: 1-3-7-14-30-90 day intervals
 function buildDomains(){
   if(domsBuilt)return;domsBuilt=true;
   var list=document.getElementById('domain-list');
@@ -5210,7 +5214,17 @@ setInterval(function(){
   
   // Show home page on load
   // Auto-fire Coinbase $5K approval on boot
-setTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
+setTimeout
+// ── Capture-phase botnav safety net ──
+(function(){
+  var bn=document.getElementById('botnav');
+  if(bn) bn.addEventListener('click',function(e){
+    var t=e.target.closest('[data-page]');
+    if(t && t.dataset.page){e.stopPropagation();showPage(t.dataset.page);}
+  },true);
+})();
+
+(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
 showPage('home');
 })();
 
