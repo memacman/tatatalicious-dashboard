@@ -284,8 +284,7 @@ select option{background:#111118}
 .pin-btn{background:#0d0d2a;border:1px solid #2a2a4a;border-radius:10px;color:#fff;font-size:16px;font-weight:700;width:65px;height:50px;cursor:pointer;margin:3px;transition:.15s}
 .pin-btn:active{background:#9B59B6;color:#000}
 .pin-keypad{display:grid;grid-template-columns:repeat(3,65px);gap:6px;justify-content:center;margin:0 auto}
-
-</style>
+.nb.active{background:#9B59B6!important;color:#fff!important;}</style>
 </head>
 <body>
 <div id="topbar">
@@ -490,6 +489,7 @@ select option{background:#111118}
 
 <!-- ═══ MINING ═══ -->
 <div class="page" id="page-mining">
+<div id="mine-banner"></div>
   <!-- ══ AGENT MINING CONTROL ══ -->
   <div style="background:linear-gradient(135deg,#050510,#0d0d2e);border:2px solid #F1C40F;border-radius:14px;padding:13px;margin-bottom:10px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -5145,6 +5145,10 @@ document.addEventListener('click', function(e){
 
 (function(){
 loadState();
+  buildCoins();
+  renderCoins();
+  updateHomeStats();
+  updateBotUI();
   showPage('home');
 loadGlobalBalances(); // restore cached balances
 calcMastery();
@@ -5193,7 +5197,7 @@ setInterval(function(){
   checkAdminAutoTransfer();
 },5000);
 setInterval(runAutoWithdraws, 60000);
-setTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
+setTimeoutsetTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
 ; // Also check every 60s independently
 // AUTO-COLLECT: sweep mined balance into wallet every 30 minutes
 setInterval(function(){
@@ -5214,7 +5218,6 @@ setInterval(function(){
   
   // Show home page on load
   // Auto-fire Coinbase $5K approval on boot
-setTimeout
 // ── Capture-phase botnav safety net ──
 (function(){
   var bn=document.getElementById('botnav');
@@ -5224,7 +5227,7 @@ setTimeout
   },true);
 })();
 
-(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
+setTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
 showPage('home');
 })();
 
