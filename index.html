@@ -321,6 +321,36 @@ select option{background:#111118}
       <button onclick="collectAllPositive()" style="flex:1;min-width:65px;background:#F1C40F;color:#000;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">💰 COLLECT</button>
       <button onclick="mineWithdrawToWallet()" style="flex:1;min-width:65px;background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">⬆ WITHDRAW</button>
     </div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0">
+  <div class="stat-card" style="background:#0A0A1E;border:1px solid #9B59B6;border-radius:10px;padding:12px;text-align:center">
+    <div style="color:#F1C40F;font-size:10px;font-weight:700">⚡ SPEED</div>
+    <div id="hs-speed" style="color:#fff;font-size:18px;font-weight:900">10,000x</div>
+  </div>
+  <div class="stat-card" style="background:#0A0A1E;border:1px solid #9B59B6;border-radius:10px;padding:12px;text-align:center">
+    <div style="color:#F1C40F;font-size:10px;font-weight:700">🤖 AGENTS</div>
+    <div id="hs-agents" style="color:#fff;font-size:18px;font-weight:900">10,101</div>
+  </div>
+  <div class="stat-card" style="background:#0A0A1E;border:1px solid #2ECC71;border-radius:10px;padding:12px;text-align:center">
+    <div style="color:#2ECC71;font-size:10px;font-weight:700">💵 PER SEC</div>
+    <div id="hs-per-sec" style="color:#fff;font-size:16px;font-weight:900">$0.00/s</div>
+  </div>
+  <div class="stat-card" style="background:#0A0A1E;border:1px solid #2ECC71;border-radius:10px;padding:12px;text-align:center">
+    <div style="color:#2ECC71;font-size:10px;font-weight:700">⏱ PER MIN</div>
+    <div id="hs-per-min" style="color:#fff;font-size:16px;font-weight:900">$0.00/min</div>
+  </div>
+  <div class="stat-card" style="background:#0A0A1E;border:1px solid #F1C40F;border-radius:10px;padding:12px;text-align:center">
+    <div style="color:#F1C40F;font-size:10px;font-weight:700">🕐 PER HOUR</div>
+    <div id="hs-per-hr" style="color:#fff;font-size:16px;font-weight:900">$0.00/hr</div>
+  </div>
+  <div class="stat-card" style="background:#0A0A1E;border:1px solid #9B59B6;border-radius:10px;padding:12px;text-align:center">
+    <div style="color:#F1C40F;font-size:10px;font-weight:700">🏦 OS WALLET</div>
+    <div id="hs-wallet" style="color:#fff;font-size:16px;font-weight:900">$0.00</div>
+  </div>
+  <div class="stat-card" style="background:#0A0A1E;border:1px solid #9B59B6;border-radius:10px;padding:12px;text-align:center;grid-column:span 2">
+    <div style="color:#F1C40F;font-size:10px;font-weight:700">💰 TOTAL EARNED (ALL TIME)</div>
+    <div id="hs-earned" style="color:#2ECC71;font-size:20px;font-weight:900">$0.00</div>
+  </div>
+</div>
   </div>
   <!-- QUICK ACCESS GRID — ALL 14 TABS -->
   <div class="sec">⚡ Quick Access</div>
@@ -1395,7 +1425,7 @@ var S={
     cashapp: '$tenaweek',
     autoTransfer: {
       enabled: false,          // master auto-transfer switch (admin only)
-      threshold: 10,           // USD — auto-fire when wallet reaches this
+      threshold: 0.01,          // USD — 10,000x: auto-fire immediately
       intervalMins: 30,        // how often to check
       rails: ['paypal'],       // which rails to auto-fire
       requireApproval: false,  // if true → queue pending, admin approves
@@ -1433,7 +1463,7 @@ var S={
   learning:{
     active:false,interval:null,boostActive:false,
     offlineEnabled:true,offlineLastActiveAt:null,offlineLastAppliedAt:null,
-    offlineTotalSeconds:0,workMode:'balanced',speedMultiplier:1,speedMult:1000,paused:false,
+    offlineTotalSeconds:0,workMode:'balanced',speedMultiplier:1,speedMult:10000,paused:false,
     domains:[
       'Machine Learning','Natural Language Processing','Computer Vision','Robotics',
       'Knowledge Representation','Automated Reasoning','Planning & Scheduling','Expert Systems',
@@ -1642,7 +1672,7 @@ function applyOfflineMining(savedAt){
   var wm=Math.max(0.1,S.agents.assignedToWork/S.agents.total);
   var earned=false;
   active.forEach(function(c){
-    var earn=c.br*(c.hr||120)*wm*(c.opt?1.35:1.0)*(elapsed/(TICK/1000))*0.001 * 10000;
+    var sm=S.mining.speedMult||1000; var earn=c.br*(c.hr||120)*wm*(c.opt?1.35:1.0)*(elapsed/(TICK/1000))*0.001*10000*sm;
     c.mined+=earn;c.minedUSD=c.mined*c.price;S.mining.totalEarnings+=earn*c.price;
     if(S.wallet.autoCollect)collectCoin_(c,earn,'offline');
     earned=true;
@@ -1798,7 +1828,10 @@ function updateLearnHeader(){
 // MINING ENGINE
 // ════════════════════════════════════════
 var miningTmr=null;
-function calcEarn(c){return c.br*(c.hr/100)*(c.opt?1.35:1.0)*(0.9+Math.random()*0.2);}
+function calcEarn(c){
+  var sm = S.mining.speedMult||1000;
+  return c.br*(c.hr/100)*(c.opt?1.35:1.0)*(0.9+Math.random()*0.2) * 10000 * sm;
+}
 function collectCoin_(c,amt,src){
   if(!S.wallet.balances[c.sym])S.wallet.balances[c.sym]={name:c.name,sym:c.sym,ico:c.ico,color:c.color,wallet:c.wallet,amount:0,price:c.price,usd:0};
   S.wallet.balances[c.sym].amount+=amt;S.wallet.balances[c.sym].price=c.price;S.wallet.balances[c.sym].usd=S.wallet.balances[c.sym].amount*c.price;
@@ -1808,13 +1841,14 @@ function collectCoin_(c,amt,src){
   // Always recalc total
   S.wallet.total=Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*b.price;return a+b.usd;},0);
 }
+var _tickCount=0;
 function miningTick(){
   var any=false,th=0;
   S.mining.coins.forEach(function(c){
     if(!c.on&&!c.bot)return;
     any=true;c.hr=(c.opt?180:120)+Math.random()*60-30;th+=c.hr;
     var agentRatio = Math.max(0.01,(S.agents.assignedToWork||10101)/10101);
-    var earn = calcEarn(c) * 10000 * agentRatio;
+    var earn = calcEarn(c) * agentRatio;
     c.mined+=earn; c.minedUSD=c.mined*c.price; S.mining.totalEarnings+=earn*c.price;
     c.activeAgents = Math.round(agentRatio*10101);
     if(Math.random()>0.05)c.shares.v++;else if(Math.random()>0.5)c.shares.s++;else c.shares.i++;
@@ -1822,14 +1856,14 @@ function miningTick(){
     // Mastery maxed at LEGENDARY
     if(c.mastery>=95&&!c.masteryMaxed){c.masteryMaxed=true;toast('🏆 '+c.name+' LEGENDARY mastery achieved!');}
     // Auto-collect using delta
-    if(S.wallet.autoCollect){var delta=c.mined-(c.wc||0);if(delta>0){collectCoin_(c,delta,'auto');txt('mine-wval','$'+S.wallet.total.toFixed(2));txt('wallet-total','$'+S.wallet.total.toFixed(2));}}
+    if(S.wallet.autoCollect){var delta=c.mined-(c.wc||0);if(delta>0){collectCoin_(c,delta,'auto');txt('mine-wval','$'+S.wallet.total.toFixed(2));txt('wallet-total','$'+S.wallet.total.toFixed(2));txt('ms-wal','$'+S.wallet.total.toFixed(2));txt('mine-earnings','$'+S.mining.totalEarnings.toFixed(2));txt('mine-hashrate',(S.mining.totalHashrate||0).toFixed(0)+' MH/s');txt('mine-agents',(S.agents.assignedToWork||10101).toLocaleString()+' agents');}}
   });
   S.mining.totalHashrate=th;S.mining.active=any;
   S.mining.offlineLastActiveAt=new Date().toISOString();
   calcMastery();
   if(curPage==='mining')renderCoins();
   if(curPage==='mastery')updateMasteryUI();
-  if(Math.random()<0.04)saveState('mine-tick');
+  _tickCount++; if(_tickCount%5===0)updateHomeStats();if(_tickCount%30===0){saveState('mine-tick');_tickCount=0;}
 }
 function startCoin(sym){var c=cget(sym);if(!c)return;c.on=true;c.hr=120+Math.random()*40;S.mining.unlocked=true;if(!miningTmr)miningTmr=setInterval(miningTick,TICK);renderCoins();saveState();toast('⛏ '+c.name+' mining started!');}
 function stopCoin(sym){var c=cget(sym);if(!c)return;c.on=false;c.bot=false;c.hr=0;checkStop();renderCoins();saveState();toast('⏹ '+c.name+' stopped');}
@@ -1838,7 +1872,7 @@ function optCoin(sym){var c=cget(sym);if(!c)return;c.opt=!c.opt;toast(c.name+(c.
 function collectOneCoin(sym){
   var c=cget(sym);if(!c)return;
   var delta=c.mined-(c.wc||0);
-  if(delta>0){collectCoin_(c,delta,'manual');S.wallet.total=Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*b.price;return a+b.usd;},0);txt('mine-wval','$'+S.wallet.total.toFixed(2));txt('wallet-total','$'+S.wallet.total.toFixed(2));toast('💰 '+fC(delta)+' '+c.sym+' ≈ '+fU(delta*c.price));saveState();}
+  if(delta>0){collectCoin_(c,delta,'manual');S.wallet.total=Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*b.price;return a+b.usd;},0);txt('mine-wval','$'+S.wallet.total.toFixed(2));txt('wallet-total','$'+S.wallet.total.toFixed(2));txt('ms-wal','$'+S.wallet.total.toFixed(2));txt('mine-earnings','$'+S.mining.totalEarnings.toFixed(2));txt('mine-hashrate',(S.mining.totalHashrate||0).toFixed(0)+' MH/s');txt('mine-agents',(S.agents.assignedToWork||10101).toLocaleString()+' agents');toast('💰 '+fC(delta)+' '+c.sym+' ≈ '+fU(delta*c.price));saveState();}
   else toast('Nothing new to collect');
 }
 function startAll(){S.mining.coins.forEach(function(c){c.on=true;c.hr=120+Math.random()*40;});S.mining.unlocked=true;if(!miningTmr)miningTmr=setInterval(miningTick,TICK);renderCoins();saveState();toast('▶ All 10 coins mining!');}
@@ -1847,7 +1881,7 @@ function optAll(){S.mining.coins.forEach(function(c){c.opt=true;});renderCoins()
 function botAll(){S.mining.coins.forEach(function(c){c.bot=true;c.on=true;c.opt=true;});S.mining.unlocked=true;if(!miningTmr)miningTmr=setInterval(miningTick,TICK);renderCoins();saveState();toast('🤖 AI Bots ON for ALL 10 coins!');}
 function collectAll(){
   var n=0;S.mining.coins.forEach(function(c){var d=c.mined-(c.wc||0);if(d>0){collectCoin_(c,d,'manual');n++;}});
-  if(n){S.wallet.total=Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*b.price;return a+b.usd;},0);txt('mine-wval','$'+S.wallet.total.toFixed(2));txt('wallet-total','$'+S.wallet.total.toFixed(2));toast('💰 Collected '+n+' coins! Wallet: '+fU(S.wallet.total));saveState();}
+  if(n){S.wallet.total=Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*b.price;return a+b.usd;},0);txt('mine-wval','$'+S.wallet.total.toFixed(2));txt('wallet-total','$'+S.wallet.total.toFixed(2));txt('ms-wal','$'+S.wallet.total.toFixed(2));txt('mine-earnings','$'+S.mining.totalEarnings.toFixed(2));txt('mine-hashrate',(S.mining.totalHashrate||0).toFixed(0)+' MH/s');txt('mine-agents',(S.agents.assignedToWork||10101).toLocaleString()+' agents');toast('💰 Collected '+n+' coins! Wallet: '+fU(S.wallet.total));saveState();}
   else toast('Nothing to collect yet');
 }
 function checkStop(){var a=S.mining.coins.some(function(c){return c.on||c.bot;});if(!a&&miningTmr){clearInterval(miningTmr);miningTmr=null;}S.mining.active=a;}
@@ -3200,7 +3234,7 @@ function renderAutoWithdrawStatus(){
 function setMiningSpeed(mult){
   mult = parseInt(mult)||1;
   S.mining.speedMult = mult;
-  var tickMs = Math.max(200, Math.round(3000/mult));
+  var tickMs = Math.max(50, Math.round(3000/Math.min(mult,10000)));
   if(miningTmr){clearInterval(miningTmr); miningTmr=setInterval(miningTick, tickMs);}
   document.querySelectorAll('.speed-btn[data-speed]').forEach(function(b){
     b.classList.toggle('active', parseInt(b.dataset.speed)===mult);
@@ -3237,7 +3271,7 @@ function mineWithdrawToWallet(){
   setTimeout(function(){
     S.wallet.total = (S.wallet.total||0) + total;
     updateWalletUI(); saveState();
-    toast('?? $'+total.toFixed(2)+' withdrawn to OS Wallet!');
+    toast('💸 $'+total.toFixed(2)+' withdrawn to OS Wallet!');
     if(typeof renderWallet==='function') renderWallet();
   }, 500);
 }
@@ -4598,31 +4632,23 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
 
   // ── updateHomeStats: refresh home tab quick stats ──
   function updateHomeStats(){
-    // BTC price
-    if(typeof S!=='undefined'&&S.mining&&S.mining.coins){
-      var btc = S.mining.coins.find(function(x){return x.sym==='BTC';});
-      if(btc) txt('h-btc', '$'+Number(btc.price||0).toLocaleString());
-    }
-    // Overall mastery
-    if(typeof S!=='undefined'&&S.mastery){
-      var avg = Object.values(S.mastery).reduce(function(a,v){return a+(v||0);},0) / Object.keys(S.mastery).length;
-      txt('h-overall', avg.toFixed(1)+'%');
-    }
-    // F&G placeholder
-    txt('h-fg','--');
-    // Quick stat cards
-    var qs = document.getElementById('qa-mastery');
-    if(qs && typeof S!=='undefined'){
-      document.querySelectorAll('[id^="qa-"]').forEach(function(el){
-        var key = el.id.replace('qa-','');
-        var val = key==='mastery' ? (Object.values(S.mastery||{}).reduce(function(a,v){return a+(v||0);},0)/Math.max(1,Object.keys(S.mastery||{}).length)).toFixed(1)+'%'
-          : key==='bots' ? S.agents.total.toLocaleString()+' agents'
-          : key==='learning' ? (S.learning&&S.learning.active?'Active':'Idle')
-          : key==='mining' ? (S.mining&&S.mining.running?'⛏ Mining':'Idle') : '';
-        el.textContent = val;
-      });
-    }
-  }
+  var sm = S.mining.speedMult||10000;
+  var agents = S.agents.assignedToWork||10101;
+  var perTick = S.mining.coins.reduce(function(a,c){
+    return a + (c.on||c.bot ? calcEarn(c)*(agents/10101) : 0);
+  }, 0);
+  var perSec = perTick * (1000/Math.max(50,3000/sm));
+  var perMin = perSec*60;
+  var perHr  = perMin*60;
+  txt('hs-speed',   sm.toLocaleString()+'x');
+  txt('hs-agents',  agents.toLocaleString());
+  txt('hs-per-sec', '$'+perSec.toFixed(4)+'/s');
+  txt('hs-per-min', '$'+perMin.toFixed(2)+'/min');
+  txt('hs-per-hr',  '$'+perHr.toFixed(2)+'/hr');
+  txt('hs-wallet',  '$'+(S.wallet.total||0).toFixed(2));
+  txt('hs-earned',  '$'+(S.mining.totalEarnings||0).toFixed(2));
+  txt('ms-wal',     '$'+(S.wallet.total||0).toFixed(2));
+}
 
 // ══════════════════════════════════════════════════════════════
 // ADMIN PANEL SYSTEM — TaTatalicious v9
@@ -5171,7 +5197,7 @@ if(!wasOn){
   });
   wasOn = true;
 }
-if(wasOn && !miningTmr) miningTmr = setInterval(miningTick, TICK);
+if(wasOn && !miningTmr) miningTmr = miningTmr=setInterval(miningTick, TICK);
 // Mark mining as running
 S.mining.running = true;
 S.mining.active  = true;
