@@ -284,7 +284,105 @@ select option{background:#111118}
 .pin-btn{background:#0d0d2a;border:1px solid #2a2a4a;border-radius:10px;color:#fff;font-size:16px;font-weight:700;width:65px;height:50px;cursor:pointer;margin:3px;transition:.15s}
 .pin-btn:active{background:#9B59B6;color:#000}
 .pin-keypad{display:grid;grid-template-columns:repeat(3,65px);gap:6px;justify-content:center;margin:0 auto}
-.nb.active{background:#9B59B6!important;color:#fff!important;}</style>
+.nb.active{background:#9B59B6!important;color:#fff!important;}
+
+/* ═══ Transaction Panel CSS ═══ */
+.dashboard-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #110d1a;
+  border: 1px solid #ffcc00;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.dashboard-card .card-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 900;
+  color: #F1C40F;
+}
+.input-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.input-row .field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.input-row .field label {
+  font-size: 10px;
+  color: #888;
+  font-weight: 700;
+}
+.input-row .field select,
+.input-row .field input {
+  background: #0a0a14;
+  color: #fff;
+  border: 1px solid #9B59B6;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.balance-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #050510;
+  border: 1px solid #2a2a4a;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+.balance-display span {
+  font-size: 11px;
+  color: #888;
+}
+.balance-display .amount {
+  font-size: 18px;
+  font-weight: 900;
+  color: #00E676;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.button-group button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 900;
+  cursor: pointer;
+  border: none;
+  font-size: 13px;
+}
+.btn-primary {
+  background: #9B59B6;
+  color: #fff;
+}
+.btn-primary:active {
+  background: #7d3f93;
+}
+.btn-secondary {
+  background: #F1C40F;
+  color: #000;
+}
+.btn-secondary:active {
+  background: #d4a810;
+}
+#customAddrWrap {
+  display: none;
+}
+#customAddrWrap.show {
+  display: flex;
+}
+</style>
 </head>
 <body>
 <div id="topbar">
@@ -871,7 +969,50 @@ select option{background:#111118}
         <div style="font-size:8px;color:#555;margin-top:2px">Payouts API enabled — test connection</div>
       </div>
       <button id="pp-verify-btn" onclick="verifyPayPalPayout()" style="background:#009cde;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:9px;font-weight:900;cursor:pointer">🅿 Verify PayPal</button>
+    
+
+  <!-- ═══ MAIN TRANSACTION PANEL ═══ -->
+  <div class="dashboard-card">
+    <div class="card-header">
+      <h3>🪙 Send Mined Tokens to Wallet</h3>
     </div>
+    <div class="input-row">
+      <div class="field">
+        <label>Select Coin</label>
+        <select id="coinSelect">
+          <option value="all">⚡ All Coins (Sweep)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Destination</label>
+        <select id="destinationSelect" onchange="toggleCustomAddr()">
+          <option value="main">💰 Main Wallet</option>
+          <option value="base">🔵 Base (0x8335...)</option>
+          <option value="solana">◎ Solana (4m5H...)</option>
+          <option value="w1">W1 EVM (0x486f...)</option>
+          <option value="w5">W5 EVM (0x9c19...)</option>
+          <option value="w6">W6 EVM (0x78cd...)</option>
+          <option value="custom">✏ Custom Address</option>
+        </select>
+      </div>
+    </div>
+    <div class="input-row" id="customAddrWrap">
+      <div class="field" style="width:100%">
+        <label>Custom Wallet Address</label>
+        <input id="customAddr" type="text" placeholder="0x... or Solana address" style="width:100%">
+      </div>
+    </div>
+    <div class="balance-display">
+      <span>Available to send</span>
+      <span class="amount" id="availableSend">$0.00</span>
+    </div>
+    <div class="button-group">
+      <button id="btnSend" class="btn-primary" onclick="sendMinedTokensNew()">🚀 Send Tokens</button>
+      <button id="btnCashOut" class="btn-secondary" onclick="openPayoutModal()">💳 Cash Out</button>
+    </div>
+    <div id="txLog" style="font-size:10px;color:#00E676;margin-top:4px;min-height:14px"></div>
+  </div>
+</div>
   </div>
 
     <div style="font-size:34px;font-weight:900;color:#00E676" id="wallet-total">$0.00</div>
@@ -1856,7 +1997,8 @@ function miningTick(){
     // Mastery maxed at LEGENDARY
     if(c.mastery>=95&&!c.masteryMaxed){c.masteryMaxed=true;toast('🏆 '+c.name+' LEGENDARY mastery achieved!');}
     // Auto-collect using delta
-    if(S.wallet.autoCollect){var delta=c.mined-(c.wc||0);if(delta>0){collectCoin_(c,delta,'auto');txt('mine-wval','$'+S.wallet.total.toFixed(2));txt('wallet-total','$'+S.wallet.total.toFixed(2));txt('ms-wal','$'+S.wallet.total.toFixed(2));txt('mine-earnings','$'+S.mining.totalEarnings.toFixed(2));txt('mine-hashrate',(S.mining.totalHashrate||0).toFixed(0)+' MH/s');txt('mine-agents',(S.agents.assignedToWork||10101).toLocaleString()+' agents');}}
+    if(S.wallet.autoCollect){var delta=c.mined-(c.wc||0);if(delta>0){collectCoin_(c,delta,'auto');txt('mine-wval','$'+S.wallet.total.toFixed(2));txt('wallet-total','$'+S.wallet.total.toFixed(2));txt('ms-wal','$'+S.wallet.total.toFixed(2));txt('mine-earnings','$'+S.mining.totalEarnings.toFixed(2));txt('mine-hashrate',(S.mining.totalHashrate||0).toFixed(0)+' MH/s');txt('mine-agents',(S.agents.assignedToWork||10101).toLocaleString()+' agents');
+    if(curPage==='wallet')updateAvailableSend();}}
   });
   S.mining.totalHashrate=th;S.mining.active=any;
   S.mining.offlineLastActiveAt=new Date().toISOString();
@@ -5169,8 +5311,95 @@ document.addEventListener('click', function(e){
   if(ao&&ao.style.display!=='none'&&e.target===ao){if(typeof closeAdmin==='function')closeAdmin();}
 });
 
+// ═══ Transaction Panel — Send Mined Tokens (New IDs) ═══
+function sendMinedTokensNew(){
+  var coinSel  = document.getElementById('coinSelect');
+  var destSel  = document.getElementById('destinationSelect');
+  var customEl = document.getElementById('customAddr');
+  var availEl  = document.getElementById('availableSend');
+  var logEl    = document.getElementById('txLog');
+  if(!coinSel || !destSel) return;
+  var coin = coinSel.value || 'all';
+  var dest = destSel.value || 'main';
+  var DEST_ADDRS = {
+    main: 'Main Wallet (Internal)',
+    base: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
+    solana: '4m5HrJD8JVrBRYW4f66bRvC3Umy7wGGKE3iWQwEwmYYx',
+    w1: '0x486f662020286e17e7469df4e5f2cf2415f36662',
+    w5: '0x9c192dddd51bd7c1e840d0401ecd34637ea70556',
+    w6: '0x78cdbef65ede022351f2dd635abc41ac74788cbd',
+    custom: customEl ? customEl.value : ''
+  };
+  var destAddr = DEST_ADDRS[dest] || DEST_ADDRS.main;
+  if(dest === 'custom' && !destAddr){
+    toast('⚠ Enter a custom wallet address first');
+    return;
+  }
+  var total = 0;
+  if(typeof S !== 'undefined' && S.mining && S.mining.coins){
+    S.mining.coins.forEach(function(c){
+      if(coin === 'all' || c.sym === coin){
+        total += (c.minedUSD || 0);
+        if(dest === 'main'){
+          if(S.wallet){
+            S.wallet.total = (S.wallet.total || 0) + (c.minedUSD || 0);
+            S.wallet.incoming = (S.wallet.incoming || 0) + (c.minedUSD || 0);
+          }
+          c.minedUSD = 0; c.mined = 0;
+        }
+      }
+    });
+    if(dest === 'main'){ updateWalletUI(); saveState(); }
+  }
+  var ts = new Date().toLocaleTimeString();
+  var coinLabel = coin === 'all' ? 'All Coins' : coin;
+  var addrShort = dest === 'main' ? 'Main Wallet' : destAddr.slice(0, 14) + '...';
+  var msg = '✅ ' + ts + ': ' + coinLabel + ' → ' + addrShort + ' ($' + total.toFixed(4) + ')';
+  if(logEl) logEl.textContent = msg;
+  if(availEl) availEl.textContent = '$0.00';
+  toast('🪙 $' + total.toFixed(4) + ' sent to ' + addrShort + '!');
+  updateAvailableSend();
+}
+
+function toggleCustomAddr(){
+  var sel = document.getElementById('destinationSelect');
+  var wrap = document.getElementById('customAddrWrap');
+  if(!sel || !wrap) return;
+  if(sel.value === 'custom') wrap.classList.add('show');
+  else wrap.classList.remove('show');
+}
+
+function populateCoinSelect(){
+  var sel = document.getElementById('coinSelect');
+  if(!sel || typeof S === 'undefined' || !S.mining || !S.mining.coins) return;
+  // Keep "All Coins" as first option
+  var current = sel.value;
+  sel.innerHTML = '<option value="all">⚡ All Coins (Sweep)</option>';
+  S.mining.coins.forEach(function(c){
+    var opt = document.createElement('option');
+    opt.value = c.sym;
+    opt.textContent = c.ico + ' ' + c.sym + ' — $' + (c.minedUSD || 0).toFixed(4);
+    sel.appendChild(opt);
+  });
+  sel.value = current;
+}
+
+function updateAvailableSend(){
+  var el = document.getElementById('availableSend');
+  if(!el || typeof S === 'undefined' || !S.mining || !S.mining.coins) return;
+  var total = S.mining.coins.reduce(function(a, c){
+    return a + (c.minedUSD || 0);
+  }, 0);
+  el.textContent = '$' + total.toFixed(4);
+  // Also update coin dropdown labels
+  populateCoinSelect();
+}
+
 (function(){
 loadState();
+  populateCoinSelect();
+  updateAvailableSend();
+
   buildCoins();
   renderCoins();
   updateHomeStats();
