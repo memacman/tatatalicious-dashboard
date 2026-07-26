@@ -287,22 +287,7 @@ select option{background:#111118}
 .nb.active{background:#9B59B6!important;color:#fff!important;}
 
 /* ═══ Transaction Panel CSS ═══ */
-.dashboard-card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: #110d1a;
-  border: 1px solid #ffcc00;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-}
-.dashboard-card .card-header h3 {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 900;
-  color: #F1C40F;
-}
+
 .input-row {
   display: flex;
   gap: 10px;
@@ -348,20 +333,7 @@ select option{background:#111118}
   font-weight: 900;
   color: #00E676;
 }
-.button-group {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-}
-.button-group button {
-  flex: 1;
-  padding: 12px;
-  border-radius: 8px;
-  font-weight: 900;
-  cursor: pointer;
-  border: none;
-  font-size: 13px;
-}
+
 .btn-primary {
   background: #9B59B6;
   color: #fff;
@@ -376,6 +348,145 @@ select option{background:#111118}
 .btn-secondary:active {
   background: #d4a810;
 }
+
+#customAddrWrap.show {
+  display: flex;
+}
+
+/* ═══ STREAMLINED LAYOUT & ALIGNMENT ═══ */
+
+/* Container & Dashboard Card Alignment */
+.dashboard-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #110d1a;
+  border: 1px solid #ffcc00;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.dashboard-card .card-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 900;
+  color: #F1C40F;
+}
+
+/* Input Row */
+.input-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.input-row .field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.input-row .field label {
+  font-size: 10px;
+  color: #888;
+  font-weight: 700;
+}
+.input-row .field select,
+.input-row .field input {
+  background: #0a0a14;
+  color: #fff;
+  border: 1px solid #9B59B6;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Balance Display */
+.balance-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #050510;
+  border: 1px solid #2a2a4a;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+.balance-display span {
+  font-size: 11px;
+  color: #888;
+}
+.balance-display .amount {
+  font-size: 18px;
+  font-weight: 900;
+  color: #00E676;
+}
+
+/* Action Button Grid (Send / Cash Out) */
+.button-group {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.button-group button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary {
+  background: #9B59B6;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+}
+.btn-primary:active {
+  background: #7d3f93;
+}
+.btn-secondary {
+  background: #F1C40F;
+  color: #000;
+  font-size: 13px;
+  font-weight: 900;
+}
+.btn-secondary:active {
+  background: #d4a810;
+}
+
+/* Navigation Bar Layout */
+.bottom-nav {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  background: #181124;
+  padding: 8px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 2000;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.bottom-nav::-webkit-scrollbar {
+  display: none;
+}
+.nav-item {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  text-align: center;
+  color: #a0a0a0;
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: 700;
+  touch-action: manipulation;
+}
+.nav-item.active {
+  color: #bf55ec;
+}
+
+/* Custom Address Toggle */
 #customAddrWrap {
   display: none;
 }
@@ -1240,21 +1351,21 @@ select option{background:#111118}
 
 <!-- NAV -->
 </div><!-- #content -->
-<div id="botnav">
-  <button class="nb active" id="nav-home" data-page="home" onclick="showPage('home')"><span class="ico">🏠</span>Home</button>
-  <button class="nb" id="nav-mastery" onclick="showPage('mastery')"><span class="ico">📊</span>Mastery</button>
-  <button class="nb" id="nav-bots" onclick="showPage('bots')"><span class="ico">🤖</span>Bots</button>
-  <button class="nb" id="nav-learning" onclick="showPage('learning')"><span class="ico">📚</span>Learn</button>
-  <button class="nb" id="nav-mining" onclick="showPage('mining')"><span class="ico">⛏</span>Mining</button>
-  <button class="nb" id="nav-stocks" onclick="showPage('stocks')"><span class="ico">📈</span>Stocks</button>
-  <button class="nb" id="nav-crypto" onclick="showPage('crypto')"><span class="ico">💱</span>Crypto</button>
-  <button class="nb" id="nav-wallet" onclick="showPage('wallet')"><span class="ico">💰</span>Wallet</button>
-  <button class="nb" id="nav-knowledge" onclick="showPage('knowledge')"><span class="ico">🌍</span>Know</button>
-  <button class="nb" id="nav-behavior" onclick="showPage('behavior')"><span class="ico">🧠</span>Behavior</button>
-  <button class="nb" id="nav-algos" onclick="showPage('algos')"><span class="ico">⚡</span>Algos</button>
-  <button class="nb" id="nav-finteam" onclick="showPage('finteam')"><span class="ico">💼</span>FinTeam</button>
-  <button class="nb" id="nav-domains" onclick="showPage('domains')"><span class="ico">📖</span>27 Dom</button>
-  <button class="nb" id="nav-chat" onclick="showPage('chat')"><span class="ico">💬</span>Chat</button>
+<div class="bottom-nav" id="botnav">
+  <button class="nb nav-item active" id="nav-home" data-page="home" onclick="showPage('home')"><span class="ico">🏠</span>Home</button>
+  <button class="nb nav-item" id="nav-mastery" onclick="showPage('mastery')"><span class="ico">📊</span>Mastery</button>
+  <button class="nb nav-item" id="nav-bots" onclick="showPage('bots')"><span class="ico">🤖</span>Bots</button>
+  <button class="nb nav-item" id="nav-learning" onclick="showPage('learning')"><span class="ico">📚</span>Learn</button>
+  <button class="nb nav-item" id="nav-mining" onclick="showPage('mining')"><span class="ico">⛏</span>Mining</button>
+  <button class="nb nav-item" id="nav-stocks" onclick="showPage('stocks')"><span class="ico">📈</span>Stocks</button>
+  <button class="nb nav-item" id="nav-crypto" onclick="showPage('crypto')"><span class="ico">💱</span>Crypto</button>
+  <button class="nb nav-item" id="nav-wallet" onclick="showPage('wallet')"><span class="ico">💰</span>Wallet</button>
+  <button class="nb nav-item" id="nav-knowledge" onclick="showPage('knowledge')"><span class="ico">🌍</span>Know</button>
+  <button class="nb nav-item" id="nav-behavior" onclick="showPage('behavior')"><span class="ico">🧠</span>Behavior</button>
+  <button class="nb nav-item" id="nav-algos" onclick="showPage('algos')"><span class="ico">⚡</span>Algos</button>
+  <button class="nb nav-item" id="nav-finteam" onclick="showPage('finteam')"><span class="ico">💼</span>FinTeam</button>
+  <button class="nb nav-item" id="nav-domains" onclick="showPage('domains')"><span class="ico">📖</span>27 Dom</button>
+  <button class="nb nav-item" id="nav-chat" onclick="showPage('chat')"><span class="ico">💬</span>Chat</button>
 </div>
 
 <!-- ===== PAGE: KNOWLEDGE (27 DOMAINS) ===== -->
