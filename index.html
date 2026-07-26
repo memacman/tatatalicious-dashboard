@@ -881,44 +881,7 @@ select option{background:#111118}
 </div>
 
 <!-- ══ SEND MINED TOKENS TO WALLET ══ -->
-  <div style="background:#0A0A1A;border:2px solid #F1C40F;border-radius:14px;padding:13px;margin-bottom:10px">
-    <div style="font-size:12px;font-weight:900;color:#F1C40F;margin-bottom:10px">🪙 Send Mined Tokens to Wallet</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-      <div>
-        <div style="font-size:8px;color:#888;margin-bottom:4px">Select Coin</div>
-        <select id="token-send-coin" style="width:100%;background:#050510;border:1px solid #2a2a4a;color:#F1C40F;border-radius:7px;padding:8px;font-size:10px;font-weight:700;outline:none">
-          <option value="all">⚡ All Coins (Sweep)</option>
-        </select>
-      </div>
-      <div>
-        <div style="font-size:8px;color:#888;margin-bottom:4px">Destination</div>
-        <select id="token-send-dest" style="width:100%;background:#050510;border:1px solid #2a2a4a;color:#00E676;border-radius:7px;padding:8px;font-size:10px;font-weight:700;outline:none">
-          <option value="main">💰 Main Wallet</option>
-          <option value="base">🔵 Base (0x8335...)</option>
-          <option value="sol">◎ Solana (4m5H...)</option>
-          <option value="w1">W1 EVM (0x486f...)</option>
-          <option value="w5">W5 EVM (0x9c19...)</option>
-          <option value="w6">W6 EVM (0x78cd...)</option>
-          <option value="custom">✏ Custom Address</option>
-        </select>
-      </div>
-    </div>
-    <div id="token-custom-addr-wrap" style="display:none;margin-bottom:8px">
-      <div style="font-size:8px;color:#888;margin-bottom:4px">Custom Wallet Address</div>
-      <input id="token-custom-addr" type="text" placeholder="0x... or bc1... or sol..." style="width:100%;background:#050510;border:1px solid #F1C40F;color:#fff;border-radius:7px;padding:8px;font-size:9px;font-family:monospace;box-sizing:border-box;outline:none">
-    </div>
-    <div style="background:#050510;border-radius:8px;padding:8px;margin-bottom:8px">
-      <div style="display:flex;justify-content:space-between">
-        <span style="font-size:8px;color:#888">Available to send</span>
-        <span id="token-send-available" style="font-size:12px;font-weight:900;color:#F1C40F">$0.00</span>
-      </div>
-    </div>
-    <div style="display:flex;gap:6px">
-      <button onclick="sendMinedTokens()" style="flex:1;background:linear-gradient(135deg,#F1C40F,#E67E22);color:#000;border:none;border-radius:10px;padding:12px;font-size:10px;font-weight:900;cursor:pointer">🚀 Send Tokens</button>
-      <button onclick="openPayoutModal('all')" style="flex:1;background:#9B59B6;color:#fff;border:none;border-radius:10px;padding:12px;font-size:10px;font-weight:900;cursor:pointer">💳 Cash Out</button>
-    </div>
-    <div id="token-send-log" style="margin-top:8px;font-size:8px;color:#555;font-style:italic">Select coin and destination above...</div>
-  </div>
+  
 
 <!-- MINE → WALLET TRANSFER PANEL -->
   <div style="background:#0A0A1A;border:2px solid #00C853;border-radius:14px;padding:13px;margin-bottom:10px">
