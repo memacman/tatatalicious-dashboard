@@ -754,6 +754,21 @@ to{background-position:200%}
       <div style="font-size:18px;color:#F1C40F">→</div>
     </div>
   </div>
+  <!-- PENDING PAYOUTS DROPDOWN -->
+  <div style="margin-bottom:12px">
+    <div onclick="togglePendingDropdown()" id="pending-dropdown-header" style="cursor:pointer;touch-action:manipulation;background:#0d0d2a;border:1px solid #2a2a4a;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px">
+      <div style="font-size:20px;flex-shrink:0">📋</div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:900;color:#fff">Payouts Pending Approval</div>
+        <div style="font-size:9px;color:#888;margin-top:2px"><span id="pending-count-badge" style="background:#E74C3C;color:#fff;border-radius:10px;padding:1px 8px;font-weight:900;font-size:10px">0</span> waiting for your approval</div>
+      </div>
+      <div id="pending-dropdown-arrow" style="font-size:14px;color:#888;transition:transform .3s">▼</div>
+    </div>
+    <div id="pending-dropdown-body" style="display:none;margin-top:6px;background:#080818;border:1px solid #1a1a3a;border-radius:10px;padding:8px;max-height:400px;overflow-y:auto">
+      <div id="pending-payouts-list" style="font-size:10px;color:#555;text-align:center;padding:12px">Loading pending payouts...</div>
+      <div id="recent-payouts-list" style="margin-top:8px;border-top:1px solid #1a1a3a;padding-top:8px"></div>
+    </div>
+  </div>
   <!-- CONNECTED SYSTEMS -->
   <div class="sec">🔌 Connected Systems</div>
   <div id="h-int-status" class="card" style="font-size:10px;line-height:2;color:var(--sub)">Loading integrations...</div>
@@ -2546,7 +2561,7 @@ function showPage(id){
   var stuckModal = (document.getElementById('pp-approval-overlay')||{});
   if(stuckModal && id !== 'wallet') { /* keep approval popup */ }
   // Tab hooks — all wrapped in try/catch
-  if(id==='home')      setTimeout(function(){try{updateHomeStats();}catch(e){}},100);
+  if(id==='home')      setTimeout(function(){try{updateHomeStats();if(typeof loadPendingPayouts==='function')loadPendingPayouts();}catch(e){}},100);
   if(id==='mastery')   setTimeout(function(){try{calcMastery();updateMasteryUI();saveGlobalBalances();}catch(e){}},100);
   if(id==='bots')      setTimeout(function(){try{updateBotUI();if(typeof updateBotsUI==='function')updateBotsUI();}catch(e){}},100);
   if(id==='learning')  setTimeout(function(){try{buildDomains();updateLearningUI();updateLearnHeader();}catch(e){}},100);
@@ -5817,6 +5832,132 @@ function updateAvailableSend(){
 }
 
 
+// ── Pending Payouts Dropdown ──
+var _pendingExpanded = false;
+function togglePendingDropdown(){
+  _pendingExpanded = !_pendingExpanded;
+  var body = document.getElementById('pending-dropdown-body');
+  var arrow = document.getElementById('pending-dropdown-arrow');
+  if(body) body.style.display = _pendingExpanded ? 'block' : 'none';
+  if(arrow) arrow.style.transform = _pendingExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+  if(_pendingExpanded) loadPendingPayouts();
+}
+
+function loadPendingPayouts(){
+  var listEl = document.getElementById('pending-payouts-list');
+  if(listEl) listEl.innerHTML = '<div style="font-size:10px;color:#888;padding:8px">Loading...</div>';
+  fetch(PV_API, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ action: 'list_pending' })
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if(data.ok){
+      renderPendingPayouts(data.pending || []);
+      renderRecentPayouts(data.recent || []);
+      var badge = document.getElementById('pending-count-badge');
+      if(badge){
+        var activeCount = (data.pending || []).filter(function(p){ return p.status === 'pending'; }).length;
+        badge.textContent = activeCount;
+        badge.style.background = activeCount > 0 ? '#E74C3C' : '#27ae60';
+      }
+    } else {
+      if(listEl) listEl.innerHTML = '<div style="font-size:10px;color:#e74c3c;padding:8px">Error loading payouts</div>';
+    }
+  }).catch(function(e){
+    if(listEl) listEl.innerHTML = '<div style="font-size:10px;color:#e74c3c;padding:8px">Network error</div>';
+  });
+}
+
+function renderPendingPayouts(pending){
+  var el = document.getElementById('pending-payouts-list');
+  if(!el) return;
+  var active = pending.filter(function(p){ return p.status === 'pending'; });
+  var expired = pending.filter(function(p){ return p.status === 'expired'; });
+  if(active.length === 0 && expired.length === 0){
+    el.innerHTML = '<div style="font-size:10px;color:#555;text-align:center;padding:12px">No pending payouts</div>';
+    return;
+  }
+  var html = '';
+  if(active.length > 0){
+    html += '<div style="font-size:9px;color:#F1C40F;font-weight:900;margin-bottom:6px">AWAITING APPROVAL (' + active.length + ')</div>';
+    active.forEach(function(p){
+      var timeStr = p.created_date ? new Date(p.created_date).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
+      var expStr = p.expires_at ? new Date(p.expires_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
+      html += '<div style="background:#0d0d2a;border:1px solid #9B59B6;border-radius:8px;padding:10px;margin-bottom:6px">'
+        + '<div style="display:flex;justify-content:space-between;align-items:flex-start">'
+        + '<div>'
+        + '<div style="font-size:14px;font-weight:900;color:#F1C40F">$' + (p.amount || 0).toFixed(2) + '</div>'
+        + '<div style="font-size:9px;color:#9B59B6;font-weight:700;margin-top:2px">' + (p.rail || 'unknown').toUpperCase() + ' &rarr; ' + (p.destination || 'N/A') + '</div>'
+        + '<div style="font-size:8px;color:#666;margin-top:2px">' + timeStr + ' &middot; expires ' + expStr + '</div>'
+        + '<div style="font-size:8px;color:#555;margin-top:2px">Code: <span style="color:#F1C40F;font-weight:700;letter-spacing:1px">' + (p.verification_code || '') + '</span></div>'
+        + '</div>'
+        + '<div style="display:flex;flex-direction:column;gap:4px">'
+        + '<button onclick="approvePendingPayout(\'' + p.id + '\',\'' + p.verification_code + '\')" style="background:linear-gradient(135deg,#27ae60,#2ecc71);color:#000;border:none;border-radius:6px;padding:6px 10px;font-size:9px;font-weight:900;cursor:pointer">APPROVE</button>'
+        + '<button onclick="rejectPendingPayout(\'' + p.id + '\',\'' + p.verification_code + '\')" style="background:linear-gradient(135deg,#E74C3C,#C0392B);color:#fff;border:none;border-radius:6px;padding:6px 10px;font-size:9px;font-weight:900;cursor:pointer">REJECT</button>'
+        + '</div>'
+        + '</div></div>';
+    });
+  }
+  if(expired.length > 0){
+    html += '<div style="font-size:9px;color:#666;font-weight:700;margin:8px 0 4px 0">EXPIRED (' + expired.length + ')</div>';
+    expired.slice(0, 5).forEach(function(p){
+      html += '<div style="background:#080818;border:1px solid #333;border-radius:6px;padding:8px;margin-bottom:4px;opacity:.6">'
+        + '<div style="font-size:11px;color:#888;font-weight:700">$' + (p.amount || 0).toFixed(2) + ' via ' + (p.rail || '').toUpperCase() + '</div>'
+        + '<div style="font-size:8px;color:#555;margin-top:2px">Code ' + (p.verification_code || '') + ' &middot; expired</div>'
+        + '</div>';
+    });
+  }
+  el.innerHTML = html;
+}
+
+function renderRecentPayouts(recent){
+  var el = document.getElementById('recent-payouts-list');
+  if(!el || !recent || recent.length === 0){ if(el) el.innerHTML = ''; return; }
+  var html = '<div style="font-size:9px;color:#888;font-weight:700;margin-bottom:6px">RECENT</div>';
+  recent.forEach(function(r){
+    var okColor = r.status === 'executed' ? '#27ae60' : '#E74C3C';
+    var icon = r.status === 'executed' ? '✅' : '❌';
+    html += '<div style="background:#080818;border:1px solid #1a1a3a;border-radius:6px;padding:6px 8px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center">'
+      + '<div><span style="font-size:9px">' + icon + '</span> <span style="font-size:10px;color:#aaa;font-weight:700">$' + (r.amount || 0).toFixed(2) + '</span> <span style="font-size:8px;color:#666">' + (r.rail || '').toUpperCase() + '</span></div>'
+      + '<div style="font-size:8px;color:' + okColor + '">' + (r.status || '').toUpperCase() + '</div>'
+      + '</div>';
+  });
+  el.innerHTML = html;
+}
+
+function approvePendingPayout(recordId, code){
+  if(!code){ toast('No verification code for this payout'); return; }
+  toast('Approving $' + ' payout... executing via ' + 'rail');
+  // Execute the payment directly with the verification code
+  fetch(PV_API, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ action: 'execute', code: code, record_id: recordId })
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if(data.ok){
+      toast('✅ Payout APPROVED & EXECUTING: $' + (data.amount||0).toFixed(2) + ' via ' + (data.rail||'').toUpperCase());
+      loadPendingPayouts();
+    } else {
+      toast('❌ Approval failed: ' + (data.error || 'Unknown'));
+    }
+  }).catch(function(e){ toast('Network error: ' + e.message); });
+}
+
+function rejectPendingPayout(recordId, code){
+  fetch(PV_API, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ action: 'reject', code: code, record_id: recordId })
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if(data.ok){
+      toast('❌ Payout rejected');
+      loadPendingPayouts();
+    } else {
+      toast('Reject failed: ' + (data.error || 'Unknown'));
+    }
+  }).catch(function(e){ toast('Network error: ' + e.message); });
+}
+
 // ── Payment Approval Direct Link ──
 function goToApproval(){
   showPage('wallet');
@@ -5926,11 +6067,15 @@ setTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
 showPage('home');
   // Check URL for #approve hash
   checkUrlForApproval();
-  // Listen for hash changes (e.g., navigating to #approve)
-  window.addEventListener('hashchange', function(){
-    checkUrlForApproval();
-  });
+  // Auto-refresh pending payouts every 30 seconds
+  setInterval(function(){ if(typeof loadPendingPayouts==='function' && _pendingExpanded) loadPendingPayouts(); }, 30000);
 })();
+
+
+// Listen for hash changes (e.g., navigating to #approve)
+window.addEventListener('hashchange', function(){
+  checkUrlForApproval();
+});
 
 </script>
 </body>
