@@ -5877,17 +5877,21 @@ function renderPendingPayouts(pending){
     el.innerHTML = '<div style="font-size:10px;color:#555;text-align:center;padding:12px">No pending payouts</div>';
     return;
   }
+  var RAIL_ICO = {cashapp:'💵',applepay:'🍎',paypal:'🅿',ach:'🏦',card:'💳',link:'🔗',all:'🌐'};
+  var RAIL_CLR = {cashapp:'#00D632',applepay:'#fff',paypal:'#009cde',ach:'#F1C40F',card:'#00BCD4',link:'#9B59B6',all:'#F1C40F'};
   var html = '';
   if(active.length > 0){
     html += '<div style="font-size:9px;color:#F1C40F;font-weight:900;margin-bottom:6px">AWAITING APPROVAL (' + active.length + ')</div>';
     active.forEach(function(p){
       var timeStr = p.created_date ? new Date(p.created_date).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
       var expStr = p.expires_at ? new Date(p.expires_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
-      html += '<div style="background:#0d0d2a;border:1px solid #9B59B6;border-radius:8px;padding:10px;margin-bottom:6px">'
+      var railIco = RAIL_ICO[p.rail] || '💰';
+      var railClr = RAIL_CLR[p.rail] || '#9B59B6';
+      html += '<div style="background:#0d0d2a;border:1px solid ' + railClr + '44;border-left:3px solid ' + railClr + ';border-radius:8px;padding:10px;margin-bottom:6px">'
         + '<div style="display:flex;justify-content:space-between;align-items:flex-start">'
         + '<div>'
-        + '<div style="font-size:14px;font-weight:900;color:#F1C40F">$' + (p.amount || 0).toFixed(2) + '</div>'
-        + '<div style="font-size:9px;color:#9B59B6;font-weight:700;margin-top:2px">' + (p.rail || 'unknown').toUpperCase() + ' &rarr; ' + (p.destination || 'N/A') + '</div>'
+        + '<div style="font-size:14px;font-weight:900;color:#F1C40F">' + railIco + ' $' + (p.amount || 0).toFixed(2) + '</div>'
+        + '<div style="font-size:9px;color:' + railClr + ';font-weight:700;margin-top:2px">' + (p.rail || 'unknown').toUpperCase() + ' &rarr; ' + (p.destination || 'N/A') + '</div>'
         + '<div style="font-size:8px;color:#666;margin-top:2px">' + timeStr + ' &middot; expires ' + expStr + '</div>'
         + '<div style="font-size:8px;color:#555;margin-top:2px">Code: <span style="color:#F1C40F;font-weight:700;letter-spacing:1px">' + (p.verification_code || '') + '</span></div>'
         + '</div>'
