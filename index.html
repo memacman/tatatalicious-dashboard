@@ -5892,7 +5892,7 @@ function renderPendingPayouts(pending){
         + '<div style="font-size:8px;color:#555;margin-top:2px">Code: <span style="color:#F1C40F;font-weight:700;letter-spacing:1px">' + (p.verification_code || '') + '</span></div>'
         + '</div>'
         + '<div style="display:flex;flex-direction:column;gap:4px">'
-        + '<button onclick="approvePendingPayout(\'' + p.id + '\',\'' + p.verification_code + '\')" style="background:linear-gradient(135deg,#27ae60,#2ecc71);color:#000;border:none;border-radius:6px;padding:6px 10px;font-size:9px;font-weight:900;cursor:pointer">APPROVE</button>'
+        + '<button onclick="approvePendingPayout(\'' + p.id + '\',\'' + p.verification_code + '\',' + p.amount + ',\'' + p.rail + '\')" style="background:linear-gradient(135deg,#27ae60,#2ecc71);color:#000;border:none;border-radius:6px;padding:6px 10px;font-size:9px;font-weight:900;cursor:pointer">APPROVE</button>'
         + '<button onclick="rejectPendingPayout(\'' + p.id + '\',\'' + p.verification_code + '\')" style="background:linear-gradient(135deg,#E74C3C,#C0392B);color:#fff;border:none;border-radius:6px;padding:6px 10px;font-size:9px;font-weight:900;cursor:pointer">REJECT</button>'
         + '</div>'
         + '</div></div>';
@@ -5925,20 +5925,19 @@ function renderRecentPayouts(recent){
   el.innerHTML = html;
 }
 
-function approvePendingPayout(recordId, code){
+function approvePendingPayout(recordId, code, amount, rail){
   if(!code){ toast('No verification code for this payout'); return; }
-  toast('Approving $' + ' payout... executing via ' + 'rail');
-  // Execute the payment directly with the verification code
+  toast('Approving $' + (amount||0).toFixed(2) + ' via ' + (rail||'').toUpperCase() + '... executing');
   fetch(PV_API, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ action: 'execute', code: code, record_id: recordId })
+    body: JSON.stringify({ action: 'approve', code: code, record_id: recordId })
   }).then(function(r){ return r.json(); }).then(function(data){
     if(data.ok){
-      toast('✅ Payout APPROVED & EXECUTING: $' + (data.amount||0).toFixed(2) + ' via ' + (data.rail||'').toUpperCase());
+      toast('Payout APPROVED & EXECUTED: $' + (data.amount||amount||0).toFixed(2) + ' via ' + (data.rail||rail||'').toUpperCase());
       loadPendingPayouts();
     } else {
-      toast('❌ Approval failed: ' + (data.error || 'Unknown'));
+      toast('Approval failed: ' + (data.error || 'Unknown'));
     }
   }).catch(function(e){ toast('Network error: ' + e.message); });
 }
