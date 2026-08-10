@@ -3,16 +3,6 @@
   "action": "list_pending",
   "pending": [
     {
-      "id": "6a7a5e81998a1406c2127bf3",
-      "amount": 3.0,
-      "rail": "cashapp",
-      "destination": "$tenaweek",
-      "verification_code": "512716",
-      "status": "pending",
-      "created_date": "2026-08-10T23:28:01",
-      "expires_at": "2026-08-10T23:33:01.131Z"
-    },
-    {
       "id": "6a7a5e7e0987ffd084b206b8",
       "amount": 8.0,
       "rail": "link",
@@ -21,26 +11,6 @@
       "status": "pending",
       "created_date": "2026-08-10T23:27:58",
       "expires_at": "2026-08-10T23:32:57.969Z"
-    },
-    {
-      "id": "6a7a5e7c46428db091f99d25",
-      "amount": 20.0,
-      "rail": "card",
-      "destination": "mccreary.bm@gmail.com",
-      "verification_code": "917037",
-      "status": "pending",
-      "created_date": "2026-08-10T23:27:56",
-      "expires_at": "2026-08-10T23:32:56.399Z"
-    },
-    {
-      "id": "6a7a5e7b285b5a80af0f7c97",
-      "amount": 15.0,
-      "rail": "ach",
-      "destination": "mccreary.bm@gmail.com",
-      "verification_code": "184375",
-      "status": "pending",
-      "created_date": "2026-08-10T23:27:55",
-      "expires_at": "2026-08-10T23:32:55.007Z"
     },
     {
       "id": "6a7a5e794b211a3726b527ef",
@@ -201,9 +171,46 @@
       "status": "expired",
       "created_date": "2026-08-10T22:19:24",
       "expires_at": "2026-08-10T22:24:24.272Z"
+    },
+    {
+      "id": "6a7a5415998a1406c20fed60",
+      "amount": 25.0,
+      "rail": "cashapp",
+      "destination": "$tenaweek",
+      "verification_code": "372035",
+      "status": "expired",
+      "created_date": "2026-08-10T22:43:33",
+      "expires_at": "2026-08-10T22:48:33.506Z"
     }
   ],
   "recent": [
+    {
+      "id": "6a7a5e7b285b5a80af0f7c97",
+      "amount": 15.0,
+      "rail": "ach",
+      "status": "executed",
+      "tx_id": null,
+      "executed_at": "2026-08-10T23:30:47",
+      "created_date": "2026-08-10T23:27:55"
+    },
+    {
+      "id": "6a7a5e7c46428db091f99d25",
+      "amount": 20.0,
+      "rail": "card",
+      "status": "executed",
+      "tx_id": "cs_live_a1nZi9H5D1oLPL3eB0nDSKg7z32U8URHrZB7Wc3oAgm4GdGWrMK9rFVrfm",
+      "executed_at": "2026-08-10T23:30:34",
+      "created_date": "2026-08-10T23:27:56"
+    },
+    {
+      "id": "6a7a5e81998a1406c2127bf3",
+      "amount": 3.0,
+      "rail": "cashapp",
+      "status": "executed",
+      "tx_id": "cs_live_a1Jfm1doCmAtXga1yaFTiWghguVwKyi5hlI3w19Qwqv2cZl4G8lzxjQIHk",
+      "executed_at": "2026-08-10T23:29:48",
+      "created_date": "2026-08-10T23:28:01"
+    },
     {
       "id": "6a7a5d84be4917255d954161",
       "amount": 25.0,
@@ -284,8 +291,17 @@
       "tx_id": "PAYID-NJ5FEPA41H30616KS7895159",
       "executed_at": "2026-08-10T22:36:00",
       "created_date": "2026-08-10T22:35:21"
+    },
+    {
+      "id": "6a7a4d5a54b749bee98ad5a8",
+      "amount": 0.01,
+      "rail": "paypal",
+      "status": "executed",
+      "tx_id": "PAYID-NJ5E24Q2YJ82646JX8758229",
+      "executed_at": "2026-08-10T22:15:01",
+      "created_date": "2026-08-10T22:14:50"
     }
   ],
-  "count": 6,
-  "generated": "2026-08-10T23:28:31.552070+00:00"
+  "count": 3,
+  "generated": "2026-08-10T23:31:46.129159+00:00"
 }
