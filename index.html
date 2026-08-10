@@ -743,6 +743,17 @@ to{background-position:200%}
     <div class="qcard" id="qa-finteam" onclick="showPage('finteam')"   style="cursor:pointer;touch-action:manipulation"><span class="qi">💼</span><span class="ql">FinTeam</span><span class="qs">7 Agents</span></div>
     <div class="qcard" id="qa-chat" onclick="showPage('chat')"      style="cursor:pointer;touch-action:manipulation"><span class="qi">💬</span><span class="ql">Chat</span><span class="qs">AI Convo</span></div>
   </div>
+  <!-- PAYMENT APPROVAL DIRECT LINK -->
+  <div style="margin-bottom:12px">
+    <div onclick="goToApproval()" id="qa-approve" style="cursor:pointer;touch-action:manipulation;background:linear-gradient(135deg,#9B59B6,#6C3483);border:2px solid #F1C40F;border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 20px rgba(155,89,182,.4)">
+      <div style="font-size:28px;flex-shrink:0">🔐</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:900;color:#F1C40F;letter-spacing:.5px">PAYMENT APPROVAL</div>
+        <div style="font-size:9px;color:#D4A8E7;margin-top:2px">iMessage verification • 6 rails • Instant payout</div>
+      </div>
+      <div style="font-size:18px;color:#F1C40F">→</div>
+    </div>
+  </div>
   <!-- CONNECTED SYSTEMS -->
   <div class="sec">🔌 Connected Systems</div>
   <div id="h-int-status" class="card" style="font-size:10px;line-height:2;color:var(--sub)">Loading integrations...</div>
@@ -5805,6 +5816,26 @@ function updateAvailableSend(){
   populateCoinSelect();
 }
 
+
+// ── Payment Approval Direct Link ──
+function goToApproval(){
+  showPage('wallet');
+  setTimeout(function(){
+    openPayoutModal('all');
+  }, 300);
+}
+
+// URL hash handler — #approve opens payout modal directly
+function checkUrlForApproval(){
+  var hash = window.location.hash || '';
+  var params = new URLSearchParams(window.location.search);
+  if(hash === '#approve' || params.get('approve') === '1' || params.get('page') === 'approve'){
+    setTimeout(function(){ goToApproval(); }, 600);
+    return true;
+  }
+  return false;
+}
+
 (function(){
 loadState();
   populateCoinSelect();
@@ -5893,8 +5924,14 @@ setInterval(function(){
 
 setTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
 showPage('home');
+  // Check URL for #approve hash
+  checkUrlForApproval();
 })();
 
 </script>
 </body>
 </html>
+// Listen for hash changes (e.g., navigating to #approve)
+window.addEventListener('hashchange', function(){
+  checkUrlForApproval();
+});
