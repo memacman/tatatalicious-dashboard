@@ -3,16 +3,6 @@
   "action": "list_pending",
   "pending": [
     {
-      "id": "6a7a58c058221ba3ae0fa8e0",
-      "amount": 2.0,
-      "rail": "cashapp",
-      "destination": "$tenaweek",
-      "verification_code": "831264",
-      "status": "pending",
-      "created_date": "2026-08-10T23:03:28",
-      "expires_at": "2026-08-10T23:31:00.000Z"
-    },
-    {
       "id": "6a7a56bcbb695c82fa15c063",
       "amount": 1.0,
       "rail": "cashapp",
@@ -135,12 +125,21 @@
   ],
   "recent": [
     {
+      "id": "6a7a58c058221ba3ae0fa8e0",
+      "amount": 2.0,
+      "rail": "cashapp",
+      "status": "executed",
+      "tx_id": null,
+      "executed_at": "2026-08-10T23:09:00",
+      "created_date": "2026-08-10T23:03:28"
+    },
+    {
       "id": "6a7a52a854321b11b2d319cc",
       "amount": 0.01,
       "rail": "paypal",
       "status": "executed",
       "tx_id": "PAYID-NJ5FFLQ40945382VB9509808",
-      "executed_at": "2026-08-10T22:37:34.847Z",
+      "executed_at": "2026-08-10T22:37:34",
       "created_date": "2026-08-10T22:37:28"
     },
     {
@@ -149,7 +148,7 @@
       "rail": "paypal",
       "status": "executed",
       "tx_id": "PAYID-NJ5FEPA41H30616KS7895159",
-      "executed_at": "2026-08-10T22:36:00.000Z",
+      "executed_at": "2026-08-10T22:36:00",
       "created_date": "2026-08-10T22:35:21"
     },
     {
@@ -158,10 +157,10 @@
       "rail": "paypal",
       "status": "executed",
       "tx_id": "PAYID-NJ5E24Q2YJ82646JX8758229",
-      "executed_at": "2026-08-10T22:15:01.000Z",
+      "executed_at": "2026-08-10T22:15:01",
       "created_date": "2026-08-10T22:14:50"
     }
   ],
-  "count": 1,
-  "generated": "2026-08-10T23:03:30+00:00"
+  "count": 0,
+  "generated": "2026-08-10T23:09:21.513888+00:00"
 }
