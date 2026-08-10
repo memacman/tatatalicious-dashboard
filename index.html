@@ -4600,6 +4600,25 @@ function startPaymentVerification(amount, rail, destination) {
     if(data.ok && data.verification_code){
       pendingVerification = { code: data.verification_code, amount: data.amount, rail: data.rail, destination: data.destination, expires_at: data.expires_at };
       showVerificationModal(data.verification_code, data.amount, data.rail, data.destination);
+      // Create PaymentVerification entity to trigger iMessage workflow
+      try {
+        var B44_API = 'https://api.base44.com/apps/69f8f80581e1d336233e7632/entities/PaymentVerification';
+        fetch(B44_API, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            user_id: 'brandon',
+            amount: data.amount,
+            rail: data.rail,
+            destination: data.destination || '',
+            verification_code: data.verification_code,
+            status: 'pending',
+            payment_details: JSON.stringify({note: 'Dashboard payout', rail: data.rail, amount: data.amount}),
+            created_by_agent: false,
+            expires_at: data.expires_at
+          })
+        }).catch(function(){});
+      } catch(e2){}
     } else {
       toast('Verification failed: ' + (data.error || 'Unknown'));
     }
@@ -4670,8 +4689,24 @@ function executeVerifiedPayment(pv) {
     body: JSON.stringify({ action: 'execute', rail: pv.rail, amount: pv.amount, destination: pv.destination, code: pv.code })
   }).then(function(r){ return r.json(); }).then(function(data){
     if(data.ok){
-      toast('$' + pv.amount.toFixed(2) + ' via ' + pv.rail.toUpperCase() + ' approved and executing');
+      toast('$' + pv.amount.toFixed(2) + ' via ' + pv.rail.toUpperCase() + ' APPROVED & EXECUTING');
       pendingVerification = null;
+      // Update the PaymentVerification entity to executed
+      try {
+        var B44_API = 'https://api.base44.com/apps/69f8f80581e1d336233e7632/entities/PaymentVerification';
+        fetch(B44_API + '?filter={"verification_code":"' + pv.code + '","status":"pending"}&limit=1', {
+          headers: {'Content-Type': 'application/json'}
+        }).then(function(r2){ return r2.json(); }).then(function(recs){
+          var rec = Array.isArray(recs) ? recs[0] : (recs.data && recs.data[0]);
+          if(rec){
+            fetch(B44_API + '/' + rec.id, {
+              method: 'PATCH',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({status: 'executed', executed_at: new Date().toISOString(), tx_id: data.result?.payment_id || data.result?.session_id || 'N/A'})
+            }).catch(function(){});
+          }
+        }).catch(function(){});
+      } catch(e3){}
       if(curPage === 'wallet') setTimeout(renderWallet, 500);
     } else {
       toast('Payment execution failed: ' + (data.error || 'Unknown'));
@@ -4679,11 +4714,27 @@ function executeVerifiedPayment(pv) {
   }).catch(function(e){ toast('Network error: ' + e.message); });
 }
 
-// Wrap payout execution with verification
+// Wrap payout execution with iMessage verification
 var _originalExecutePayout = typeof executeMultiRailPayout === 'function' ? executeMultiRailPayout : null;
 if(_originalExecutePayout){
-  executeMultiRailPayout = function(amount, rail, destination){
-    startPaymentVerification(amount, rail, destination);
+  executeMultiRailPayout = function(){
+    // Extract values from DOM (same as original function)
+    var rails = ['cashapp','applepay','paypal','ach','card','link'];
+    var selected = rails.filter(function(r){
+      var cb = document.getElementById('rail-'+r);
+      return cb && cb.checked;
+    });
+    if(selected.length===0){ toast('Select at least one payout rail'); return; }
+    var amtIn = document.getElementById('payout-amount');
+    var emailIn = document.getElementById('payout-email');
+    var amount = parseFloat((amtIn&&amtIn.value)||0);
+    var payee = (emailIn&&emailIn.value)||'mccreary.bm@gmail.com';
+    var walletTotal = (typeof S!=='undefined'&&S.wallet) ? (S.wallet.total||0) : 0;
+    if(amount < 1) { toast('Minimum $1.00 required'); return; }
+    if(amount > walletTotal) { toast('Insufficient wallet balance. Collect mining first!'); return; }
+    // Start verification flow — code sent to iMessage
+    var rail = selected.length === 1 ? selected[0] : 'all';
+    startPaymentVerification(amount, rail, payee);
   };
 }
 
