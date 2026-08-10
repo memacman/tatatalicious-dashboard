@@ -3,34 +3,14 @@
   "action": "list_pending",
   "pending": [
     {
-      "id": "6a7a5e7e0987ffd084b206b8",
-      "amount": 8.0,
-      "rail": "link",
-      "destination": "mccreary.bm@gmail.com",
-      "verification_code": "100145",
-      "status": "pending",
-      "created_date": "2026-08-10T23:27:58",
-      "expires_at": "2026-08-10T23:32:57.969Z"
-    },
-    {
       "id": "6a7a5e794b211a3726b527ef",
       "amount": 10.0,
       "rail": "paypal",
       "destination": "mccreary.bm@gmail.com",
       "verification_code": "345829",
-      "status": "pending",
+      "status": "expired",
       "created_date": "2026-08-10T23:27:53",
       "expires_at": "2026-08-10T23:32:52.988Z"
-    },
-    {
-      "id": "6a7a5e779bc64d4c5b01e225",
-      "amount": 5.0,
-      "rail": "applepay",
-      "destination": "mccreary.bm@gmail.com",
-      "verification_code": "869037",
-      "status": "pending",
-      "created_date": "2026-08-10T23:27:51",
-      "expires_at": "2026-08-10T23:32:51.061Z"
     },
     {
       "id": "6a7a5cb25b507029bac9942b",
@@ -185,6 +165,22 @@
   ],
   "recent": [
     {
+      "amount": 8.0,
+      "rail": "link",
+      "status": "executed",
+      "tx_id": "executed",
+      "executed_at": "2026-08-10T23:31:03",
+      "created_date": "2026-08-10T23:27:58"
+    },
+    {
+      "amount": 5.0,
+      "rail": "applepay",
+      "status": "executed",
+      "tx_id": "cs_live_a1nRR9EPcbIJ5IYFzs1TSwBz13bvtF2XoIl7lyBcEyGq2JCcCwGDQlF0AH",
+      "executed_at": "2026-08-10T23:30:59",
+      "created_date": "2026-08-10T23:27:51"
+    },
+    {
       "id": "6a7a5e7b285b5a80af0f7c97",
       "amount": 15.0,
       "rail": "ach",
@@ -302,6 +298,6 @@
       "created_date": "2026-08-10T22:14:50"
     }
   ],
-  "count": 3,
-  "generated": "2026-08-10T23:31:46.129159+00:00"
+  "count": 0,
+  "generated": "2026-08-10T23:36:03.086556+00:00"
 }
