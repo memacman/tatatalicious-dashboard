@@ -5926,12 +5926,12 @@ setTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
 showPage('home');
   // Check URL for #approve hash
   checkUrlForApproval();
+  // Listen for hash changes (e.g., navigating to #approve)
+  window.addEventListener('hashchange', function(){
+    checkUrlForApproval();
+  });
 })();
 
 </script>
 </body>
 </html>
-// Listen for hash changes (e.g., navigating to #approve)
-window.addEventListener('hashchange', function(){
-  checkUrlForApproval();
-});
