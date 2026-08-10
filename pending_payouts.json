@@ -3,22 +3,12 @@
   "action": "list_pending",
   "pending": [
     {
-      "id": "6a7a5bd21a205b4b6bbd547b",
-      "amount": 3.0,
-      "rail": "cashapp",
-      "destination": "$tenaweek",
-      "verification_code": "500611",
-      "status": "pending",
-      "created_date": "2026-08-10T23:16:34",
-      "expires_at": "2026-08-10T23:21:34.606Z"
-    },
-    {
       "id": "6a7a5ae74486b3fad7413635",
       "amount": 1.0,
       "rail": "cashapp",
       "destination": "mccreary.bm@gmail.com",
       "verification_code": "827048",
-      "status": "pending",
+      "status": "expired",
       "created_date": "2026-08-10T23:12:39",
       "expires_at": "2026-08-10T23:17:39.904Z"
     },
@@ -145,6 +135,15 @@
   ],
   "recent": [
     {
+      "id": "6a7a5bd21a205b4b6bbd547b",
+      "amount": 3.0,
+      "rail": "cashapp",
+      "status": "executed",
+      "tx_id": "cs_live_a19VHUVR8gS95M3h329TYXKrHjCYq8Onbqd1Dp6kn1vSuNAfu9wTkkYzAh",
+      "executed_at": "2026-08-10T23:18:02",
+      "created_date": "2026-08-10T23:16:34"
+    },
+    {
       "id": "6a7a5afd1d99e74d8ca0e6bb",
       "amount": 1.0,
       "rail": "cashapp",
@@ -199,6 +198,6 @@
       "created_date": "2026-08-10T22:14:50"
     }
   ],
-  "count": 2,
-  "generated": "2026-08-10T23:16:49.777503+00:00"
+  "count": 0,
+  "generated": "2026-08-10T23:18:27.456271+00:00"
 }
