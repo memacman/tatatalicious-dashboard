@@ -1774,7 +1774,8 @@ to{background-position:200%}
   </div>
 </div>
 
-<script>
+<script>window.onerror=function(m,u,l,c,e){var d=document.createElement('div');d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;background:red;color:white;font-size:12px;padding:10px';d.textContent='JS ERROR: '+m+' @ line '+l+':'+c+' | '+(e&&e.stack||'');document.body?document.body.appendChild(d):document.documentElement.appendChild(d);return true;};
+
 
 // CONFIG
 
@@ -2552,6 +2553,7 @@ function showPage(id){
 
   }catch(e){console.error("showPage error:",e);}
 }
+document.title="DEBUG: event-setup";
 PAGES.forEach(function(p){
   var nb=document.getElementById('nav-'+p);if(nb)nb.addEventListener('click',function(){showPage(p);});
   var qa=document.getElementById('qa-'+p);if(qa)qa.addEventListener('click',function(){showPage(p);});
@@ -5754,6 +5756,7 @@ function updateAvailableSend(){
   populateCoinSelect();
 }
 
+document.title="DEBUG: pre-boot";
 (function(){
 loadState();
   populateCoinSelect();
@@ -5764,6 +5767,7 @@ loadState();
   updateHomeStats();
   updateBotUI();
   showPage('home');
+document.title="DEBUG: showPage-home called";
 loadGlobalBalances(); // restore cached balances
 calcMastery();
 updateMasteryUI();
