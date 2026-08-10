@@ -1463,8 +1463,8 @@ to{background-position:200%}
   <div class="sec">💬 Talk to TaTatalicious</div>
   <div class="chatbox">
     <div style="background:linear-gradient(135deg,rgba(155,89,182,.2),rgba(233,30,154,.1));padding:10px 12px;border-bottom:1px solid #2A2A4A">
-      <div style="font-size:12px;font-weight:900;color:var(--g)">👑 TaTatalicious — Online</div>
-      <div style="font-size:8px;color:var(--sub);margin-top:1px">Supreme AI · 10,101 Agents · 27 Domains · Live Mining + Trading</div>
+      <div style="font-size:12px;font-weight:900;color:var(--g)">👑 TaTatalicious — Claude AI Online</div>
+      <div style="font-size:8px;color:var(--sub);margin-top:1px">Claude AI · 10,101 Agents · 27 Domains · Live Mining + Trading</div>
     </div>
     <div class="chatmsgs" id="chatmsgs">
       <div class="cmsg bot">What's happenin baby! 👑 I'm TaTatalicious — 10,101 agents strong, 27 domains mastered, live mining, stock trading, crypto signals, payment rails AND the full myninja system all unified right here. What you need?</div>
@@ -2503,16 +2503,6 @@ function build27(){
     list.appendChild(el);
   });
 }
-
-// CHAT
-
-(document.getElementById('chatsend')||{addEventListener:function(){}}).addEventListener('click',function(){
-  var inp=document.getElementById('chatinput'),q=inp.value.trim();if(!q)return;
-  inp.value='';var msgs=document.getElementById('chatmsgs');
-  var um=document.createElement('div');um.className='cmsg user';um.textContent=q;msgs.appendChild(um);msgs.scrollTop=99999;
-  setTimeout(function(){var bm=document.createElement('div');bm.className='cmsg bot';bm.textContent=getResp(q);msgs.appendChild(bm);msgs.scrollTop=99999;},400);
-});
-(document.getElementById('chatinput')||{addEventListener:function(){}}).addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('chatsend').click();});
 
 // NAV
 
@@ -4592,12 +4582,63 @@ function getResp(q){
   }
 
   // ── initChat ──
-  function initChat(){
+  
+// === CLAUDE AI CHAT ===
+var CLAUDE_API = 'https://base44.app/api/apps/69f8f80581e1d336233e7632/functions/claudeAI';
+var chatHistory = [];
+
+async function sendToClaude(message, msgs, bDiv) {
+  // Try Claude AI backend first
+  try {
+    chatHistory.push({role: 'user', content: message});
+    var resp = await fetch(CLAUDE_API, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'chat',
+        message: message,
+        context: chatHistory.slice(-6).map(function(m){return m.role+': '+m.content;}).join('\n')
+      })
+    });
+    var data = await resp.json();
+    if (data.ok && data.response) {
+      chatHistory.push({role: 'assistant', content: data.response});
+      if (bDiv) {
+        bDiv.innerHTML = '<b>👑 TaTatalicious:</b> ' + data.response.replace(/</g,'&lt;').replace(/\n/g,'<br>');
+        var parent = bDiv.parentNode;
+        if (parent) parent.scrollTop = parent.scrollHeight;
+      }
+      return data.response;
+    }
+    // Claude failed (credits, etc) — fall back to local
+    if (data.error && data.error.indexOf('credit') > -1) {
+      var fallback = getResp(message);
+      if (bDiv) {
+        bDiv.innerHTML = '<b>👑 TaTatalicious:</b> ' + fallback + '<br><br><span style="font-size:9px;color:#888">⚠ Claude API credits low — using local AI. Add credits at console.anthropic.com</span>';
+        var parent2 = bDiv.parentNode;
+        if (parent2) parent2.scrollTop = parent2.scrollHeight;
+      }
+      return fallback;
+    }
+  } catch(e) {
+    console.error('Claude chat error:', e);
+  }
+  // Final fallback
+  var fb = getResp(message);
+  if (bDiv) {
+    bDiv.innerHTML = '<b>👑 TaTatalicious:</b> ' + fb;
+    var parent3 = bDiv.parentNode;
+    if (parent3) parent3.scrollTop = parent3.scrollHeight;
+  }
+  return fb;
+}
+
+function initChat(){
     var msgs = document.getElementById('chatmsgs');
     if(msgs && msgs.children.length===0){
       var div = document.createElement('div');
       div.className='chatmsg bot';
-      div.innerHTML='<b>👑 TaTatalicious:</b> What\'s happenin\' baby? Ask me anything — I got 27 domains of knowledge, 10,101 agents, and all the answers. Right on!';
+      div.innerHTML='<b>👑 TaTatalicious:</b> What\'s happenin\' baby? Powered by Claude AI — ask me anything. I got 27 domains of knowledge, 10,101 agents, and all the answers. Right on!';
       msgs.appendChild(div);
     }
     // Wire send button
@@ -4614,13 +4655,14 @@ function getResp(q){
         uDiv.innerHTML='<b>You:</b> '+q;
         msgs.appendChild(uDiv);
         msgs.scrollTop = msgs.scrollHeight;
-        setTimeout(function(){
-          var bDiv = document.createElement('div');
-          bDiv.className='chatmsg bot';
-          bDiv.innerHTML='<b>👑 TaTatalicious:</b> '+getResp(q);
-          msgs.appendChild(bDiv);
-          msgs.scrollTop = msgs.scrollHeight;
-        }, 400);
+        // Show typing indicator
+        var bDiv = document.createElement('div');
+        bDiv.className='chatmsg bot';
+        bDiv.innerHTML='<b>👑 TaTatalicious:</b> <span style="opacity:.5">typing...</span>';
+        msgs.appendChild(bDiv);
+        msgs.scrollTop = msgs.scrollHeight;
+        // Call Claude AI (async, falls back to local getResp)
+        void sendToClaude(q, msgs, bDiv);
       });
       inp.addEventListener('keydown', function(e){
         if(e.key==='Enter') btn.click();
