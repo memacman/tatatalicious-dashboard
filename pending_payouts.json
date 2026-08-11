@@ -16,7 +16,7 @@
       "id": "6a7a5cb25b507029bac9942b",
       "amount": 74447632.21,
       "rail": "cashapp",
-      "status": "pending",
+      "status": "expired",
       "destination": "$tenaweek",
       "verification_code": "137817",
       "expires_at": "2026-08-10T23:25:18.614Z",
@@ -36,7 +36,7 @@
       "id": "6a7a5ae74486b3fad7413635",
       "amount": 1.0,
       "rail": "cashapp",
-      "status": "pending",
+      "status": "expired",
       "destination": "mccreary.bm@gmail.com",
       "verification_code": "827048",
       "expires_at": "2026-08-10T23:17:39.904Z",
@@ -46,7 +46,7 @@
       "id": "6a7a56bcbb695c82fa15c063",
       "amount": 1.0,
       "rail": "cashapp",
-      "status": "pending",
+      "status": "expired",
       "destination": "$tenaweek",
       "verification_code": "568697",
       "expires_at": "2026-08-10T22:59:52.572Z",
@@ -83,16 +83,6 @@
       "created_date": "2026-08-10T22:36:22.790000"
     },
     {
-      "id": "6a7a526324a1aa3114be2dc4",
-      "amount": 0.5,
-      "rail": "applepay",
-      "status": "pending",
-      "destination": "mccreary.bm@gmail.com",
-      "verification_code": "198819",
-      "expires_at": "2026-08-10T22:41:19.148Z",
-      "created_date": "2026-08-10T22:36:19.208000"
-    },
-    {
       "id": "6a7a525eca6dd4196155cc21",
       "amount": 0.5,
       "rail": "card",
@@ -121,16 +111,6 @@
       "verification_code": "769837",
       "expires_at": "2026-08-10T22:41:05.046Z",
       "created_date": "2026-08-10T22:36:05.103000"
-    },
-    {
-      "id": "6a7a524ce9ed62a4efd39e60",
-      "amount": 0.5,
-      "rail": "cashapp",
-      "status": "pending",
-      "destination": "mccreary.bm@gmail.com",
-      "verification_code": "888058",
-      "expires_at": "2026-08-10T22:40:56.144Z",
-      "created_date": "2026-08-10T22:35:56.206000"
     },
     {
       "id": "6a7a524771b10b55b2c804b1",
@@ -353,7 +333,5 @@
       "executed_at": "2026-08-10T22:15:01.000Z",
       "created_date": "2026-08-10T22:14:50.562000"
     }
-  ],
-  "count": 37,
-  "generated": "2026-08-11T00:10:40.163134Z"
+  ]
 }
