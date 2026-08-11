@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>👑 TaTatalicious — Unified</title>
+<title>👑 TaTatalicious GENIUS — Unified</title>
 <style>
 
 #topbar{position:fixed;top:0;left:0;right:0;height:50px;z-index:2000;background:#1A1A2E;border-bottom:2px solid #9B59B6;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
 
-/* ═══ TATATALICIOUS LAYOUT v10 FINAL ═══ */
+/* ═══ TATATALICIOUS LAYOUT v10-GENIUS FINAL ═══ */
 
-#content{position:fixed!important;top:50px!important;bottom:60px!important;left:0!important;right:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;z-index:10!important}
+#content{position:fixed!important;top:50px!important;bottom:60px!important;left:0!important;right:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;z-index:1!important}
 
 #botnav{position:fixed!important;bottom:0!important;left:0!important;right:0!important;height:60px!important;z-index:2000!important;background:#0A0A14!important;border-top:2px solid #2A2A4A!important;display:flex!important;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0}
 
@@ -111,7 +111,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMa
 
 .ring{position:relative;width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background 1s}
 
-.ring::before{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--bg);z-index:0}
+.ring::before{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--bg);z-index:1}
 
 .ring-inner{position:relative;z-index:1;text-align:center}
 
@@ -660,7 +660,7 @@ to{background-position:200%}
   display: flex;
 }</style>
 </head>
-<body>
+<body><div id="genius-badge" style="position:fixed;top:2px;right:4px;z-index:9999;background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;padding:2px 8px;border-radius:8px;font-size:8px;font-weight:900;pointer-events:none">GENIUS MODE</div>
 <div id="topbar">
   <div id="brand">👑 TaTatalicious</div>
   <div class="live-row">
@@ -1801,6 +1801,9 @@ to{background-position:200%}
 </div>
 
 <script>
+// Null-safe DOM helper
+function _gid(id) { var el = document.getElementById(id); return el || {style:{},classList:{add:function(){},remove:function(){},toggle:function(){}},value:'',textContent:'',innerHTML:'',className:'',children:[],appendChild:function(){},addEventListener:function(){},onclick:null,append:function(){}}; }
+
 
 // CONFIG
 
@@ -2184,19 +2187,19 @@ function completeDomain(d){
 }
 function startLearning(){
   S.learning.active=true;
-  document.getElementById('learn-banner').className='learn-banner lb-run';
+  _gid('learn-banner').className='learn-banner lb-run';
   txt('lb-title','🧠 Learning Engine ACTIVE');
   txt('lb-sub',S.agents.assignedToWork.toLocaleString()+' agents learning');
-  document.getElementById('learn-start').textContent='⏸ Pause';
+  _gid('learn-start').textContent='⏸ Pause';
   if(!S.learning.interval)S.learning.interval=setInterval(learningCycle,200);
   toast('🧠 Learning ACTIVATED — '+S.agents.assignedToWork.toLocaleString()+' agents!');
   saveState('learning-start');
 }
 function pauseLearning(){
   S.learning.active=false;
-  document.getElementById('learn-banner').className='learn-banner lb-idle';
+  _gid('learn-banner').className='learn-banner lb-idle';
   txt('lb-title','🧠 Learning Paused');txt('lb-sub','Resume to continue');
-  document.getElementById('learn-start').textContent='▶ Start Learning';
+  _gid('learn-start').textContent='▶ Start Learning';
   if(S.learning.interval){clearInterval(S.learning.interval);S.learning.interval=null;}
   saveState('learning-pause');
 }
@@ -2364,7 +2367,7 @@ function toggleLevel(k){
   var lv=S.agents.levels[k];if(!lv||lv.tier==='MASTER')return;
   lv.active=!lv.active;
   S.agents.assignedToWork=Object.values(S.agents.levels).filter(function(l){return l.active;}).reduce(function(a,l){return a+l.count;},0);
-  document.getElementById('assign-slider').value=S.agents.assignedToWork;
+  _gid('assign-slider').value=S.agents.assignedToWork;
   txt('assign-val',S.agents.assignedToWork.toLocaleString());
   updateBotUI();saveState();toast((lv.active?'✅ Activated: ':'❌ Deactivated: ')+lv.name);
 }
@@ -2418,14 +2421,14 @@ function renderRails(){
 function openRailForm(railId){/* removed — stale refs only */}
 (document.getElementById('rail-link-btn')||{addEventListener:function(){}}).addEventListener('click',function(){
   var rail=S.wallet.paymentRails[activeRailId];if(!rail)return;
-  var handle=(document.getElementById('rail-handle').value||'').trim();
+  var handle=(_gid('rail-handle').value||'').trim();
   if(!handle){toast('⚠ Enter a handle, email, or phone');return;}
   rail.handle=handle;rail.linked=true;rail.linkedAt=rail.linkedAt||new Date().toISOString();
   txt('rail-status','✔ '+rail.name+' linked as '+handle);
   var rlf=document.getElementById('rail-link-form');if(rlf)rlf.style.display='none';
   renderRails();saveState();toast('🔗 '+rail.name+' linked as '+handle+'!');
 });
-(document.getElementById('rail-cancel-btn')||{addEventListener:function(){}}).addEventListener('click',function(){document.getElementById('rail-link-form').style.display='none';});
+(document.getElementById('rail-cancel-btn')||{addEventListener:function(){}}).addEventListener('click',function(){_gid('rail-link-form').style.display='none';});
 (document.getElementById('rail-grid')||{addEventListener:function(){}}).addEventListener('click',function(e){
   var card=e.target.closest('[data-rail]');if(!card)return;openRailForm(card.getAttribute('data-rail'));
 });
@@ -2455,9 +2458,9 @@ var STRATS={momentum:{r:['Strong momentum above 50-day MA','RSI trending bullish
 var RISK={low:['BUY','STRONG BUY'],medium:['BUY','STRONG BUY','HOLD'],high:['BUY','STRONG BUY','SELL','STRONG SELL']};
 function sigColor(a){return a==='STRONG BUY'?'var(--ok)':a==='BUY'?'#27ae60':a==='HOLD'?'var(--g)':a==='SELL'?'#c0392b':'var(--no)';}
 function genSignals(){
-  var sec=document.getElementById('sel-sector').value,strat=document.getElementById('sel-strat').value;
-  var tf=document.getElementById('sel-tf').value,ord=document.getElementById('sel-order').value;
-  var risk=document.getElementById('sel-risk').value;
+  var sec=_gid('sel-sector').value,strat=_gid('sel-strat').value;
+  var tf=_gid('sel-tf').value,ord=_gid('sel-order').value;
+  var risk=_gid('sel-risk').value;
   var pool=sec==='all'?Object.values(STOCKS).flat():STOCKS[sec]||Object.values(STOCKS).flat();
   var picks=pool.slice().sort(function(){return Math.random()-.5;}).slice(0,6);
   var sr=STRATS[strat]||STRATS.momentum;var ra=RISK[risk];
@@ -2566,7 +2569,7 @@ function showPage(id){
   if(id==='bots')      setTimeout(function(){try{updateBotUI();if(typeof updateBotsUI==='function')updateBotsUI();}catch(e){}},100);
   if(id==='learning')  setTimeout(function(){try{buildDomains();updateLearningUI();updateLearnHeader();}catch(e){}},100);
   if(id==='mining')    setTimeout(function(){try{buildCoins();renderCoins();if(typeof updateMiningAgentPanel==='function')updateMiningAgentPanel();if(typeof updateMineTransferPanel==='function')updateMineTransferPanel();if(typeof buildTokenSendCoinList==='function')buildTokenSendCoinList();}catch(e){}},100);
-  if(id==='stocks')    setTimeout(function(){try{if(typeof loadStocksData==='function')loadStocksData();fetchAlpaca();if(!document.getElementById('stk-signals')||!document.getElementById('stk-signals').children.length)genSignals();}catch(e){}},100);
+  if(id==='stocks')    setTimeout(function(){try{if(typeof loadStocksData==='function')loadStocksData();fetchAlpaca();if(!document.getElementById('stk-signals')||!_gid('stk-signals').children.length)genSignals();}catch(e){}},100);
   if(id==='crypto')    setTimeout(function(){try{fetchMarket();fetchSignals();if(typeof loadCryptoData==='function')loadCryptoData();}catch(e){}},100);
   if(id==='wallet')    setTimeout(function(){try{renderWallet();renderAutoWithdrawStatus();updateWalletUI();if(typeof renderWalletTxLog==='function')renderWalletTxLog();if(typeof renderWalletPortfolio==='function')renderWalletPortfolio();if(typeof populateCoinSelect==='function')populateCoinSelect();if(typeof updateAvailableSend==='function')updateAvailableSend();if(typeof updateTokenSendAvailable==='function')updateTokenSendAvailable();}catch(e){}},100);
   if(id==='chat')      setTimeout(function(){try{if(typeof initChat==='function')initChat();}catch(e){}},100);
@@ -2600,8 +2603,8 @@ PAGES.forEach(function(p){
 (document.getElementById('mine-get')||{addEventListener:function(){}}).addEventListener('click',collectAll);
 (document.getElementById('mine-opt')||{addEventListener:function(){}}).addEventListener('click',optAll);
 (document.getElementById('mine-bots-btn')||{addEventListener:function(){}}).addEventListener('click',botAll);
-(document.getElementById('bot-act-all')||{addEventListener:function(){}}).addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){S.agents.levels[k].active=true;});S.agents.assignedToWork=10101;document.getElementById('assign-slider').value=10101;updateBotUI();saveState();toast('✅ ALL 10,101 agents ACTIVATED!');});
-(document.getElementById('bot-deact-all')||{addEventListener:function(){}}).addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){if(S.agents.levels[k].tier!=='MASTER')S.agents.levels[k].active=false;});S.agents.assignedToWork=1;document.getElementById('assign-slider').value=1;updateBotUI();saveState();toast('❌ Bots deactivated (Master stays on)');});
+(document.getElementById('bot-act-all')||{addEventListener:function(){}}).addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){S.agents.levels[k].active=true;});S.agents.assignedToWork=10101;_gid('assign-slider').value=10101;updateBotUI();saveState();toast('✅ ALL 10,101 agents ACTIVATED!');});
+(document.getElementById('bot-deact-all')||{addEventListener:function(){}}).addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){if(S.agents.levels[k].tier!=='MASTER')S.agents.levels[k].active=false;});S.agents.assignedToWork=1;_gid('assign-slider').value=1;updateBotUI();saveState();toast('❌ Bots deactivated (Master stays on)');});
 (document.getElementById('bot-learn-all')||{addEventListener:function(){}}).addEventListener('click',function(){setWorkMode('learning');startLearning();});
 (document.getElementById('bot-mine-all')||{addEventListener:function(){}}).addEventListener('click',function(){setWorkMode('mining');startAll();});
 document.querySelectorAll('.mode-btn').forEach(function(b){b.addEventListener('click',function(){setWorkMode(this.getAttribute('data-mode'));});});
@@ -2624,7 +2627,7 @@ if(_el_aw_now_btn) _el_aw_now_btn.addEventListener('click',withdrawNow);
   var ts=document.getElementById('aw-threshold');if(ts&&r.autoThreshold)ts.value=r.autoThreshold;
   var is=document.getElementById('aw-interval-sel');if(is&&r.autoIntervalMins)is.value=r.autoIntervalMins;
 });
-(document.getElementById('modal-close')||{addEventListener:function(){}}).addEventListener('click',function(){document.getElementById('modalbg').classList.remove('show');});
+(document.getElementById('modal-close')||{addEventListener:function(){}}).addEventListener('click',function(){_gid('modalbg').classList.remove('show');});
 (document.getElementById('modalbg')||{addEventListener:function(){}}).addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
 
 // HELPERS
@@ -2639,13 +2642,13 @@ function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.c
 // AUTO-RECEIVE SYSTEM (Cash App, Apple Pay, PayPal)
 
 function saveAutoWithdrawSettings(){
-  var railId = document.getElementById('aw-rail-sel').value;
+  var railId = _gid('aw-rail-sel').value;
   var coinSel = document.getElementById('aw-coin-sel');
   var selectedCoins = Array.from(coinSel.selectedOptions).map(function(o){return o.value;});
   var coin = selectedCoins.length ? selectedCoins[0] : 'BTC'; // primary coin
   var coins = selectedCoins; // all selected
-  var thresh = parseFloat(document.getElementById('aw-threshold').value)||5;
-  var mins   = parseInt(document.getElementById('aw-interval-sel').value)||60;
+  var thresh = parseFloat(_gid('aw-threshold').value)||5;
+  var mins   = parseInt(_gid('aw-interval-sel').value)||60;
   var rail   = S.wallet.paymentRails[railId];
   if(!rail){toast('⚠ Rail not found');return;}
   if(!rail.linked){toast('⚠ Link '+rail.name+' first in the rail panel above!');return;}
@@ -2659,7 +2662,7 @@ function saveAutoWithdrawSettings(){
   toast('✅ Auto-Receive ON: '+rail.name+' → '+coins.join('+')+' every '+mins+'min when $'+thresh+' available!');
 }
 function disableAutoWithdraw(){
-  var railId = document.getElementById('aw-rail-sel').value;
+  var railId = _gid('aw-rail-sel').value;
   var rail   = S.wallet.paymentRails[railId];
   if(!rail)return;
   rail.autoWithdraw = false;
@@ -2668,7 +2671,7 @@ function disableAutoWithdraw(){
   toast('⏹ Auto-Receive disabled for '+rail.name);
 }
 function withdrawNow(){
-  var railId = document.getElementById('aw-rail-sel').value;
+  var railId = _gid('aw-rail-sel').value;
   var coinSel = document.getElementById('aw-coin-sel');
   var selectedCoins = Array.from(coinSel.selectedOptions).map(function(o){return o.value;});
   if(!selectedCoins.length){toast('⚠ Select at least one coin');return;}
@@ -2820,7 +2823,7 @@ function renderAutoWithdrawStatus(){
 
 // TATATATALICIOUS PAYOUT ENGINE v3.0
   
-  var PAYOUT_URL = 'https://base44.app/api/apps/69f8f80581e1d336233e7632/functions/liveOps';
+  var PAYOUT_URL = 'https://base44.app/api/apps/69f8f80581e1d336233e7632/functions/paymentVerify';
   var currentPayoutRail = 'all';
   var editingPayeeIdx = -1;
 
@@ -2840,13 +2843,13 @@ function renderAutoWithdrawStatus(){
     var badge = document.getElementById('stripe-live-badge');
     var box   = document.getElementById('stripe-status-box');
     if(badge) badge.innerHTML = 'CHECKING...';
-    fetch(PAYOUT_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'payout_status'})})
+    fetch(PAYOUT_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'dashboard'})})
     .then(function(r){return r.json();}).then(function(d){
       if(d.ok && d.stripe){
         var s = d.stripe;
         txt('stripe-avail','$'+(s.available||0).toFixed(2));
         txt('stripe-pending','$'+(s.pending||0).toFixed(2));
-        if(document.getElementById('stripe-caps')) document.getElementById('stripe-caps').innerHTML = (s.cashapp_cap==='active'?'✅ CashApp<br>':'') + (s.payouts_enabled?'✅ Payouts':'⚠ No Payouts');
+        if(document.getElementById('stripe-caps')) _gid('stripe-caps').innerHTML = (s.cashapp_cap==='active'?'✅ CashApp<br>':'') + (s.payouts_enabled?'✅ Payouts':'⚠ No Payouts');
         if(badge) { badge.innerHTML = s.payouts_enabled ? '🟢 LIVE' : '🟡 LIMITED'; badge.style.color = s.payouts_enabled ? '#00E676' : '#F1C40F'; }
         if(box) box.innerHTML = '✅ Stripe LIVE · Payouts: '+(s.payouts_enabled?'Enabled':'Check dashboard')+' · Charges: '+(s.charges_enabled?'Active':'—')+' · US Account';
       } else {
@@ -2883,16 +2886,16 @@ function renderAutoWithdrawStatus(){
 
   function toggleCustomAmt(){/* removed — stale refs only */}
   function applyCustomAmt(){
-    var custom = parseFloat(document.getElementById('payout-custom-amt').value||'0');
+    var custom = parseFloat(_gid('payout-custom-amt').value||'0');
     if(custom < 0.5){ toast('⚠ Min $0.50'); return; }
     var limitPer = parseFloat(localStorage.getItem('limit_per_'+currentPayoutRail)||'0');
     if(limitPer > 0 && custom > limitPer){
       toast('⚠ Exceeds per-payout limit of $'+limitPer.toFixed(2));
       custom = limitPer;
     }
-    document.getElementById('payout-amount').value = custom.toFixed(2);
-    document.getElementById('custom-amt-row').style.display = 'none';
-    document.getElementById('custom-amt-btn').innerHTML = '✏ Enter Other / Custom Amount';
+    _gid('payout-amount').value = custom.toFixed(2);
+    _gid('custom-amt-row').style.display = 'none';
+    _gid('custom-amt-btn').innerHTML = '✏ Enter Other / Custom Amount';
     toast('✅ Amount set to $' + custom.toFixed(2));
   }
 
@@ -2970,28 +2973,28 @@ function renderAutoWithdrawStatus(){
     editingPayeeIdx = (idx !== undefined) ? idx : -1;
     var payees = getPayees();
     var p = editingPayeeIdx >= 0 ? payees[editingPayeeIdx] : {};
-    document.getElementById('payee-name-inp').value    = p.name||'';
-    document.getElementById('payee-email-inp').value   = p.email||'';
-    document.getElementById('payee-cashapp-inp').value = p.cashapp||'';
-    document.getElementById('payee-paypal-inp').value  = p.paypal||'';
-    document.getElementById('payee-apple-inp').value   = p.apple||'';
-    document.getElementById('payee-rail-inp').value    = p.rail||'all';
-    document.getElementById('payee-amount-inp').value  = p.amount||'';
-    document.getElementById('payee-modal').style.display='block';
+    _gid('payee-name-inp').value    = p.name||'';
+    _gid('payee-email-inp').value   = p.email||'';
+    _gid('payee-cashapp-inp').value = p.cashapp||'';
+    _gid('payee-paypal-inp').value  = p.paypal||'';
+    _gid('payee-apple-inp').value   = p.apple||'';
+    _gid('payee-rail-inp').value    = p.rail||'all';
+    _gid('payee-amount-inp').value  = p.amount||'';
+    _gid('payee-modal').style.display='block';
     document.body.style.overflow='hidden';
   }
   function closePayeeModal(){/* removed — stale refs only */}
   function savePayee(){
-    var name = document.getElementById('payee-name-inp').value.trim();
+    var name = _gid('payee-name-inp').value.trim();
     if(!name){ toast('⚠ Name required'); return; }
     var p = {
       name:    name,
-      email:   document.getElementById('payee-email-inp').value.trim(),
-      cashapp: document.getElementById('payee-cashapp-inp').value.trim(),
-      paypal:  document.getElementById('payee-paypal-inp').value.trim(),
-      apple:   document.getElementById('payee-apple-inp').value.trim(),
-      rail:    document.getElementById('payee-rail-inp').value,
-      amount:  parseFloat(document.getElementById('payee-amount-inp').value)||0
+      email:   _gid('payee-email-inp').value.trim(),
+      cashapp: _gid('payee-cashapp-inp').value.trim(),
+      paypal:  _gid('payee-paypal-inp').value.trim(),
+      apple:   _gid('payee-apple-inp').value.trim(),
+      rail:    _gid('payee-rail-inp').value,
+      amount:  parseFloat(_gid('payee-amount-inp').value)||0
     };
     var payees = getPayees();
     if(editingPayeeIdx >= 0) payees[editingPayeeIdx] = p;
@@ -3251,7 +3254,7 @@ function renderAutoWithdrawStatus(){
     txt('mine-wval',    '$'+S.wallet.total.toFixed(2));
     txt('ms-wal',       '$'+S.wallet.total.toFixed(2));
     if(document.getElementById('incoming-balance-display'))
-      document.getElementById('incoming-balance-display').innerHTML = '$'+S.wallet.incoming.toFixed(4);
+      _gid('incoming-balance-display').innerHTML = '$'+S.wallet.incoming.toFixed(4);
 
     saveState();
 
@@ -3317,8 +3320,8 @@ function renderAutoWithdrawStatus(){
   // ── AUTO-COLLECT SCHEDULER ────────────────────
   function startAutoCollect(){
     stopAutoCollect();
-    var intervalMs = parseInt(document.getElementById('ac-interval').value||'1800000');
-    var label = document.getElementById('ac-interval').options;
+    var intervalMs = parseInt(_gid('ac-interval').value||'1800000');
+    var label = _gid('ac-interval').options;
     var labelText = label && label.selectedIndex >= 0 ? label[label.selectedIndex].text : '30 min';
 
     nextCollectAt = Date.now() + intervalMs;
@@ -3501,7 +3504,7 @@ function renderAutoWithdrawStatus(){
     if(localStorage.getItem('tata_ac_running')==='1'){
       var savedInterval = localStorage.getItem('tata_ac_interval');
       if(savedInterval && document.getElementById('ac-interval')){
-        document.getElementById('ac-interval').value = savedInterval;
+        _gid('ac-interval').value = savedInterval;
       }
       startAutoCollect();
       toast('▶ Auto-collect resumed');
@@ -4347,8 +4350,8 @@ function toggleAlgoAnalysis(idx){
 }
 
 function openModal(data){
-  document.getElementById('modal-title').innerHTML = data.ico+' '+data.n;
-  document.getElementById('modal-sub').textContent = data.sub || '';
+  _gid('modal-title').innerHTML = data.ico+' '+data.n;
+  _gid('modal-sub').textContent = data.sub || '';
   var tl = document.getElementById('modal-topics');
   tl.innerHTML = '';
   (data.topics||[]).forEach(function(t){
@@ -4357,7 +4360,7 @@ function openModal(data){
     span.textContent = t;
     tl.appendChild(span);
   });
-  document.getElementById('modalbg').classList.add('show');
+  _gid('modalbg').classList.add('show');
   document.body.style.overflow = 'hidden';
 }
 
@@ -4884,7 +4887,7 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
   if(old && old.remove) old.remove();
   var overlay = document.createElement('div');
   overlay.id = 'pp-approval-overlay';
-  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;';
   var amt = parseFloat(amount||0).toFixed(2);
   var pid = String(paymentId||'').substring(0,22);
   overlay.innerHTML = '<div style="background:#1a1a2e;border:2px solid #9B59B6;border-radius:16px;padding:28px;max-width:380px;width:90%;text-align:center;box-shadow:0 0 40px rgba(155,89,182,0.5);">'
@@ -5093,12 +5096,12 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
   }
 
   // ── Portfolio asset management ──
-  function openAddAssetModal(){ document.getElementById('add-asset-modal').style.display='block'; }
-  function closeAddAssetModal(){ document.getElementById('add-asset-modal').style.display='none'; }
+  function openAddAssetModal(){ _gid('add-asset-modal').style.display='block'; }
+  function closeAddAssetModal(){ _gid('add-asset-modal').style.display='none'; }
   function savePortfolioAsset(){
-    var sym = (document.getElementById('asset-symbol').value||'').toUpperCase().trim();
-    var qty = parseFloat(document.getElementById('asset-qty').value||0);
-    var wallet = document.getElementById('asset-wallet').value||'';
+    var sym = (_gid('asset-symbol').value||'').toUpperCase().trim();
+    var qty = parseFloat(_gid('asset-qty').value||0);
+    var wallet = _gid('asset-wallet').value||'';
     if(!sym){ toast('❌ Enter a symbol'); return; }
     PORTFOLIO.push({sym:sym, qty:qty, price:0, value:0, pl:0, wallet:wallet, type:'manual'});
     localStorage.setItem('tata_portfolio', JSON.stringify(PORTFOLIO));
@@ -5146,7 +5149,7 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
       w1:'0x486f662020286e17e7469df4e5f2cf2415f36662',
       w5:'0x9c192dddd51bd7c1e840d0401ecd34637ea70556',
       w6:'0x78cdbef65ede022351f2dd635abc41ac74788cbd',
-      custom:document.getElementById('token-custom-addr').value||''
+      custom:_gid('token-custom-addr').value||''
     };
     var destAddr = DEST_ADDRS[dest]||DEST_ADDRS.main;
     var coin = coinSel ? coinSel.value : 'all';
@@ -5239,7 +5242,7 @@ var _adminPinBuffer = '';
 
 // ── Open admin overlay ─────────────────────────────────────
 function openAdmin(){
-  document.getElementById('admin-overlay').style.display='block';
+  _gid('admin-overlay').style.display='block';
   document.body.style.overflow='hidden';
   // If already authenticated this session, skip PIN
   if(S.admin.authenticated){
@@ -5249,21 +5252,21 @@ function openAdmin(){
   }
 }
 function closeAdmin(){
-  document.getElementById('admin-overlay').style.display='none';
+  _gid('admin-overlay').style.display='none';
   document.body.style.overflow='';
   _adminPinBuffer='';
   renderAdminPinDisplay();
 }
 function showAdminPin(){
-  document.getElementById('admin-pin-screen').style.display='block';
-  document.getElementById('admin-dashboard').style.display='none';
-  document.getElementById('admin-pin-err').textContent='';
+  _gid('admin-pin-screen').style.display='block';
+  _gid('admin-dashboard').style.display='none';
+  _gid('admin-pin-err').textContent='';
   _adminPinBuffer='';
   renderAdminPinDisplay();
 }
 function showAdminDashboard(){
-  document.getElementById('admin-pin-screen').style.display='none';
-  document.getElementById('admin-dashboard').style.display='block';
+  _gid('admin-pin-screen').style.display='none';
+  _gid('admin-dashboard').style.display='block';
   refreshAdminDashboard();
 }
 
@@ -5295,11 +5298,11 @@ function checkAdminPin(){
     S.admin.autoTransfer.enabled=true;
     S.admin.autoTransfer.threshold=S.admin.autoTransfer.threshold||10;
     S.admin.autoTransfer.rails=S.admin.autoTransfer.rails.length?S.admin.autoTransfer.rails:['paypal'];
-    document.getElementById('admin-pin-err').textContent='';
+    _gid('admin-pin-err').textContent='';
     showAdminDashboard();
     toast('👑 Admin access granted! Auto-transfer ACTIVE');
   } else {
-    document.getElementById('admin-pin-err').textContent='❌ Incorrect PIN — try again';
+    _gid('admin-pin-err').textContent='❌ Incorrect PIN — try again';
     _adminPinBuffer='';
     renderAdminPinDisplay();
   }
@@ -5367,8 +5370,8 @@ function adminSetApproval(on){
   toast(on ? '✋ Approval required before sending' : '⚡ Auto-send without approval');
 }
 function adminSaveSettings(){
-  var thr = parseFloat(document.getElementById('adm-threshold').value)||10;
-  var itv = parseInt(document.getElementById('adm-interval').value)||30;
+  var thr = parseFloat(_gid('adm-threshold').value)||10;
+  var itv = parseInt(_gid('adm-interval').value)||30;
   S.admin.autoTransfer.threshold = Math.max(1,thr);
   S.admin.autoTransfer.intervalMins = Math.max(5,itv);
   saveState('admin-save-settings');
@@ -5386,9 +5389,9 @@ function adminSaveRails(){
 // ── Manual admin transfer ─────────────────────────────────
 function adminManualTransfer(){
   if(!S.admin.authenticated){ toast('🔒 Admin lock active'); return; }
-  var amt = parseFloat(document.getElementById('adm-manual-amt').value)||0;
-  var dest = document.getElementById('adm-manual-dest').value||'mccreary.bm@gmail.com';
-  var rail = document.getElementById('adm-manual-rail').value||'paypal';
+  var amt = parseFloat(_gid('adm-manual-amt').value)||0;
+  var dest = _gid('adm-manual-dest').value||'mccreary.bm@gmail.com';
+  var rail = _gid('adm-manual-rail').value||'paypal';
   if(amt<1){ toast('❌ Minimum $1.00'); return; }
   if(amt>S.wallet.total){ toast('❌ Insufficient wallet balance ($'+S.wallet.total.toFixed(2)+' available)'); return; }
 
@@ -5542,15 +5545,15 @@ function renderAdminTxHistory(){
 
 // ── Change PIN ─────────────────────────────────────────────
 function adminChangePin(){
-  var np = document.getElementById('adm-new-pin').value;
-  var cp = document.getElementById('adm-confirm-pin').value;
+  var np = _gid('adm-new-pin').value;
+  var cp = _gid('adm-confirm-pin').value;
   if(!np||np.length<4){ toast('❌ PIN must be at least 4 digits'); return; }
   if(np!==cp){ toast('❌ PINs do not match'); return; }
   if(!/^[0-9]+$/.test(np)){ toast('❌ PIN must be numeric'); return; }
   S.admin.pin = np;
   saveState('admin-change-pin');
-  document.getElementById('adm-new-pin').value='';
-  document.getElementById('adm-confirm-pin').value='';
+  _gid('adm-new-pin').value='';
+  _gid('adm-confirm-pin').value='';
   toast('🔐 PIN updated successfully');
 }
 function adminLockout(){
@@ -6080,6 +6083,31 @@ window.addEventListener('hashchange', function(){
   checkUrlForApproval();
 });
 
+</script>
+
+<script>
+// GENIUS MODE — Live Transaction Verification
+async function geniusVerifyTransactions() {
+  try {
+    var resp = await fetch(API, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'payment_history'})
+    });
+    var data = await resp.json();
+    if (data.ok && data.payments) {
+      var verified = data.payments.filter(function(p) { return p.status === 'paid'; });
+      var total = verified.reduce(function(s, p) { return s + p.usd; }, 0);
+      console.log('[GENIUS] Live transactions verified:', verified.length, 'Total received: $' + total.toFixed(2));
+      // Update any genius status elements
+      var gStatus = document.getElementById('genius-status');
+      if (gStatus) gStatus.textContent = verified.length + ' verified / $' + total.toFixed(2) + ' received';
+      window.GENIUS_TX = { count: verified.length, total: total, payments: verified };
+    }
+  } catch(e) { console.log('[GENIUS] Transaction check:', e.message); }
+}
+// Run after page loads
+setTimeout(geniusVerifyTransactions, 3000);
 </script>
 </body>
 </html>
