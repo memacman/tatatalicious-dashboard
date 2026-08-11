@@ -498,7 +498,7 @@ to{background-position:200%}
 
 /* Balance Display */
 
-/* Action Button Grid (Send / Cash Out) */
+/* Action Button Grid (Receive) */
 
 /* Navigation Bar Layout */
 
@@ -579,7 +579,7 @@ to{background-position:200%}
   color: #00E676;
 }
 
-/* Action Button Grid (Send / Cash Out) */
+/* Action Button Grid (Receive) */
 .button-group {
   display: flex;
   gap: 10px;
@@ -693,7 +693,7 @@ to{background-position:200%}
       <button onclick="startAllMining()" style="flex:1;min-width:65px;background:#00E676;color:#000;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">▶ START</button>
       <button onclick="pauseAllMining()" style="flex:1;min-width:65px;background:#FF5252;color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">⏸ PAUSE</button>
       <button onclick="collectAllPositive()" style="flex:1;min-width:65px;background:#F1C40F;color:#000;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">💰 COLLECT</button>
-      <button onclick="mineWithdrawToWallet()" style="flex:1;min-width:65px;background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">⬆ WITHDRAW</button>
+      <button onclick="mineWithdrawToWallet()" style="flex:1;min-width:65px;background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">⬇ RECEIVE</button>
     </div>
 <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0">
   <div class="stat-card" style="background:#0A0A1E;border:1px solid #9B59B6;border-radius:10px;padding:12px;text-align:center">
@@ -749,7 +749,7 @@ to{background-position:200%}
       <div style="font-size:28px;flex-shrink:0">🔐</div>
       <div style="flex:1">
         <div style="font-size:13px;font-weight:900;color:#F1C40F;letter-spacing:.5px">PAYMENT APPROVAL</div>
-        <div style="font-size:9px;color:#D4A8E7;margin-top:2px">iMessage verification • 6 rails • Instant payout</div>
+        <div style="font-size:9px;color:#D4A8E7;margin-top:2px">iMessage verification • 6 rails • Instant receive</div>
       </div>
       <div style="font-size:18px;color:#F1C40F">→</div>
     </div>
@@ -759,7 +759,7 @@ to{background-position:200%}
     <div onclick="togglePendingDropdown()" id="pending-dropdown-header" style="cursor:pointer;touch-action:manipulation;background:#0d0d2a;border:1px solid #2a2a4a;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px">
       <div style="font-size:20px;flex-shrink:0">📋</div>
       <div style="flex:1">
-        <div style="font-size:12px;font-weight:900;color:#fff">Payouts Pending Approval</div>
+        <div style="font-size:12px;font-weight:900;color:#fff">Receiving Receiving Payouts</div>
         <div style="font-size:9px;color:#888;margin-top:2px"><span id="pending-count-badge" style="background:#E74C3C;color:#fff;border-radius:10px;padding:1px 8px;font-weight:900;font-size:10px">0</span> waiting for your approval</div>
       </div>
       <div id="pending-dropdown-arrow" style="font-size:14px;color:#888;transition:transform .3s">▼</div>
@@ -977,7 +977,7 @@ to{background-position:200%}
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px">
       <button id="mine-all" onclick="startAllMining()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#00C853,#00E676);color:#000">&#9654; START ALL</button>
       <button id="mine-stop" onclick="pauseAllMining()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#F39C12,#F1C40F);color:#000">&#9646;&#9646; PAUSE</button>
-      <button onclick="mineWithdrawToWallet()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#9B59B6,#6C3483);color:#fff">&#128176; WITHDRAW</button>
+      <button onclick="mineWithdrawToWallet()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#9B59B6,#6C3483);color:#fff">&#128176; RECEIVE</button>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
       <button id="mine-get" onclick="collectAllPositive()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#0070BA,#003087);color:#fff;font-size:10px">&#128200; Collect All</button>
@@ -1093,7 +1093,7 @@ to{background-position:200%}
     </div>
     <div style="display:flex;gap:6px">
       <button onclick="mineTransferAll()" style="flex:1;background:#00C853;color:#000;border:none;border-radius:10px;padding:12px;font-size:10px;font-weight:900;cursor:pointer">⚡ COLLECT ALL → WALLET</button>
-      <button onclick="mineWithdrawModal()" style="flex:1;background:#9B59B6;color:#fff;border:none;border-radius:10px;padding:12px;font-size:10px;font-weight:900;cursor:pointer">💳 WITHDRAW NOW</button>
+      <button onclick="mineWithdrawModal()" style="flex:1;background:#9B59B6;color:#fff;border:none;border-radius:10px;padding:12px;font-size:10px;font-weight:900;cursor:pointer">⬇ RECEIVE NOW</button>
     </div>
     <div id="mine-transfer-log" style="margin-top:8px;font-size:8px;color:#555;font-style:italic">Last transfer: waiting for first collect...</div>
   </div>
@@ -1172,7 +1172,7 @@ to{background-position:200%}
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px">
       <button onclick="transferPortfolioToWallet()" style="background:#00C853;color:#000;border:none;border-radius:8px;padding:10px;font-size:9px;font-weight:900;cursor:pointer">💰 Convert→Wallet</button>
-      <button onclick="openPayoutModal('all')" style="background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:10px;font-size:9px;font-weight:900;cursor:pointer">💳 Withdraw</button>
+      <button onclick="openPayoutModal('all')" style="background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:10px;font-size:9px;font-weight:900;cursor:pointer">⬇ Receive</button>
     </div>
   </div>
 
@@ -1275,7 +1275,7 @@ to{background-position:200%}
     </div>
     <div class="button-group">
       <button id="btnSend" class="btn-primary" onclick="sendMinedTokensNew()">🚀 Send Tokens</button>
-      <button id="btnCashOut" class="btn-secondary" onclick="openPayoutModal()">💳 Cash Out</button>
+      <button id="btnCashOut" class="btn-secondary" onclick="openPayoutModal()">💰 Receive</button>
     </div>
     <div id="txLog" style="font-size:10px;color:#00E676;margin-top:4px;min-height:14px"></div>
   </div>
@@ -1354,8 +1354,8 @@ to{background-position:200%}
       <div style="font-size:8px;color:#F44336;font-weight:700;margin-bottom:4px">⬆ OUTGOING</div>
       <div style="font-size:20px;font-weight:900;color:#F44336" id="outgoing-balance-display">$0.0000</div>
       <div style="font-size:7px;color:#555;margin-top:2px">Total paid out</div>
-      <button onclick="openPayoutModal('all')" style="margin-top:7px;width:100%;background:#F44336;color:#fff;border:none;border-radius:7px;padding:7px;font-size:9px;font-weight:900;cursor:pointer">↑ WITHDRAW</button>
-      <button onclick="ppPayout()" style="flex:1;background:linear-gradient(135deg,#0070BA,#003087);color:#fff;border:none;border-radius:10px;padding:12px;font-size:12px;font-weight:900;cursor:pointer;touch-action:manipulation">🅿 PayPal Pay</button>
+      <button onclick="openPayoutModal('all')" style="margin-top:7px;width:100%;background:#F44336;color:#fff;border:none;border-radius:7px;padding:7px;font-size:9px;font-weight:900;cursor:pointer">⬇ RECEIVE</button>
+      <button onclick="ppPayout()" style="flex:1;background:linear-gradient(135deg,#0070BA,#003087);color:#fff;border:none;border-radius:10px;padding:12px;font-size:12px;font-weight:900;cursor:pointer;touch-action:manipulation">🅿 Receive via PayPal</button>
     <button onclick="openAdmin()" style="margin-top:5px;width:100%;background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;border:none;border-radius:7px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;letter-spacing:.5px">👑 ADMIN AUTO-TRANSFER</button>
     </div>
   </div>
@@ -1448,7 +1448,7 @@ to{background-position:200%}
           <option value="link">🔗 Payment Link</option>
         </select>
       </div>
-      <button onclick="executeSendPayout()" style="width:100%;background:linear-gradient(135deg,#9B59B6,#6C3483);color:#fff;border:none;border-radius:10px;padding:13px;font-size:11px;font-weight:900;cursor:pointer">⚡ SEND FUNDS NOW</button>
+      <button onclick="executeSendPayout()" style="width:100%;background:linear-gradient(135deg,#9B59B6,#6C3483);color:#fff;border:none;border-radius:10px;padding:13px;font-size:11px;font-weight:900;cursor:pointer">⚡ RECEIVE FUNDS NOW</button>
     </div>
   </div>
   <!-- COIN BALANCES -->
@@ -1457,10 +1457,10 @@ to{background-position:200%}
   <!-- PAYMENT RAILS -->
   <div class="sec">💳 Payment Rails</div>
   <div class="rail-grid" id="rail-grid"></div>
-  <!-- AUTO-WITHDRAW -->
-  <div class="card" id="auto-withdraw-panel" style="margin-bottom:10px">
+  <!-- AUTO-RECEIVE -->
+  <div class="card" id="auto-receive-panel" style="margin-bottom:10px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
-      <div style="font-size:11px;font-weight:900;color:var(--g)">⚡ Auto-Withdraw</div>
+      <div style="font-size:11px;font-weight:900;color:var(--g)">⚡ Auto-Receive</div>
       <div style="font-size:8px;color:var(--sub)" id="aw-status-badge">Configure below</div>
     </div>
     <div style="display:flex;gap:5px;margin-bottom:7px">
@@ -1473,7 +1473,7 @@ to{background-position:200%}
     </div>
     <input type="hidden" id="ac-threshold" value="0.01">
     <input type="hidden" id="ac-rail" value="none">
-    <button onclick="collectAndRouteAll()" style="width:100%;background:linear-gradient(135deg,var(--p),#6C3483);border:none;color:#fff;border-radius:9px;padding:10px;font-size:10px;font-weight:900;cursor:pointer">⚡ Collect &amp; Auto-Withdraw</button>
+    <button onclick="collectAndRouteAll()" style="width:100%;background:linear-gradient(135deg,var(--p),#6C3483);border:none;color:#fff;border-radius:9px;padding:10px;font-size:10px;font-weight:900;cursor:pointer">⚡ Collect &amp; Auto-Receive</button>
   </div>
   <!-- TX LOG -->
   <div class="sec">🧾 Transaction History</div>
@@ -1592,14 +1592,14 @@ to{background-position:200%}
 <div id="payout-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9000;overflow-y:auto;-webkit-overflow-scrolling:touch">
   <div style="background:#0D0D2B;border:2px solid #9B59B6;border-radius:20px 20px 0 0;padding:18px;max-width:500px;margin:60px auto 0;min-height:calc(100vh - 60px)">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-      <div id="payout-modal-title" style="font-size:16px;font-weight:900;color:#fff">💳 Withdraw</div>
+      <div id="payout-modal-title" style="font-size:16px;font-weight:900;color:#fff">💰 Receive Funds</div>
       <button onclick="closePayoutModal()" style="background:#1a1a3a;border:1px solid #333;color:#888;border-radius:8px;padding:6px 12px;font-size:11px;cursor:pointer">✕ Close</button>
     </div>
     <div id="payout-modal-rail-info" style="font-size:9px;color:var(--sub);margin-bottom:12px;padding:8px;background:#050510;border-radius:8px"></div>
 
     <!-- RAIL SELECTOR (multi-select checkboxes) -->
     <div style="margin-bottom:12px">
-      <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:8px">💳 Select Payout Rail(s)</div>
+      <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:8px">💰 Select Receive Rail(s)</div>
       <div id="rail-checkboxes" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
         <label style="display:flex;align-items:center;gap:6px;background:#1a1a3a;border:1px solid #2a2a4a;border-radius:8px;padding:8px;cursor:pointer">
           <input type="checkbox" id="rail-cashapp" value="cashapp" onchange="updateRailSelection()" style="accent-color:#00D632">
@@ -1641,7 +1641,7 @@ to{background-position:200%}
 
     <!-- PAYEE -->
     <div style="margin-bottom:12px">
-      <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:6px">📧 Payee (Email / $tag / Wallet)</div>
+      <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:6px">📧 Receiving Account (Email / $tag / Wallet)</div>
       <input id="payout-email" type="text" placeholder="mccreary.bm@gmail.com or $tenaweek"
         style="width:100%;background:#050510;border:1px solid #2a2a4a;color:#fff;border-radius:8px;padding:10px;font-size:11px;outline:none;box-sizing:border-box">
     </div>
@@ -1654,7 +1654,7 @@ to{background-position:200%}
     <!-- SEND BUTTON -->
     <button id="payout-send-btn" onclick="executeMultiRailPayout()"
       style="width:100%;background:linear-gradient(135deg,#9B59B6,#6C3483);border:none;color:#fff;border-radius:12px;padding:16px;font-size:14px;font-weight:900;cursor:pointer;margin-bottom:8px">
-      ⚡ Send Payout
+      ⚡ Receive Funds
     </button>
 
     <!-- RESULT -->
@@ -1957,9 +1957,9 @@ var S={
     id:'TATA-AGENT-WALLET-LOCAL-001',owner:'TaTatalicious Agent Network',linkedAgents:10101,
     autoCollect:true,total:0,balances:{},txs:[],
     paymentRails:{
-      cashapp:  {id:'cashapp', name:'Cash App', ico:'💵',linked:false,handle:'',depositedUsd:0,withdrawnUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null},
-      applepay: {id:'applepay',name:'Apple Pay',ico:'🍎',linked:false,handle:'',depositedUsd:0,withdrawnUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'ETH',autoIntervalMins:60,lastAutoAt:null},
-      paypal:   {id:'paypal',  name:'PayPal',   ico:'🅿',linked:false,handle:'',depositedUsd:0,withdrawnUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null}
+      cashapp:  {id:'cashapp', name:'Cash App', ico:'💵',linked:false,handle:'',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null},
+      applepay: {id:'applepay',name:'Apple Pay',ico:'🍎',linked:false,handle:'',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'ETH',autoIntervalMins:60,lastAutoAt:null},
+      paypal:   {id:'paypal',  name:'PayPal',   ico:'🅿',linked:false,handle:'',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null}
     }
   },
   autoWithdrawLog:[]
@@ -2411,7 +2411,7 @@ function renderRails(){
     return '<div class="rail-card'+(linked?' linked':'')+(active?' active-rail':'')+'" data-rail="'+rail.id+'">'
       +'<span class="rail-ico">'+rail.ico+'</span>'
       +'<div class="rail-name">'+rail.name+'</div>'
-      +(linked?'<div class="rail-stat">'+rail.handle+'</div><div class="rail-stat">In: $'+rail.depositedUsd.toFixed(2)+' · Out: $'+rail.withdrawnUsd.toFixed(2)+'</div><div class="rail-status" style="color:var(--ok)">✔ LINKED</div>':'<div class="rail-status" style="color:var(--mu)">Not Linked</div>')
+      +(linked?'<div class="rail-stat">'+rail.handle+'</div><div class="rail-stat">In: $'+rail.depositedUsd.toFixed(2)+' · Out: $'+rail.receivedUsd.toFixed(2)+'</div><div class="rail-status" style="color:var(--ok)">✔ LINKED</div>':'<div class="rail-status" style="color:var(--mu)">Not Linked</div>')
       +'</div>';
   }).join('');
 }
@@ -2443,9 +2443,9 @@ function renderWallet(){
   if(tl){tl.innerHTML=S.wallet.txs.length?S.wallet.txs.slice(0,25).map(function(t){return '<div style="background:var(--card);border:1px solid #2A2A4A;border-radius:7px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><div><div style="font-size:9px;font-weight:700">'+t.ico+' '+t.sym+' — '+t.src+'</div><div style="font-size:7px;color:var(--mu)">'+t.ts+'</div></div><div style="text-align:right"><div style="font-size:10px;font-weight:900;color:var(--ok)">+'+fC(t.amount)+' '+t.sym+'</div><div style="font-size:8px;color:var(--sub)">'+fU(t.usd)+'</div></div></div>';}).join(''):'<div style="color:var(--sub);font-size:10px;text-align:center;padding:10px">No transactions yet</div>';}
   renderRails();
 
-  // Auto-withdraw log
+  // Auto-receive log
   var awl=document.getElementById('aw-log-display');
-  if(awl){var awLog=S.wallet.autoWithdrawLog||[];awl.innerHTML=awLog.length?awLog.slice(0,10).map(function(t){return '<div style="background:var(--card);border:1px solid #2A2A4A;border-radius:7px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><div><div style="font-size:9px;font-weight:700">'+(t.railIco||'💳')+' '+(t.rail||'')+' ⬆ '+t.sym+'</div><div style="font-size:7px;color:var(--mu)">'+t.ts+' → '+(t.handle||'')+'</div></div><div style="text-align:right"><div style="font-size:9px;font-weight:900;color:var(--h)">-'+fC(t.amount)+' '+t.sym+'</div><div style="font-size:7px;color:var(--sub)">$'+t.usd.toFixed(2)+'</div></div></div>';}).join(''):'<div style="font-size:9px;color:var(--sub);text-align:center;padding:10px">No auto-withdrawals yet — link a rail and enable above!</div>';}
+  if(awl){var awLog=S.wallet.autoWithdrawLog||[];awl.innerHTML=awLog.length?awLog.slice(0,10).map(function(t){return '<div style="background:var(--card);border:1px solid #2A2A4A;border-radius:7px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><div><div style="font-size:9px;font-weight:700">'+(t.railIco||'💳')+' '+(t.rail||'')+' ⬆ '+t.sym+'</div><div style="font-size:7px;color:var(--mu)">'+t.ts+' → '+(t.handle||'')+'</div></div><div style="text-align:right"><div style="font-size:9px;font-weight:900;color:var(--h)">-'+fC(t.amount)+' '+t.sym+'</div><div style="font-size:7px;color:var(--sub)">$'+t.usd.toFixed(2)+'</div></div></div>';}).join(''):'<div style="font-size:9px;color:var(--sub);text-align:center;padding:10px">No auto-receives yet — link a rail and enable above!</div>';}
 }
 
 // STOCK AI (5 dropdowns, myninja knowledge)
@@ -2636,7 +2636,7 @@ function fH(h){return h>=1000?(h/1000).toFixed(1)+'GH/s':h.toFixed(1)+'MH/s';}
 function fP(p){return p>=1000?'$'+Math.round(p).toLocaleString():p>=1?'$'+p.toFixed(2):'$'+p.toFixed(4);}
 function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2400);}
 
-// AUTO-WITHDRAW SYSTEM (Cash App, Apple Pay, PayPal)
+// AUTO-RECEIVE SYSTEM (Cash App, Apple Pay, PayPal)
 
 function saveAutoWithdrawSettings(){
   var railId = document.getElementById('aw-rail-sel').value;
@@ -2655,8 +2655,8 @@ function saveAutoWithdrawSettings(){
   rail.autoCoins     = coins;
   rail.autoIntervalMins = mins;
   renderAutoWithdrawStatus();
-  saveState('auto-withdraw-set');
-  toast('✅ Auto-Withdraw ON: '+rail.name+' → '+coins.join('+')+' every '+mins+'min when $'+thresh+' available!');
+  saveState('auto-receive-set');
+  toast('✅ Auto-Receive ON: '+rail.name+' → '+coins.join('+')+' every '+mins+'min when $'+thresh+' available!');
 }
 function disableAutoWithdraw(){
   var railId = document.getElementById('aw-rail-sel').value;
@@ -2665,7 +2665,7 @@ function disableAutoWithdraw(){
   rail.autoWithdraw = false;
   renderAutoWithdrawStatus();
   saveState('auto-withdraw-off');
-  toast('⏹ Auto-Withdraw disabled for '+rail.name);
+  toast('⏹ Auto-Receive disabled for '+rail.name);
 }
 function withdrawNow(){
   var railId = document.getElementById('aw-rail-sel').value;
@@ -2694,12 +2694,12 @@ async function doWithdraw(rail, coin, usd, src){
   // Deduct from wallet immediately
   bal.amount  -= amt;
   bal.usd      = bal.amount * (bal.price||1);
-  rail.withdrawnUsd += actualUsd;
+  rail.receivedUsd += actualUsd;
   rail.lastTxAt      = new Date().toISOString();
   rail.lastAutoAt    = new Date().toISOString();
   var txId = (src||'aw').toUpperCase()+'-'+Date.now()+'-'+Math.floor(Math.random()*99999);
   var txEntry = {
-    id:txId, ts:new Date().toLocaleTimeString(), type:'withdraw',
+    id:txId, ts:new Date().toLocaleTimeString(), type:'receive',
     rail:rail.name, railIco:rail.ico, sym:coin, amount:amt, usd:actualUsd,
     handle:rail.handle, src:src||'auto', status:'processing'
   };
@@ -2713,7 +2713,7 @@ async function doWithdraw(rail, coin, usd, src){
   txt('mine-walval','$'+S.wallet.total.toFixed(2));
   renderAutoWithdrawStatus();
   if(curPage==='wallet') renderWallet();
-  saveState('withdraw-processing');
+  saveState('receive-processing');
   toast('⏳ Routing $'+actualUsd.toFixed(2)+' '+coin+' → '+rail.name+'...');
 
   // ── CORRECTED API CALL — uses liveOps with proper action names ──
@@ -2787,8 +2787,8 @@ function renderAutoWithdrawStatus(){
   var list = document.getElementById('aw-active-list');
   if(!list)return;
   var active = Object.values(S.wallet.paymentRails).filter(function(r){return r.autoWithdraw&&r.linked;});
-  if(!active.length){list.innerHTML='<div style="font-size:9px;color:var(--mu);text-align:center;padding:6px">No auto-withdrawals active yet</div>';return;}
-  list.innerHTML = '<div style="font-size:9px;font-weight:900;color:var(--g);margin-bottom:5px">⚡ ACTIVE AUTO-WITHDRAWALS</div>'
+  if(!active.length){list.innerHTML='<div style="font-size:9px;color:var(--mu);text-align:center;padding:6px">No auto-receives active yet</div>';return;}
+  list.innerHTML = '<div style="font-size:9px;font-weight:900;color:var(--g);margin-bottom:5px">⚡ ACTIVE AUTO-RECEIVES</div>'
     + active.map(function(r){
         var bal = S.wallet.balances[r.autoCoin]||{};
         var avail = (bal.usd||0).toFixed(2);
@@ -2807,7 +2807,7 @@ function renderAutoWithdrawStatus(){
           +'</div></div>';
       }).join('')
     + (S.wallet.autoWithdrawLog&&S.wallet.autoWithdrawLog.length ? 
-        '<div style="font-size:9px;font-weight:900;color:var(--g);margin:8px 0 5px">📋 Recent Auto-Withdrawals</div>'
+        '<div style="font-size:9px;font-weight:900;color:var(--g);margin:8px 0 5px">📋 Recent Auto-Receives</div>'
         + S.wallet.autoWithdrawLog.slice(0,5).map(function(t){
             return '<div style="background:var(--card);border:1px solid #2A2A4A;border-radius:6px;padding:6px 9px;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center">'
               +'<div><div style="font-size:9px;font-weight:700">'+t.railIco+' '+t.rail+' ⬆ '+t.sym+'</div>'
@@ -2943,7 +2943,7 @@ function renderAutoWithdrawStatus(){
     var box = document.getElementById('payee-list-container');
     if(!box) return;
     if(!payees.length){
-      box.innerHTML = '<div style="font-size:9px;color:#555;text-align:center;padding:12px">No payees saved. Tap + Add Payee above.</div>';
+      box.innerHTML = '<div style="font-size:9px;color:#555;text-align:center;padding:12px">No receiving accounts saved. Tap + Add Account above.</div>';
       return;
     }
     var html = '';
@@ -2957,7 +2957,7 @@ function renderAutoWithdrawStatus(){
         +   '<div style="font-size:8px;color:'+rail.color+'">'+rail.label+' · '+(p.amount?'$'+p.amount:'any amount')+'</div>'
         + '</div>'
         + '<div style="display:flex;flex-direction:column;gap:4px">'
-        +   '<button onclick="payPayee('+i+')" style="background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;border:none;border-radius:6px;padding:5px 8px;font-size:8px;font-weight:700;cursor:pointer">💸 Pay</button>'
+        +   '<button onclick="payPayee('+i+')" style="background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;border:none;border-radius:6px;padding:5px 8px;font-size:8px;font-weight:700;cursor:pointer">💰 Receive</button>'
         +   '<button onclick="editPayee('+i+')" style="background:#0D0D2B;border:1px solid #333;color:#888;border-radius:6px;padding:5px 8px;font-size:8px;cursor:pointer">✏ Edit</button>'
         +   '<button onclick="deletePayee('+i+')" style="background:#1a0000;border:1px solid #500;color:#F44336;border-radius:6px;padding:5px 8px;font-size:8px;cursor:pointer">🗑</button>'
         + '</div>'
@@ -3116,7 +3116,7 @@ function renderAutoWithdrawStatus(){
   
   // MINING INTELLIGENCE SYSTEM v2.0
   // 30-min auto-collect, positive balance tracker,
-  // pool withdrawal center, productivity analytics
+  // pool receive center, productivity analytics
   
   var autoCollectTimer = null;
   var collectCountdownTimer = null;
@@ -3392,7 +3392,7 @@ function renderAutoWithdrawStatus(){
   function initiateWithdraw(platform){
     var cfg = POOL_PLATFORMS[platform];
     var resultEl = document.getElementById('pool-result-'+platform);
-    if(resultEl) resultEl.innerHTML='<span style="color:#888">⏳ Initiating withdrawal...</span>';
+    if(resultEl) resultEl.innerHTML='<span style="color:#888">⏳ Initiating receive...</span>';
     if(platform === 'nicehash'){
       // NiceHash withdrawal requires whitelisted address — direct to dashboard
       window.open('https://www.nicehash.com/my/wallet/withdrawal','_blank');
@@ -3404,7 +3404,7 @@ function renderAutoWithdrawStatus(){
       window.open(cfg.site,'_blank');
       if(resultEl) resultEl.innerHTML='<span style="color:#00E676">✅ Opened '+cfg.name+' · Payouts are automatic to your wallet address.<br>No manual step needed!</span>';
     }
-    toast('🏦 '+cfg.name+' withdrawal initiated — no bank needed!');
+    toast('🏦 '+cfg.name+' receive initiated — no bank needed!');
   }
 
   // ── PRODUCTIVITY ANALYTICS ────────────────────
@@ -3647,12 +3647,12 @@ function pauseAllMining(){
 function mineWithdrawToWallet(){
   var pos = typeof getPositiveBalances==='function' ? getPositiveBalances() : [];
   var total = pos.reduce(function(a,c){return a+(c.minedUSD||0);},0);
-  if(total<=0){ toast('⚠ No mined balance to withdraw yet'); return; }
+  if(total<=0){ toast('⚠ No mined balance to receive yet'); return; }
   collectAllPositive();
   setTimeout(function(){
     S.wallet.total = (S.wallet.total||0) + total;
     updateWalletUI(); saveState();
-    toast('💸 $'+total.toFixed(2)+' withdrawn to OS Wallet!');
+    toast('💸 $'+total.toFixed(2)+' received to OS Wallet!');
     if(typeof renderWallet==='function') renderWallet();
   }, 500);
 }
@@ -3969,7 +3969,7 @@ function setMiningAgents(n){
   function renderWalletTxLog(){
     var box=document.getElementById('wallet-tx-log'); if(!box)return;
     var txs=(S.wallet&&S.wallet.txs)?S.wallet.txs:[];
-    if(!txs.length){box.innerHTML='<div style="text-align:center;padding:12px;font-size:9px;color:#333">No transactions yet — make a withdrawal to see history</div>';return;}
+    if(!txs.length){box.innerHTML='<div style="text-align:center;padding:12px;font-size:9px;color:#333">No transactions yet — make a receive to see history</div>';return;}
     box.innerHTML=txs.slice(0,25).map(function(tx){
       return '<div style="background:#050510;border:1px solid #1a1a3a;border-radius:8px;padding:9px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center">'
         +'<div><div style="font-size:11px;font-weight:900;color:#00E676">$'+(tx.usd||0).toFixed(2)+'</div>'
@@ -4110,7 +4110,7 @@ function setMiningAgents(n){
   {n:'Algorithm Design Paradigms',ico:'🧠',count:12,
    topics:['Divide & Conquer','Greedy Algorithms','Dynamic Programming','Backtracking','Branch & Bound','Randomized Algorithms','Approximation Algorithms','Online Algorithms','Streaming Algorithms','Amortized Analysis','Reduction Techniques','Output-Sensitive Algorithms'],
    analysis:[
-     {algo:'Greedy Algorithms',complexity:'Varies',space:'O(1) typical',best:'Local optimum decisions, scheduling',note:'TaTa auto-withdraw timing uses greedy scheduling — always pick highest-balance rail first'},
+     {algo:'Greedy Algorithms',complexity:'Varies',space:'O(1) typical',best:'Local optimum decisions, scheduling',note:'TaTa auto-receive timing uses greedy scheduling — always pick highest-balance rail first'},
      {algo:'Randomized Algorithms',complexity:'Expected O(n log n)',space:'Varies',best:'Avoiding adversarial worst cases',note:'Randomized quickselect used in real-time median price calculation'},
      {algo:'Approximation Algorithms',complexity:'Poly-time',space:'Varies',best:'NP-hard problems with quality guarantees',note:'Portfolio rebalancing is NP-hard — TaTa uses FPTAS approximation'}
    ]},
@@ -4136,7 +4136,7 @@ function setMiningAgents(n){
    analysis:[
      {algo:'Kalman Filter',complexity:'O(n)',space:'O(state²)',best:'Real-time noisy signal filtering',note:'TaTa price feeds use Kalman filter to smooth market microstructure noise'},
      {algo:'GARCH',complexity:'O(n)',space:'O(p+q)',best:'Financial volatility modeling',note:'Industry standard for crypto volatility — TaTa risk engine uses GARCH(1,1) for position sizing'},
-     {algo:'ARIMA',complexity:'O(n)',space:'O(p+q)',best:'Univariate time series forecasting',note:'Used to forecast mining revenue 7 days ahead for auto-withdrawal scheduling'},
+     {algo:'ARIMA',complexity:'O(n)',space:'O(p+q)',best:'Univariate time series forecasting',note:'Used to forecast mining revenue 7 days ahead for auto-receive scheduling'},
      {algo:'Monte Carlo Simulation',complexity:'O(n·sims)',space:'O(n)',best:'Risk analysis, option pricing',note:'TaTa risk team runs 10,000 Monte Carlo simulations per trade to estimate VaR'}
    ]},
   {n:'TaTa Financial Algorithms',ico:'💰',count:24,
@@ -4174,7 +4174,7 @@ var FIN_TEAM = [
     desc:'Deploys capital across DeFi protocols — staking, liquidity pools, yield farming — always chasing the highest APY.',
     actions:['Yield farming','Liquidity provision','Staking optimization','APY tracking'] },
   { name:'Rho',    ico:'🏦', role:'Cash Flow Manager',    color:'#E91E9A',
-    desc:'Routes all payouts across 6 payment rails. Manages withdrawal timing, limits, and reinvestment cycles.',
+    desc:'Routes all receives across 6 payment rails. Manages receive timing, limits, and reinvestment cycles.',
     actions:['Payout routing','Rail optimization','Reinvestment cycles','Cash management'] },
   { name:'Theta',  ico:'📈', role:'Growth Scaler',        color:'#FF6B35',
     desc:'Identifies scaling opportunities. Compounds profits into new mining pools, stocks, and business ventures automatically.',
@@ -4470,13 +4470,13 @@ function getResp(q){
     if(!summary) return;
     if(selected.length===0){
       summary.innerHTML = '<span style="color:#555">No rails selected — pick at least one above</span>';
-      if(btn) btn.textContent = '⚡ Send Payout';
+      if(btn) btn.textContent = '⚡ Receive Funds';
       return;
     }
     var labels = {cashapp:'💵 Cash App',applepay:' Apple Pay',paypal:'🅿 PayPal',ach:'🏦 ACH Bank',card:'💳 Card',link:'🔗 Pay Link'};
     summary.innerHTML = '<span style="color:#F1C40F;font-weight:700">Selected: </span>'
       + selected.map(function(r){ return '<span style="background:#1a1a3a;border-radius:4px;padding:2px 6px;margin:1px;display:inline-block">'+labels[r]+'</span>'; }).join(' ');
-    if(btn) btn.textContent = '⚡ Send via '+selected.length+' Rail'+(selected.length>1?'s':'');
+    if(btn) btn.textContent = '⚡ Receive via '+selected.length+' Rail'+(selected.length>1?'s':'');
   }
 
   async function executeMultiRailPayout(){
@@ -4485,7 +4485,7 @@ function getResp(q){
       var cb = document.getElementById('rail-'+r);
       return cb && cb.checked;
     });
-    if(selected.length===0){ toast('❌ Select at least one payout rail'); return; }
+    if(selected.length===0){ toast('❌ Select at least one receive rail'); return; }
     var amtIn   = document.getElementById('payout-amount');
     var emailIn = document.getElementById('payout-email');
     var resBox  = document.getElementById('payout-result-box');
@@ -4496,7 +4496,7 @@ function getResp(q){
     if(amount < 1)    { toast('❌ Minimum $1.00 required'); return; }
     if(amount > walletTotal) { toast('❌ Insufficient wallet balance. Collect mining first!'); return; }
     if(btn){ btn.disabled=true; btn.textContent='⏳ Processing...'; }
-    if(resBox){ resBox.style.display='block'; resBox.innerHTML='⏳ Routing to '+selected.length+' rail(s)...'; }
+    if(resBox){ resBox.style.display='block'; resBox.innerHTML='⏳ Receiving via '+selected.length+' rail(s)...'; }
     var amtEach = (amount / selected.length).toFixed(2);
     var results = [];
     for(var i=0; i<selected.length; i++){
@@ -4554,9 +4554,9 @@ function getResp(q){
     var out = results.map(function(r){
       return (r.ok?'✅':'⚠ ') + r.rail.toUpperCase() + ': $'+amtEach+' → '+r.msg;
     }).join('\n');
-    if(resBox){ resBox.innerHTML = out + (anyOk?'\n\n🏆 Payout sent!':'\n\n⚠ Check PayPal eligibility at developer.paypal.com'); }
-    if(btn){ btn.disabled=false; btn.textContent='⚡ Send Payout'; }
-    if(anyOk) toast('💰 $'+amount.toFixed(2)+' routed to '+selected.filter(function(r){return results.find(function(x){return x.rail===r&&x.ok;});}).length+' rail(s)!');
+    if(resBox){ resBox.innerHTML = out + (anyOk?'\n\n🏆 Funds received!':'\n\n⚠ Check PayPal eligibility at developer.paypal.com'); }
+    if(btn){ btn.disabled=false; btn.textContent='⚡ Receive Funds'; }
+    if(anyOk) toast('💰 $'+amount.toFixed(2)+' received via '+selected.filter(function(r){return results.find(function(x){return x.rail===r&&x.ok;});}).length+' rail(s)!');
   }
 
   // ── Legacy wrapper (called from rail buttons) ──
@@ -4660,8 +4660,8 @@ function showVerificationModal(code, amount, rail, destination) {
   overlay.innerHTML = '<div style="background:#1a1a2e;border:2px solid #9B59B6;border-radius:16px;padding:24px;max-width:340px;width:100%;box-shadow:0 0 40px rgba(155,89,182,.4)">' +
     '<div style="text-align:center;margin-bottom:16px">' +
       '<div style="font-size:28px">🔐</div>' +
-      '<div style="font-size:16px;font-weight:900;color:#F1C40F;margin-top:4px">Payment Verification</div>' +
-      '<div style="font-size:10px;color:#888;margin-top:4px">iMessage verification required</div>' +
+      '<div style="font-size:16px;font-weight:900;color:#F1C40F;margin-top:4px">Receive Verification</div>' +
+      '<div style="font-size:10px;color:#888;margin-top:4px">iMessage verification required to receive</div>' +
     '</div>' +
     '<div style="background:#0d0d1a;border-radius:8px;padding:12px;margin-bottom:16px">' +
       '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:#888;font-size:11px">Amount</span><span style="color:#fff;font-weight:700;font-size:14px">$' + amount.toFixed(2) + '</span></div>' +
@@ -4715,7 +4715,7 @@ function executeVerifiedPayment(pv) {
     body: JSON.stringify({ action: 'execute', rail: pv.rail, amount: pv.amount, destination: pv.destination, code: pv.code })
   }).then(function(r){ return r.json(); }).then(function(data){
     if(data.ok){
-      toast('$' + pv.amount.toFixed(2) + ' via ' + pv.rail.toUpperCase() + ' APPROVED & EXECUTING');
+      toast('$' + pv.amount.toFixed(2) + ' via ' + pv.rail.toUpperCase() + ' RECEIVED & PROCESSING');
       pendingVerification = null;
       // Update the PaymentVerification entity to executed
       try {
@@ -4750,7 +4750,7 @@ if(_originalExecutePayout){
       var cb = document.getElementById('rail-'+r);
       return cb && cb.checked;
     });
-    if(selected.length===0){ toast('Select at least one payout rail'); return; }
+    if(selected.length===0){ toast('Select at least one receive rail'); return; }
     var amtIn = document.getElementById('payout-amount');
     var emailIn = document.getElementById('payout-email');
     var amount = parseFloat((amtIn&&amtIn.value)||0);
@@ -5086,7 +5086,7 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
             +'<div style="display:flex;gap:4px;margin-top:5px">'
               +'<button onclick="addFundsToAsset(\''+a.sym+'\')" style="flex:1;background:#1a2a3a;border:1px solid #00BCD4;color:#00BCD4;border-radius:5px;padding:4px;font-size:7px;cursor:pointer">💰 Add Funds</button>'
               +'<button onclick="transferAssetToWallet(\''+a.sym+'\')" style="flex:1;background:#1a3a1a;border:1px solid #00E676;color:#00E676;border-radius:5px;padding:4px;font-size:7px;cursor:pointer">→ Wallet</button>'
-              +'<button onclick="openPayoutModal(\'all\')" style="flex:1;background:#2a1a3a;border:1px solid #9B59B6;color:#9B59B6;border-radius:5px;padding:4px;font-size:7px;cursor:pointer">💳 Withdraw</button>'
+              +'<button onclick="openPayoutModal(\'all\')" style="flex:1;background:#2a1a3a;border:1px solid #9B59B6;color:#9B59B6;border-radius:5px;padding:4px;font-size:7px;cursor:pointer">⬇ Receive</button>'
             +'</div>'
             +'</div>';
         }).join('');
@@ -5881,7 +5881,7 @@ function renderPendingPayouts(pending){
   var RAIL_CLR = {cashapp:'#00D632',applepay:'#fff',paypal:'#009cde',ach:'#F1C40F',card:'#00BCD4',link:'#9B59B6',all:'#F1C40F'};
   var html = '';
   if(active.length > 0){
-    html += '<div style="font-size:9px;color:#F1C40F;font-weight:900;margin-bottom:6px">AWAITING APPROVAL (' + active.length + ')</div>';
+    html += '<div style="font-size:9px;color:#F1C40F;font-weight:900;margin-bottom:6px">RECEIVING APPROVAL (' + active.length + ')</div>';
     active.forEach(function(p){
       var timeStr = p.created_date ? new Date(p.created_date).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
       var expStr = p.expires_at ? new Date(p.expires_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
@@ -5931,14 +5931,14 @@ function renderRecentPayouts(recent){
 
 function approvePendingPayout(recordId, code, amount, rail){
   if(!code){ toast('No verification code for this payout'); return; }
-  toast('Approving $' + (amount||0).toFixed(2) + ' via ' + (rail||'').toUpperCase() + '... executing');
+  toast('Receiving $' + (amount||0).toFixed(2) + ' via ' + (rail||'').toUpperCase() + '... processing');
   fetch(PV_API, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({ action: 'approve', code: code, record_id: recordId })
   }).then(function(r){ return r.json(); }).then(function(data){
     if(data.ok){
-      toast('Payout APPROVED & EXECUTED: $' + (data.amount||amount||0).toFixed(2) + ' via ' + (data.rail||rail||'').toUpperCase());
+      toast('Payment RECEIVED: $' + (data.amount||amount||0).toFixed(2) + ' via ' + (data.rail||rail||'').toUpperCase());
       loadPendingPayouts();
     } else {
       toast('Approval failed: ' + (data.error || 'Unknown'));
