@@ -4,29 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>👑 TaTatalicious GENIUS — Unified</title>
+<title>👑 TaTatalicious — Unified</title>
 <style>
-#topbar {position:fixed;top:0;left:0;right:0;height:50px;z-index:2000;background:#1A1A2E;border-bottom:2px solid #9B59B6;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
-/* ═══ TATATALICIOUS LAYOUT v10-GENIUS FINAL ═══ */
 
-#content {position:fixed!important;top:50px!important;bottom:60px!important;left:0!important;right:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;z-index:1!important}
-#botnav {position:fixed!important;bottom:0!important;left:0!important;right:0!important;height:60px!important;z-index:2000!important;background:#0A0A14!important;border-top:2px solid #2A2A4A!important;display:flex!important;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0}
-.nb {min-width:52px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;background:none;border:none;color:#888;font-size:9px;cursor:pointer;padding:4px 2px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;outline:none;transition:color 0.15s}
-.nb .ico {font-size:17px;margin-bottom:2px;display:block;line-height:1}
+#topbar{position:fixed;top:0;left:0;right:0;height:50px;z-index:2000;background:#1A1A2E;border-bottom:2px solid #9B59B6;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+
+/* ═══ TATATALICIOUS LAYOUT v10 FINAL ═══ */
+
+#content{position:fixed!important;top:50px!important;bottom:60px!important;left:0!important;right:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;z-index:10!important}
+
+#botnav{position:fixed!important;bottom:0!important;left:0!important;right:0!important;height:60px!important;z-index:2000!important;background:#0A0A14!important;border-top:2px solid #2A2A4A!important;display:flex!important;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0}
+
+.nb{min-width:52px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;background:none;border:none;color:#888;font-size:9px;cursor:pointer;padding:4px 2px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;outline:none;transition:color 0.15s}
+
+.nb .ico{font-size:17px;margin-bottom:2px;display:block;line-height:1}
+
 .nb
 
-.speed-btn {background:#0a0a1e;border:1px solid #333;color:#888;border-radius:8px;padding:6px 4px;font-size:9px;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:all 0.15s;text-align:center}
+.speed-btn{background:#0a0a1e;border:1px solid #333;color:#888;border-radius:8px;padding:6px 4px;font-size:9px;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:all 0.15s;text-align:center}
+
 .speed-btn
-.speed-btn:active {transform:scale(0.95)}
-.mine-ctrl-btn {flex:1;padding:10px 4px;border:none;border-radius:10px;font-size:11px;font-weight:900;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:all 0.15s;text-align:center}
-.mine-ctrl-btn:active {transform:scale(0.95);opacity:0.85}
+.speed-btn:active{transform:scale(0.95)}
+
+.mine-ctrl-btn{flex:1;padding:10px 4px;border:none;border-radius:10px;font-size:11px;font-weight:900;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:all 0.15s;text-align:center}
+
+.mine-ctrl-btn:active{transform:scale(0.95);opacity:0.85}
+
 /* ═══ LAYOUT FIXES v9 FINAL ═══ */
 
 /* Nav buttons — fully clickable */
-.nb:active {opacity:0.7}
+.nb:active{opacity:0.7}
+
 /* ═══ PAGE VISIBILITY — v9 FINAL (no !important wars) ═══ */
 .page { display: none; padding: 12px 11px 80px; max-width: 620px; margin: 0 auto; }
+
 .page.active { display: block !important; }
+
 /* ══════════════════════════════════════════════════════ */
 
 /* All pages hidden by default */
@@ -38,238 +51,439 @@
 /* ══════════════════════════════════════════════════════════ */
 
 /* FALLBACK — ensures page renders even if CSS vars fail */
-body {background:#08080F!important;color:#fff!important}
-* {box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root {
+body{background:#08080F!important;color:#fff!important}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+
+:root{
   --p:#9B59B6;--g:#F1C40F;--h:#E91E9A;--ok:#2ECC71;--no:#E74C3C;
   --bg:#08080F;--card:#111118;--el:#1A1A2E;--tx:#FFF;--sub:#A0A0B8;--mu:#505068;
   --btc:#F7931A;--eth:#627EEA;--bnb:#F3BA2F;--sol:#9945FF;
 }
-html,body {background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;height:100%;overflow:hidden}
-#brand {font-size:14px;font-weight:900;background:linear-gradient(90deg,var(--g),var(--p),var(--h));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.live-row {display:flex;gap:6px;align-items:center}
-.lpill {display:flex;align-items:center;gap:3px;background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.3);border-radius:50px;padding:3px 8px}
-.ldot {width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 1.5s infinite}
-0%,100% {opacity:1}
-50% {opacity:.3}
-#botnav::-webkit-scrollbar {display:none}
+
+html,body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;height:100%;overflow:hidden}
+
+#brand{font-size:14px;font-weight:900;background:linear-gradient(90deg,var(--g),var(--p),var(--h));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.live-row{display:flex;gap:6px;align-items:center}
+
+.lpill{display:flex;align-items:center;gap:3px;background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.3);border-radius:50px;padding:3px 8px}
+
+.ldot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pulse 1.5s infinite}
+0%,100%{opacity:1}
+50%{opacity:.3}
+
+#botnav::-webkit-scrollbar{display:none}
+
 /* SHARED */
-.sec {font-size:11px;font-weight:900;color:var(--g);margin:13px 0 7px;letter-spacing:.5px;text-transform:uppercase}
-.card {background:var(--card);border:1px solid #2A2A4A;border-radius:12px;padding:11px;margin-bottom:9px}
-.sg {display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:9px}
-.sb {background:var(--card);border:1px solid #2A2A4A;border-radius:8px;padding:7px 4px;text-align:center}
-.sv {font-size:12px;font-weight:900;color:var(--g)}
-.sl {font-size:7px;color:var(--mu);margin-top:1px}
-.btn {border:none;border-radius:8px;padding:9px 11px;font-weight:800;font-size:11px;cursor:pointer;touch-action:manipulation;transition:opacity .15s}
-.btn:active {opacity:.65}
-.bp {background:linear-gradient(135deg,var(--p),#6C3483);color:#fff}
-.bok {background:linear-gradient(135deg,var(--ok),#27ae60);color:#000}
-.bno {background:linear-gradient(135deg,var(--no),#c0392b);color:#fff}
-.bg {background:linear-gradient(135deg,var(--g),#e67e22);color:#000}
-.bh {background:linear-gradient(135deg,var(--h),#8e0a50);color:#fff}
-.bel {background:var(--el);color:var(--sub);border:1px solid #2A2A4A}
-.brow {display:flex;gap:6px;margin-bottom:9px;flex-wrap:wrap}
+.sec{font-size:11px;font-weight:900;color:var(--g);margin:13px 0 7px;letter-spacing:.5px;text-transform:uppercase}
+
+.card{background:var(--card);border:1px solid #2A2A4A;border-radius:12px;padding:11px;margin-bottom:9px}
+
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:9px}
+
+.sb{background:var(--card);border:1px solid #2A2A4A;border-radius:8px;padding:7px 4px;text-align:center}
+
+.sv{font-size:12px;font-weight:900;color:var(--g)}
+
+.sl{font-size:7px;color:var(--mu);margin-top:1px}
+
+.btn{border:none;border-radius:8px;padding:9px 11px;font-weight:800;font-size:11px;cursor:pointer;touch-action:manipulation;transition:opacity .15s}
+
+.btn:active{opacity:.65}
+
+.bp{background:linear-gradient(135deg,var(--p),#6C3483);color:#fff}
+
+.bok{background:linear-gradient(135deg,var(--ok),#27ae60);color:#000}
+
+.bno{background:linear-gradient(135deg,var(--no),#c0392b);color:#fff}
+
+.bg{background:linear-gradient(135deg,var(--g),#e67e22);color:#000}
+
+.bh{background:linear-gradient(135deg,var(--h),#8e0a50);color:#fff}
+
+.bel{background:var(--el);color:var(--sub);border:1px solid #2A2A4A}
+
+.brow{display:flex;gap:6px;margin-bottom:9px;flex-wrap:wrap}
+
 /* RING */
-.ring-wrap {display:flex;flex-direction:column;align-items:center;margin-bottom:12px}
-.ring {position:relative;width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background 1s}
-.ring::before {content:'';position:absolute;inset:12px;border-radius:50%;background:var(--bg);z-index:1}
-.ring-inner {position:relative;z-index:1;text-align:center}
-.ring-pct {font-size:28px;font-weight:900;color:var(--g)}
-.ring-lvl {font-size:9px;font-weight:800;color:var(--p);margin-top:2px}
+.ring-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:12px}
+
+.ring{position:relative;width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background 1s}
+
+.ring::before{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--bg);z-index:0}
+
+.ring-inner{position:relative;z-index:1;text-align:center}
+
+.ring-pct{font-size:28px;font-weight:900;color:var(--g)}
+
+.ring-lvl{font-size:9px;font-weight:800;color:var(--p);margin-top:2px}
+
 /* MASTERY CATS */
-.mcat-grid {display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}
-.mcat {background:var(--card);border:1px solid #2A2A4A;border-radius:10px;padding:10px;cursor:pointer;touch-action:manipulation}
-.mcat-pct {font-size:18px;font-weight:900;margin-bottom:3px}
-.mcat-bar {height:3px;background:#2A2A4A;border-radius:2px;overflow:hidden;margin-bottom:3px}
-.mcat-fill {height:100%;border-radius:2px;transition:width .8s}
-.mcat-lvl {font-size:8px;font-weight:700}
+.mcat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}
+
+.mcat{background:var(--card);border:1px solid #2A2A4A;border-radius:10px;padding:10px;cursor:pointer;touch-action:manipulation}
+
+.mcat-pct{font-size:18px;font-weight:900;margin-bottom:3px}
+
+.mcat-bar{height:3px;background:#2A2A4A;border-radius:2px;overflow:hidden;margin-bottom:3px}
+
+.mcat-fill{height:100%;border-radius:2px;transition:width .8s}
+
+.mcat-lvl{font-size:8px;font-weight:700}
+
 /* BOT */
-.bot-hero {background:linear-gradient(135deg,rgba(155,89,182,.2),rgba(233,30,154,.1));border:2px solid var(--p);border-radius:13px;padding:13px;margin-bottom:10px;text-align:center}
-.bot-count {font-size:36px;font-weight:900;color:var(--g)}
-.mode-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
-.mode-btn {border:2px solid #2A2A4A;border-radius:9px;padding:10px 5px;text-align:center;cursor:pointer;touch-action:manipulation;background:var(--card)}
-.mode-btn.on {border-color:var(--p);background:rgba(155,89,182,.15)}
-.mode-btn:active {opacity:.7}
-.mode-ico {font-size:20px;display:block;margin-bottom:3px}
-.mode-nm {font-size:9px;font-weight:800}
-.mode-boost {font-size:8px;color:var(--g);font-weight:700;margin-top:2px}
-.agent-card {background:var(--card);border:1px solid #2A2A4A;border-radius:10px;padding:11px;margin-bottom:7px}
-.agent-card.act {border-color:var(--ok)}
-.agent-card.inact {opacity:.6}
-.ac-bar {height:4px;background:#2A2A4A;border-radius:2px;overflow:hidden;margin:5px 0}
-.ac-fill {height:100%;border-radius:2px;transition:width .8s}
-input[type=range] {-webkit-appearance:none;height:4px;border-radius:2px;background:var(--el);outline:none;width:100%}
-input[type=range]::-webkit-slider-thumb {-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--p);cursor:pointer}
+.bot-hero{background:linear-gradient(135deg,rgba(155,89,182,.2),rgba(233,30,154,.1));border:2px solid var(--p);border-radius:13px;padding:13px;margin-bottom:10px;text-align:center}
+
+.bot-count{font-size:36px;font-weight:900;color:var(--g)}
+
+.mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+
+.mode-btn{border:2px solid #2A2A4A;border-radius:9px;padding:10px 5px;text-align:center;cursor:pointer;touch-action:manipulation;background:var(--card)}
+
+.mode-btn.on{border-color:var(--p);background:rgba(155,89,182,.15)}
+
+.mode-btn:active{opacity:.7}
+
+.mode-ico{font-size:20px;display:block;margin-bottom:3px}
+
+.mode-nm{font-size:9px;font-weight:800}
+
+.mode-boost{font-size:8px;color:var(--g);font-weight:700;margin-top:2px}
+
+.agent-card{background:var(--card);border:1px solid #2A2A4A;border-radius:10px;padding:11px;margin-bottom:7px}
+
+.agent-card.act{border-color:var(--ok)}
+
+.agent-card.inact{opacity:.6}
+
+.ac-bar{height:4px;background:#2A2A4A;border-radius:2px;overflow:hidden;margin:5px 0}
+
+.ac-fill{height:100%;border-radius:2px;transition:width .8s}
+
+input[type=range]{-webkit-appearance:none;height:4px;border-radius:2px;background:var(--el);outline:none;width:100%}
+
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--p);cursor:pointer}
+
 /* LEARNING */
-.learn-banner {border-radius:10px;padding:11px 13px;margin-bottom:10px;border:2px solid;display:flex;justify-content:space-between;align-items:center}
-.lb-idle {border-color:#3498DB;background:rgba(52,152,219,.07)}
-.lb-run {border-color:var(--ok);background:rgba(46,204,113,.07)}
-.drow {background:var(--card);border-left:3px solid #2A2A4A;border-radius:0 8px 8px 0;padding:9px 10px;margin-bottom:5px;transition:border-color .3s}
-.drow-head {display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.drow-name {font-size:10px;font-weight:800}
-.dbadge {font-size:7px;font-weight:800;padding:2px 6px;border-radius:50px}
-.drow-bar {height:4px;background:#2A2A4A;border-radius:2px;overflow:hidden;margin-bottom:3px}
-.drow-fill {height:100%;border-radius:2px;transition:width .5s}
-.drow-stats {display:flex;gap:8px;font-size:7px;color:var(--mu)}
-.drow-stats span {color:var(--sub);font-weight:700}
+.learn-banner{border-radius:10px;padding:11px 13px;margin-bottom:10px;border:2px solid;display:flex;justify-content:space-between;align-items:center}
+
+.lb-idle{border-color:#3498DB;background:rgba(52,152,219,.07)}
+
+.lb-run{border-color:var(--ok);background:rgba(46,204,113,.07)}
+
+.drow{background:var(--card);border-left:3px solid #2A2A4A;border-radius:0 8px 8px 0;padding:9px 10px;margin-bottom:5px;transition:border-color .3s}
+
+.drow-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+
+.drow-name{font-size:10px;font-weight:800}
+
+.dbadge{font-size:7px;font-weight:800;padding:2px 6px;border-radius:50px}
+
+.drow-bar{height:4px;background:#2A2A4A;border-radius:2px;overflow:hidden;margin-bottom:3px}
+
+.drow-fill{height:100%;border-radius:2px;transition:width .5s}
+
+.drow-stats{display:flex;gap:8px;font-size:7px;color:var(--mu)}
+
+.drow-stats span{color:var(--sub);font-weight:700}
+
 /* MINING */
-.mine-banner {border-radius:10px;padding:11px 13px;margin-bottom:10px;border:2px solid;display:flex;justify-content:space-between;align-items:center}
-.mb-idle {border-color:var(--p)}
-.mb-act {border-color:var(--ok);background:rgba(46,204,113,.07)}
-.ccard {background:var(--card);border:1px solid #2A2A4A;border-radius:10px;padding:10px;margin-bottom:6px;transition:border-color .3s}
-.ccard.con {border-color:var(--ok)}
-.ccard.cbot {border-color:var(--p)}
-.cdot {width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;flex-shrink:0}
-.cc-bar {height:3px;background:#2A2A4A;border-radius:2px;overflow:hidden;margin-bottom:5px}
-.cc-fill {height:100%;border-radius:2px;transition:width .8s}
-.cc-meta {display:flex;justify-content:space-between;font-size:8px;color:var(--mu);margin-bottom:5px}
-.cc-btns {display:flex;gap:4px}
-.ccb {flex:1;border:none;border-radius:6px;padding:7px 3px;font-size:9px;font-weight:700;cursor:pointer;touch-action:manipulation}
-.ccb:active {opacity:.6}
+.mine-banner{border-radius:10px;padding:11px 13px;margin-bottom:10px;border:2px solid;display:flex;justify-content:space-between;align-items:center}
+
+.mb-idle{border-color:var(--p)}
+
+.mb-act{border-color:var(--ok);background:rgba(46,204,113,.07)}
+
+.ccard{background:var(--card);border:1px solid #2A2A4A;border-radius:10px;padding:10px;margin-bottom:6px;transition:border-color .3s}
+
+.ccard.con{border-color:var(--ok)}
+
+.ccard.cbot{border-color:var(--p)}
+
+.cdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;flex-shrink:0}
+
+.cc-bar{height:3px;background:#2A2A4A;border-radius:2px;overflow:hidden;margin-bottom:5px}
+
+.cc-fill{height:100%;border-radius:2px;transition:width .8s}
+
+.cc-meta{display:flex;justify-content:space-between;font-size:8px;color:var(--mu);margin-bottom:5px}
+
+.cc-btns{display:flex;gap:4px}
+
+.ccb{flex:1;border:none;border-radius:6px;padding:7px 3px;font-size:9px;font-weight:700;cursor:pointer;touch-action:manipulation}
+
+.ccb:active{opacity:.6}
+
 /* WALLET + PAYMENT RAILS */
-.wallet-hero {text-align:center;padding:14px;background:linear-gradient(135deg,rgba(155,89,182,.12),rgba(241,196,15,.06));border:1px solid #2A2A4A;border-radius:12px;margin-bottom:10px}
-.rail-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
-.rail-card {background:var(--card);border:2px solid #2A2A4A;border-radius:10px;padding:10px;text-align:center;cursor:pointer;touch-action:manipulation;transition:all .2s}
-.rail-card.linked {border-color:var(--ok)}
-.rail-card.active-rail {border-color:var(--p);background:rgba(155,89,182,.12)}
-.rail-card:active {opacity:.7}
-.rail-ico {font-size:22px;display:block;margin-bottom:4px}
-.rail-name {font-size:9px;font-weight:800}
-.rail-stat {font-size:8px;color:var(--sub);margin-top:2px}
-.rail-status {font-size:7px;font-weight:800;margin-top:3px}
-.wrow {background:var(--card);border:1px solid #2A2A4A;border-radius:8px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
-.w-addr {font-size:7px;color:var(--mu);font-family:monospace;word-break:break-all;margin-top:1px}
+.wallet-hero{text-align:center;padding:14px;background:linear-gradient(135deg,rgba(155,89,182,.12),rgba(241,196,15,.06));border:1px solid #2A2A4A;border-radius:12px;margin-bottom:10px}
+
+.rail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
+
+.rail-card{background:var(--card);border:2px solid #2A2A4A;border-radius:10px;padding:10px;text-align:center;cursor:pointer;touch-action:manipulation;transition:all .2s}
+
+.rail-card.linked{border-color:var(--ok)}
+
+.rail-card.active-rail{border-color:var(--p);background:rgba(155,89,182,.12)}
+
+.rail-card:active{opacity:.7}
+
+.rail-ico{font-size:22px;display:block;margin-bottom:4px}
+
+.rail-name{font-size:9px;font-weight:800}
+
+.rail-stat{font-size:8px;color:var(--sub);margin-top:2px}
+
+.rail-status{font-size:7px;font-weight:800;margin-top:3px}
+
+.wrow{background:var(--card);border:1px solid #2A2A4A;border-radius:8px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+
+.w-addr{font-size:7px;color:var(--mu);font-family:monospace;word-break:break-all;margin-top:1px}
+
 /* STOCKS */
-.stock-ctrl {background:var(--card);border:1px solid #2A2A4A;border-radius:11px;padding:12px;margin-bottom:10px}
-.sc-row {display:flex;gap:7px;align-items:center;margin-bottom:7px}
-.sc-lbl {font-size:9px;color:var(--sub);font-weight:700;min-width:58px}
-select {flex:1;background:var(--el);border:1px solid #2A2A4A;color:var(--tx);border-radius:7px;padding:8px 9px;font-size:11px;font-weight:700;outline:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239B59B6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:24px}
-select option {background:#111118}
-.sig-card {background:var(--card);border:1px solid #2A2A4A;border-radius:10px;padding:11px;margin-bottom:7px}
-.sig-head {display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
-.sig-ticker {font-size:14px;font-weight:900}
-.sig-name {font-size:8px;color:var(--sub);margin-top:2px}
-.sig-action {font-size:13px;font-weight:900;text-align:right}
-.sig-tags {display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px}
-.stag {background:var(--el);border-radius:4px;padding:2px 6px;font-size:8px;color:var(--sub)}
-.sig-why {font-size:8px;color:var(--sub);line-height:1.7;border-top:1px solid #1A1A2E;padding-top:4px}
-.sig-prices {display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:7px;font-size:8px}
-.sp {background:var(--el);border-radius:4px;padding:5px 6px;text-align:center}
-.sp-lbl {color:var(--mu);margin-bottom:2px}
-.sp-val {font-weight:900}
+.stock-ctrl{background:var(--card);border:1px solid #2A2A4A;border-radius:11px;padding:12px;margin-bottom:10px}
+
+.sc-row{display:flex;gap:7px;align-items:center;margin-bottom:7px}
+
+.sc-lbl{font-size:9px;color:var(--sub);font-weight:700;min-width:58px}
+
+select{flex:1;background:var(--el);border:1px solid #2A2A4A;color:var(--tx);border-radius:7px;padding:8px 9px;font-size:11px;font-weight:700;outline:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239B59B6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:24px}
+
+select option{background:#111118}
+
+.sig-card{background:var(--card);border:1px solid #2A2A4A;border-radius:10px;padding:11px;margin-bottom:7px}
+
+.sig-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+
+.sig-ticker{font-size:14px;font-weight:900}
+
+.sig-name{font-size:8px;color:var(--sub);margin-top:2px}
+
+.sig-action{font-size:13px;font-weight:900;text-align:right}
+
+.sig-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px}
+
+.stag{background:var(--el);border-radius:4px;padding:2px 6px;font-size:8px;color:var(--sub)}
+
+.sig-why{font-size:8px;color:var(--sub);line-height:1.7;border-top:1px solid #1A1A2E;padding-top:4px}
+
+.sig-prices{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:7px;font-size:8px}
+
+.sp{background:var(--el);border-radius:4px;padding:5px 6px;text-align:center}
+
+.sp-lbl{color:var(--mu);margin-bottom:2px}
+
+.sp-val{font-weight:900}
+
 /* INT */
-.int-card {background:var(--card);border:1px solid #2A2A4A;border-radius:9px;padding:10px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
-.int-l {display:flex;align-items:center;gap:8px}
-.int-ico {font-size:20px;width:30px;text-align:center}
-.int-nm {font-size:11px;font-weight:800}
-.int-tp {font-size:8px;color:var(--mu);margin-top:1px}
-.ibadge {font-size:8px;font-weight:800;padding:3px 9px;border-radius:50px}
-.iconn {background:rgba(46,204,113,.15);border:1px solid var(--ok);color:var(--ok)}
-.ipend {background:rgba(241,196,15,.1);border:1px solid var(--g);color:var(--g)}
+.int-card{background:var(--card);border:1px solid #2A2A4A;border-radius:9px;padding:10px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+
+.int-l{display:flex;align-items:center;gap:8px}
+
+.int-ico{font-size:20px;width:30px;text-align:center}
+
+.int-nm{font-size:11px;font-weight:800}
+
+.int-tp{font-size:8px;color:var(--mu);margin-top:1px}
+
+.ibadge{font-size:8px;font-weight:800;padding:3px 9px;border-radius:50px}
+
+.iconn{background:rgba(46,204,113,.15);border:1px solid var(--ok);color:var(--ok)}
+
+.ipend{background:rgba(241,196,15,.1);border:1px solid var(--g);color:var(--g)}
+
 /* DOMAIN MODAL */
-.dom-row {background:var(--card);border:1px solid #2A2A4A;border-radius:8px;padding:9px 11px;display:flex;align-items:center;gap:9px;margin-bottom:5px;cursor:pointer;touch-action:manipulation}
-.dom-row:active {opacity:.7}
-.dom-num {width:22px;height:22px;border-radius:50%;background:rgba(155,89,182,.2);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:var(--p);flex-shrink:0}
+.dom-row{background:var(--card);border:1px solid #2A2A4A;border-radius:8px;padding:9px 11px;display:flex;align-items:center;gap:9px;margin-bottom:5px;cursor:pointer;touch-action:manipulation}
+
+.dom-row:active{opacity:.7}
+
+.dom-num{width:22px;height:22px;border-radius:50%;background:rgba(155,89,182,.2);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:var(--p);flex-shrink:0}
+
 /* CHAT */
-.chatbox {background:var(--card);border:1px solid #2A2A4A;border-radius:12px;overflow:hidden}
-.chatmsgs {padding:10px;height:43vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;-webkit-overflow-scrolling:touch}
-.cmsg {max-width:90%;border-radius:10px;padding:8px 10px;font-size:11px;line-height:1.6}
-.cmsg.bot {background:var(--el);align-self:flex-start;border-bottom-left-radius:2px}
-.cmsg.user {background:linear-gradient(135deg,var(--p),#6C3483);color:#fff;align-self:flex-end;border-bottom-right-radius:2px}
-.chatrow {display:flex;gap:5px;padding:8px;border-top:1px solid #1A1A2E;background:var(--el)}
-.chatinput {flex:1;background:var(--card);border:1px solid #2A2A4A;border-radius:7px;padding:8px 10px;color:var(--tx);font-size:11px;outline:none}
-.chatinput:focus {border-color:var(--p)}
-.chatsend {background:linear-gradient(135deg,var(--p),#6C3483);border:none;color:#fff;border-radius:7px;padding:8px 13px;cursor:pointer;font-weight:800;touch-action:manipulation}
+.chatbox{background:var(--card);border:1px solid #2A2A4A;border-radius:12px;overflow:hidden}
+
+.chatmsgs{padding:10px;height:43vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;-webkit-overflow-scrolling:touch}
+
+.cmsg{max-width:90%;border-radius:10px;padding:8px 10px;font-size:11px;line-height:1.6}
+
+.cmsg.bot{background:var(--el);align-self:flex-start;border-bottom-left-radius:2px}
+
+.cmsg.user{background:linear-gradient(135deg,var(--p),#6C3483);color:#fff;align-self:flex-end;border-bottom-right-radius:2px}
+
+.chatrow{display:flex;gap:5px;padding:8px;border-top:1px solid #1A1A2E;background:var(--el)}
+
+.chatinput{flex:1;background:var(--card);border:1px solid #2A2A4A;border-radius:7px;padding:8px 10px;color:var(--tx);font-size:11px;outline:none}
+
+.chatinput:focus{border-color:var(--p)}
+
+.chatsend{background:linear-gradient(135deg,var(--p),#6C3483);border:none;color:#fff;border-radius:7px;padding:8px 13px;cursor:pointer;font-weight:800;touch-action:manipulation}
+
 /* MODAL */
-#modalbg {display:none;position:fixed;inset:0;background:rgba(0,0,0,.87);z-index:9999;align-items:flex-end;justify-content:center}
+#modalbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.87);z-index:9999;align-items:flex-end;justify-content:center}
+
 #modalbg
-#modalbox {background:var(--card);border-radius:18px 18px 0 0;width:100%;max-width:620px;max-height:82vh;overflow-y:auto;padding:14px 12px 26px}
-.mdrag {width:32px;height:4px;background:#2A2A4A;border-radius:2px;margin:0 auto 11px}
-.mtopic {background:var(--el);border-radius:5px;padding:3px 7px;font-size:9px;color:var(--sub);display:inline-block;margin:2px}
+#modalbox{background:var(--card);border-radius:18px 18px 0 0;width:100%;max-width:620px;max-height:82vh;overflow-y:auto;padding:14px 12px 26px}
+
+.mdrag{width:32px;height:4px;background:#2A2A4A;border-radius:2px;margin:0 auto 11px}
+
+.mtopic{background:var(--el);border-radius:5px;padding:3px 7px;font-size:9px;color:var(--sub);display:inline-block;margin:2px}
+
 /* TOAST */
-#toast {position:fixed;bottom:70px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--p);color:#fff;border-radius:50px;padding:7px 18px;font-weight:700;font-size:11px;z-index:9999;opacity:0;transition:all .25s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
-#toast.show {opacity:1;transform:translateX(-50%) translateY(0)}
-to {background-position:200%}
-.qgrid {display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
-.qcard {background:var(--card);border:1px solid #2A2A4A;border-radius:9px;padding:9px 4px;text-align:center;cursor:pointer;touch-action:manipulation}
-.qcard:active {transform:scale(.93);opacity:.7}
-.qi {font-size:18px;display:block;margin-bottom:2px}
-.ql {font-size:8px;font-weight:800;display:block}
-.qs {font-size:7px;color:var(--sub);display:block;margin-top:1px}
+#toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--p);color:#fff;border-radius:50px;padding:7px 18px;font-weight:700;font-size:11px;z-index:9999;opacity:0;transition:all .25s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
+
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+to{background-position:200%}
+
+.qgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+
+.qcard{background:var(--card);border:1px solid #2A2A4A;border-radius:9px;padding:9px 4px;text-align:center;cursor:pointer;touch-action:manipulation}
+
+.qcard:active{transform:scale(.93);opacity:.7}
+
+.qi{font-size:18px;display:block;margin-bottom:2px}
+
+.ql{font-size:8px;font-weight:800;display:block}
+
+.qs{font-size:7px;color:var(--sub);display:block;margin-top:1px}
+
 /* INPUT */
-.inp {background:var(--el);border:1px solid #2A2A4A;color:var(--tx);border-radius:7px;padding:8px 10px;font-size:11px;width:100%;outline:none}
-.inp:focus {border-color:var(--p)}
-.ptab {background:#0D0D2B;border:1px solid #333;color:#888;border-radius:7px;padding:6px 10px;font-size:8px;font-weight:700;cursor:pointer;white-space:nowrap}
-.ptab-active {background:#635BFF;border-color:#635BFF;color:#fff}
-.pool-panel {animation:fadeIn 0.2s ease}
+.inp{background:var(--el);border:1px solid #2A2A4A;color:var(--tx);border-radius:7px;padding:8px 10px;font-size:11px;width:100%;outline:none}
+
+.inp:focus{border-color:var(--p)}
+
+  .ptab{background:#0D0D2B;border:1px solid #333;color:#888;border-radius:7px;padding:6px 10px;font-size:8px;font-weight:700;cursor:pointer;white-space:nowrap}
+
+  .ptab-active{background:#635BFF;border-color:#635BFF;color:#fff}
+
+  .pool-panel{animation:fadeIn 0.2s ease}
+
 /* ── Attached: Knowledge Domain Cards ── */
-.dcard {background:var(--el);border:1px solid #2A2A4A;border-radius:12px;padding:12px;cursor:pointer;transition:border-color .2s}
-.dcard:active {border-color:var(--p)}
-.dcard-num {font-size:9px;color:var(--mu);font-weight:700;margin-bottom:4px}
-.dcard-ico {font-size:22px;margin-bottom:4px}
-.dcard-name {font-size:11px;font-weight:900;color:var(--tx);margin-bottom:3px}
-.dcard-sub {font-size:8px;color:var(--sub);line-height:1.4}
-#domain-grid {display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:80px}
+.dcard{background:var(--el);border:1px solid #2A2A4A;border-radius:12px;padding:12px;cursor:pointer;transition:border-color .2s}
+
+.dcard:active{border-color:var(--p)}
+
+.dcard-num{font-size:9px;color:var(--mu);font-weight:700;margin-bottom:4px}
+
+.dcard-ico{font-size:22px;margin-bottom:4px}
+
+.dcard-name{font-size:11px;font-weight:900;color:var(--tx);margin-bottom:3px}
+
+.dcard-sub{font-size:8px;color:var(--sub);line-height:1.4}
+
+#domain-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:80px}
+
 /* ── Behavior Cards ── */
-.bcard {background:var(--el);border:1px solid #2A2A4A;border-radius:12px;padding:12px;margin-bottom:8px}
-.bcard-title {font-size:12px;font-weight:900;color:var(--tx);margin-bottom:6px}
-.btopic {display:inline-block;background:#1A1A3A;color:var(--sub);border-radius:20px;padding:3px 8px;font-size:8px;margin:2px}
-#beh-list {padding-bottom:80px}
+.bcard{background:var(--el);border:1px solid #2A2A4A;border-radius:12px;padding:12px;margin-bottom:8px}
+
+.bcard-title{font-size:12px;font-weight:900;color:var(--tx);margin-bottom:6px}
+
+.btopic{display:inline-block;background:#1A1A3A;color:var(--sub);border-radius:20px;padding:3px 8px;font-size:8px;margin:2px}
+
+#beh-list{padding-bottom:80px}
+
 /* ── Algorithm Cards ── */
 
-.algocard-hdr {display:flex;align-items:center;gap:8px;margin-bottom:8px}
-#algo-list {padding-bottom:80px}
+.algocard-hdr{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+
+#algo-list{padding-bottom:80px}
+
 /* ── Agent Cards ── */
-.acard {background:var(--el);border:2px solid #2A2A4A;border-radius:14px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden}
-.acard-glow {position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
+.acard{background:var(--el);border:2px solid #2A2A4A;border-radius:14px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden}
+
+.acard-glow{position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
+
 /* ── Home crown ── */
-.crown {font-size:52px;display:block;text-align:center;margin-bottom:8px;animation:pulse 2s infinite}
-.htitle {font-size:26px;font-weight:900;color:var(--p);text-align:center;margin-bottom:4px}
-.hsub {font-size:11px;color:var(--sub);text-align:center;margin-bottom:16px}
+.crown{font-size:52px;display:block;text-align:center;margin-bottom:8px;animation:pulse 2s infinite}
+
+.htitle{font-size:26px;font-weight:900;color:var(--p);text-align:center;margin-bottom:4px}
+
+.hsub{font-size:11px;color:var(--sub);text-align:center;margin-bottom:16px}
+
 /* ── Financial Team Cards ── */
-.fincard {background:var(--el);border:1px solid #2A2A4A;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
-.fincard-ico {font-size:24px;flex-shrink:0}
-.fincard-name {font-size:11px;font-weight:900;color:var(--tx)}
-.fincard-role {font-size:8px;color:var(--p);font-weight:700;margin-bottom:4px}
-.fincard-desc {font-size:8px;color:var(--sub);line-height:1.4}
-.fincard-action {background:var(--p);color:#fff;border:none;border-radius:6px;padding:5px 10px;font-size:8px;font-weight:700;cursor:pointer;margin-top:6px}
+.fincard{background:var(--el);border:1px solid #2A2A4A;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+
+.fincard-ico{font-size:24px;flex-shrink:0}
+
+.fincard-name{font-size:11px;font-weight:900;color:var(--tx)}
+
+.fincard-role{font-size:8px;color:var(--p);font-weight:700;margin-bottom:4px}
+
+.fincard-desc{font-size:8px;color:var(--sub);line-height:1.4}
+
+.fincard-action{background:var(--p);color:#fff;border:none;border-radius:6px;padding:5px 10px;font-size:8px;font-weight:700;cursor:pointer;margin-top:6px}
+
 /* ─── ALGO TAB ─── */
-.algocard {background:#0A0A1A;border:1px solid #2a2a4a;border-radius:12px;padding:12px;margin-bottom:10px}
-.algocard-head {display:flex;justify-content:space-between;align-items:center;cursor:pointer}
-.algobadge {background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;border-radius:20px;padding:3px 10px;font-size:9px;font-weight:900}
-.algotag {background:#1a1a3a;border:1px solid #333;color:#888;border-radius:4px;padding:2px 6px;font-size:7px;display:inline-block;margin:1px}
-.algo-analysis {display:none;margin-top:10px;border-top:1px solid #1a1a3a;padding-top:8px}
-.algo-analysis-card {background:#050510;border-left:3px solid #9B59B6;border-radius:0 8px 8px 0;padding:8px;margin-bottom:5px}
+.algocard{background:#0A0A1A;border:1px solid #2a2a4a;border-radius:12px;padding:12px;margin-bottom:10px}
+
+.algocard-head{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+
+.algobadge{background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;border-radius:20px;padding:3px 10px;font-size:9px;font-weight:900}
+
+.algotag{background:#1a1a3a;border:1px solid #333;color:#888;border-radius:4px;padding:2px 6px;font-size:7px;display:inline-block;margin:1px}
+
+.algo-analysis{display:none;margin-top:10px;border-top:1px solid #1a1a3a;padding-top:8px}
+
+.algo-analysis-card{background:#050510;border-left:3px solid #9B59B6;border-radius:0 8px 8px 0;padding:8px;margin-bottom:5px}
+
 /* ─── ADMIN PANEL ─── */
-#admin-overlay {display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;overflow-y:auto}
-.admin-modal {background:#08081A;border:2px solid #9B59B6;border-radius:18px;max-width:420px;margin:40px auto;padding:22px;position:relative}
-.admin-header {background:linear-gradient(135deg,#9B59B6,#F1C40F);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:18px;font-weight:900;letter-spacing:1px;margin-bottom:14px}
-.admin-section {background:#0A0A1A;border:1px solid #1e1e3a;border-radius:12px;padding:14px;margin-bottom:12px}
-.admin-sec-title {font-size:9px;font-weight:900;color:#F1C40F;letter-spacing:2px;margin-bottom:10px}
-.admin-toggle {display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.admin-toggle label {font-size:11px;color:#ccc}
-.admin-switch {position:relative;width:44px;height:24px}
-.admin-switch input {opacity:0;width:0;height:0}
-.admin-switch input:checked+.admin-slider {background:linear-gradient(135deg,#9B59B6,#F1C40F)}
-.admin-switch input:checked+.admin-slider:before {transform:translateX(20px);background:#fff}
-.admin-stat {display:inline-block;background:#0d0d2a;border:1px solid #2a2a4a;border-radius:8px;padding:6px 12px;font-size:9px;margin:3px;text-align:center}
-.admin-stat b {display:block;font-size:14px;color:#F1C40F}
-.approval-card {background:#0d0d2a;border:1px solid #9B59B6;border-radius:10px;padding:10px;margin-bottom:8px}
-.approval-card .ac-amt {font-size:14px;font-weight:900;color:#F1C40F}
-.approval-card .ac-rail {font-size:9px;color:#9B59B6;font-weight:700}
-.approval-card .ac-ts {font-size:8px;color:#666}
-.approval-btn {border:none;border-radius:8px;padding:7px 16px;font-size:10px;font-weight:900;cursor:pointer;margin:3px}
-.approval-approve {background:linear-gradient(135deg,#27ae60,#2ecc71);color:#000}
-.approval-reject {background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff}
-.admin-input {background:#0A0A1A;border:1px solid #2a2a4a;border-radius:8px;color:#fff;font-size:11px;padding:8px 10px;width:100%;box-sizing:border-box;margin-bottom:8px}
-.admin-input:focus {outline:none;border-color:#9B59B6}
-.admin-rail-check {display:inline-flex;align-items:center;gap:4px;margin:3px 6px 3px 0;font-size:9px;cursor:pointer}
-#admin-pin-screen {text-align:center;padding:30px 20px}
-#admin-pin-display {font-size:28px;letter-spacing:12px;color:#F1C40F;font-weight:900;min-height:40px;margin:14px 0}
-.pin-btn {background:#0d0d2a;border:1px solid #2a2a4a;border-radius:10px;color:#fff;font-size:16px;font-weight:700;width:65px;height:50px;cursor:pointer;margin:3px;transition:.15s}
-.pin-btn:active {background:#9B59B6;color:#000}
-.pin-keypad {display:grid;grid-template-columns:repeat(3,65px);gap:6px;justify-content:center;margin:0 auto}
-.nb.active {background:#9B59B6!important;color:#fff!important;}
+#admin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;overflow-y:auto}
+
+.admin-modal{background:#08081A;border:2px solid #9B59B6;border-radius:18px;max-width:420px;margin:40px auto;padding:22px;position:relative}
+
+.admin-header{background:linear-gradient(135deg,#9B59B6,#F1C40F);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:18px;font-weight:900;letter-spacing:1px;margin-bottom:14px}
+
+.admin-section{background:#0A0A1A;border:1px solid #1e1e3a;border-radius:12px;padding:14px;margin-bottom:12px}
+
+.admin-sec-title{font-size:9px;font-weight:900;color:#F1C40F;letter-spacing:2px;margin-bottom:10px}
+
+.admin-toggle{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+
+.admin-toggle label{font-size:11px;color:#ccc}
+
+.admin-switch{position:relative;width:44px;height:24px}
+
+.admin-switch input{opacity:0;width:0;height:0}
+
+.admin-switch input:checked+.admin-slider{background:linear-gradient(135deg,#9B59B6,#F1C40F)}
+
+.admin-switch input:checked+.admin-slider:before{transform:translateX(20px);background:#fff}
+
+.admin-stat{display:inline-block;background:#0d0d2a;border:1px solid #2a2a4a;border-radius:8px;padding:6px 12px;font-size:9px;margin:3px;text-align:center}
+
+.admin-stat b{display:block;font-size:14px;color:#F1C40F}
+
+.approval-card{background:#0d0d2a;border:1px solid #9B59B6;border-radius:10px;padding:10px;margin-bottom:8px}
+
+.approval-card .ac-amt{font-size:14px;font-weight:900;color:#F1C40F}
+
+.approval-card .ac-rail{font-size:9px;color:#9B59B6;font-weight:700}
+
+.approval-card .ac-ts{font-size:8px;color:#666}
+
+.approval-btn{border:none;border-radius:8px;padding:7px 16px;font-size:10px;font-weight:900;cursor:pointer;margin:3px}
+
+.approval-approve{background:linear-gradient(135deg,#27ae60,#2ecc71);color:#000}
+
+.approval-reject{background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff}
+
+.admin-input{background:#0A0A1A;border:1px solid #2a2a4a;border-radius:8px;color:#fff;font-size:11px;padding:8px 10px;width:100%;box-sizing:border-box;margin-bottom:8px}
+
+.admin-input:focus{outline:none;border-color:#9B59B6}
+
+.admin-rail-check{display:inline-flex;align-items:center;gap:4px;margin:3px 6px 3px 0;font-size:9px;cursor:pointer}
+
+#admin-pin-screen{text-align:center;padding:30px 20px}
+
+#admin-pin-display{font-size:28px;letter-spacing:12px;color:#F1C40F;font-weight:900;min-height:40px;margin:14px 0}
+
+.pin-btn{background:#0d0d2a;border:1px solid #2a2a4a;border-radius:10px;color:#fff;font-size:16px;font-weight:700;width:65px;height:50px;cursor:pointer;margin:3px;transition:.15s}
+
+.pin-btn:active{background:#9B59B6;color:#000}
+
+.pin-keypad{display:grid;grid-template-columns:repeat(3,65px);gap:6px;justify-content:center;margin:0 auto}
+
+.nb.active{background:#9B59B6!important;color:#fff!important;}
+
 /* ═══ Transaction Panel CSS ═══ */
 
 .input-row .field select,
@@ -284,7 +498,7 @@ to {background-position:200%}
 
 /* Balance Display */
 
-/* Action Button Grid (Receive) */
+/* Action Button Grid (Send / Cash Out) */
 
 /* Navigation Bar Layout */
 
@@ -303,29 +517,34 @@ to {background-position:200%}
   padding: 16px;
   margin-bottom: 16px;
 }
+
 .dashboard-card .card-header h3 {
   margin: 0;
   font-size: 14px;
   font-weight: 900;
   color: #F1C40F;
 }
+
 /* Input Row */
 .input-row {
   display: flex;
   gap: 10px;
   width: 100%;
 }
+
 .input-row .field {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
+
 .input-row .field label {
   font-size: 10px;
   color: #888;
   font-weight: 700;
 }
+
 .input-row .field select,
 .input-row .field input {
   background: #0a0a14;
@@ -337,6 +556,7 @@ to {background-position:200%}
   width: 100%;
   box-sizing: border-box;
 }
+
 /* Balance Display */
 .balance-display {
   display: flex;
@@ -347,21 +567,25 @@ to {background-position:200%}
   border-radius: 8px;
   padding: 10px 14px;
 }
+
 .balance-display span {
   font-size: 11px;
   color: #888;
 }
+
 .balance-display .amount {
   font-size: 18px;
   font-weight: 900;
   color: #00E676;
 }
-/* Action Button Grid (Receive) */
+
+/* Action Button Grid (Send / Cash Out) */
 .button-group {
   display: flex;
   gap: 10px;
   width: 100%;
 }
+
 .button-group button {
   flex: 1;
   padding: 12px;
@@ -370,24 +594,29 @@ to {background-position:200%}
   cursor: pointer;
   border: none;
 }
+
 .btn-primary {
   background: #9B59B6;
   color: #fff;
   font-size: 13px;
   font-weight: 900;
 }
+
 .btn-primary:active {
   background: #7d3f93;
 }
+
 .btn-secondary {
   background: #F1C40F;
   color: #000;
   font-size: 13px;
   font-weight: 900;
 }
+
 .btn-secondary:active {
   background: #d4a810;
 }
+
 /* Navigation Bar Layout */
 .bottom-nav {
   display: flex;
@@ -402,9 +631,11 @@ to {background-position:200%}
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
+
 .bottom-nav::-webkit-scrollbar {
   display: none;
 }
+
 .nav-item {
   flex: 0 0 auto;
   padding: 8px 16px;
@@ -415,20 +646,21 @@ to {background-position:200%}
   font-weight: 700;
   touch-action: manipulation;
 }
+
 .nav-item.active {
   color: #bf55ec;
 }
+
 /* Custom Address Toggle */
 #customAddrWrap {
   display: none;
 }
+
 #customAddrWrap.show {
   display: flex;
-}
-</style>
-
+}</style>
 </head>
-<body><div id="genius-badge" style="position:fixed;top:2px;right:4px;z-index:9999;background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;padding:2px 8px;border-radius:8px;font-size:8px;font-weight:900;pointer-events:none">GENIUS MODE</div>
+<body>
 <div id="topbar">
   <div id="brand">👑 TaTatalicious</div>
   <div class="live-row">
@@ -461,7 +693,7 @@ to {background-position:200%}
       <button onclick="startAllMining()" style="flex:1;min-width:65px;background:#00E676;color:#000;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">▶ START</button>
       <button onclick="pauseAllMining()" style="flex:1;min-width:65px;background:#FF5252;color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">⏸ PAUSE</button>
       <button onclick="collectAllPositive()" style="flex:1;min-width:65px;background:#F1C40F;color:#000;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">💰 COLLECT</button>
-      <button onclick="mineWithdrawToWallet()" style="flex:1;min-width:65px;background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">⬇ RECEIVE</button>
+      <button onclick="mineWithdrawToWallet()" style="flex:1;min-width:65px;background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">⬆ WITHDRAW</button>
     </div>
 <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0">
   <div class="stat-card" style="background:#0A0A1E;border:1px solid #9B59B6;border-radius:10px;padding:12px;text-align:center">
@@ -517,17 +749,17 @@ to {background-position:200%}
       <div style="font-size:28px;flex-shrink:0">🔐</div>
       <div style="flex:1">
         <div style="font-size:13px;font-weight:900;color:#F1C40F;letter-spacing:.5px">PAYMENT APPROVAL</div>
-        <div style="font-size:9px;color:#D4A8E7;margin-top:2px">iMessage verification • 6 rails • Instant receive</div>
+        <div style="font-size:9px;color:#D4A8E7;margin-top:2px">iMessage verification • 6 rails • Instant payout</div>
       </div>
       <div style="font-size:18px;color:#F1C40F">→</div>
     </div>
   </div>
-  <!-- PENDING RECEIVES DROPDOWN -->
+  <!-- PENDING PAYOUTS DROPDOWN -->
   <div style="margin-bottom:12px">
     <div onclick="togglePendingDropdown()" id="pending-dropdown-header" style="cursor:pointer;touch-action:manipulation;background:#0d0d2a;border:1px solid #2a2a4a;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px">
       <div style="font-size:20px;flex-shrink:0">📋</div>
       <div style="flex:1">
-        <div style="font-size:12px;font-weight:900;color:#fff">Receiving Payouts Pending Approval</div>
+        <div style="font-size:12px;font-weight:900;color:#fff">Payouts Pending Approval</div>
         <div style="font-size:9px;color:#888;margin-top:2px"><span id="pending-count-badge" style="background:#E74C3C;color:#fff;border-radius:10px;padding:1px 8px;font-weight:900;font-size:10px">0</span> waiting for your approval</div>
       </div>
       <div id="pending-dropdown-arrow" style="font-size:14px;color:#888;transition:transform .3s">▼</div>
@@ -745,11 +977,11 @@ to {background-position:200%}
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px">
       <button id="mine-all" onclick="startAllMining()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#00C853,#00E676);color:#000">&#9654; START ALL</button>
       <button id="mine-stop" onclick="pauseAllMining()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#F39C12,#F1C40F);color:#000">&#9646;&#9646; PAUSE</button>
-      <button onclick="mineWithdrawToWallet()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#9B59B6,#6C3483);color:#fff">&#128176; RECEIVE</button>
+      <button onclick="mineWithdrawToWallet()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#9B59B6,#6C3483);color:#fff">&#128176; WITHDRAW</button>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
       <button id="mine-get" onclick="collectAllPositive()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#0070BA,#003087);color:#fff;font-size:10px">&#128200; Collect All</button>
-      <button onclick="openReceiveModal('all')" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#E74C3C,#C0392B);color:#fff;font-size:10px">&#128184; Payout</button>
+      <button onclick="openPayoutModal('all')" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#E74C3C,#C0392B);color:#fff;font-size:10px">&#128184; Payout</button>
     </div>
   </div>
   <!-- MINING STATS -->
@@ -861,7 +1093,7 @@ to {background-position:200%}
     </div>
     <div style="display:flex;gap:6px">
       <button onclick="mineTransferAll()" style="flex:1;background:#00C853;color:#000;border:none;border-radius:10px;padding:12px;font-size:10px;font-weight:900;cursor:pointer">⚡ COLLECT ALL → WALLET</button>
-      <button onclick="mineWithdrawModal()" style="flex:1;background:#9B59B6;color:#fff;border:none;border-radius:10px;padding:12px;font-size:10px;font-weight:900;cursor:pointer">⬇ RECEIVE NOW</button>
+      <button onclick="mineWithdrawModal()" style="flex:1;background:#9B59B6;color:#fff;border:none;border-radius:10px;padding:12px;font-size:10px;font-weight:900;cursor:pointer">💳 WITHDRAW NOW</button>
     </div>
     <div id="mine-transfer-log" style="margin-top:8px;font-size:8px;color:#555;font-style:italic">Last transfer: waiting for first collect...</div>
   </div>
@@ -940,7 +1172,7 @@ to {background-position:200%}
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px">
       <button onclick="transferPortfolioToWallet()" style="background:#00C853;color:#000;border:none;border-radius:8px;padding:10px;font-size:9px;font-weight:900;cursor:pointer">💰 Convert→Wallet</button>
-      <button onclick="openReceiveModal('all')" style="background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:10px;font-size:9px;font-weight:900;cursor:pointer">⬇ Receive</button>
+      <button onclick="openPayoutModal('all')" style="background:#9B59B6;color:#fff;border:none;border-radius:8px;padding:10px;font-size:9px;font-weight:900;cursor:pointer">💳 Withdraw</button>
     </div>
   </div>
 
@@ -1001,9 +1233,9 @@ to {background-position:200%}
     <div style="display:flex;justify-content:space-between;align-items:center">
       <div>
         <div style="font-size:10px;font-weight:900;color:#009cde">🅿 PayPal Live API</div>
-        <div style="font-size:8px;color:#555;margin-top:2px">Receiving API enabled — test connection</div>
+        <div style="font-size:8px;color:#555;margin-top:2px">Payouts API enabled — test connection</div>
       </div>
-      <button id="pp-verify-btn" onclick="verifyPayPalReceive()" style="background:#009cde;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:9px;font-weight:900;cursor:pointer">🅿 Verify PayPal</button>
+      <button id="pp-verify-btn" onclick="verifyPayPalPayout()" style="background:#009cde;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:9px;font-weight:900;cursor:pointer">🅿 Verify PayPal</button>
     
 
   <!-- ═══ MAIN TRANSACTION PANEL ═══ -->
@@ -1043,7 +1275,7 @@ to {background-position:200%}
     </div>
     <div class="button-group">
       <button id="btnSend" class="btn-primary" onclick="sendMinedTokensNew()">🚀 Send Tokens</button>
-      <button id="btnCashOut" class="btn-secondary" onclick="openReceiveModal()">💰 Receive</button>
+      <button id="btnCashOut" class="btn-secondary" onclick="openPayoutModal()">💳 Cash Out</button>
     </div>
     <div id="txLog" style="font-size:10px;color:#00E676;margin-top:4px;min-height:14px"></div>
   </div>
@@ -1122,8 +1354,8 @@ to {background-position:200%}
       <div style="font-size:8px;color:#F44336;font-weight:700;margin-bottom:4px">⬆ OUTGOING</div>
       <div style="font-size:20px;font-weight:900;color:#F44336" id="outgoing-balance-display">$0.0000</div>
       <div style="font-size:7px;color:#555;margin-top:2px">Total paid out</div>
-      <button onclick="openReceiveModal('all')" style="margin-top:7px;width:100%;background:#F44336;color:#fff;border:none;border-radius:7px;padding:7px;font-size:9px;font-weight:900;cursor:pointer">⬇ RECEIVE</button>
-      <button onclick="ppPayout()" style="flex:1;background:linear-gradient(135deg,#0070BA,#003087);color:#fff;border:none;border-radius:10px;padding:12px;font-size:12px;font-weight:900;cursor:pointer;touch-action:manipulation">🅿 Receive via PayPal</button>
+      <button onclick="openPayoutModal('all')" style="margin-top:7px;width:100%;background:#F44336;color:#fff;border:none;border-radius:7px;padding:7px;font-size:9px;font-weight:900;cursor:pointer">↑ WITHDRAW</button>
+      <button onclick="ppPayout()" style="flex:1;background:linear-gradient(135deg,#0070BA,#003087);color:#fff;border:none;border-radius:10px;padding:12px;font-size:12px;font-weight:900;cursor:pointer;touch-action:manipulation">🅿 PayPal Pay</button>
     <button onclick="openAdmin()" style="margin-top:5px;width:100%;background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;border:none;border-radius:7px;padding:9px;font-size:10px;font-weight:900;cursor:pointer;letter-spacing:.5px">👑 ADMIN AUTO-TRANSFER</button>
     </div>
   </div>
@@ -1216,7 +1448,7 @@ to {background-position:200%}
           <option value="link">🔗 Payment Link</option>
         </select>
       </div>
-      <button onclick="executeSendPayout()" style="width:100%;background:linear-gradient(135deg,#9B59B6,#6C3483);color:#fff;border:none;border-radius:10px;padding:13px;font-size:11px;font-weight:900;cursor:pointer">⚡ RECEIVE FUNDS NOW</button>
+      <button onclick="executeSendPayout()" style="width:100%;background:linear-gradient(135deg,#9B59B6,#6C3483);color:#fff;border:none;border-radius:10px;padding:13px;font-size:11px;font-weight:900;cursor:pointer">⚡ SEND FUNDS NOW</button>
     </div>
   </div>
   <!-- COIN BALANCES -->
@@ -1225,10 +1457,10 @@ to {background-position:200%}
   <!-- PAYMENT RAILS -->
   <div class="sec">💳 Payment Rails</div>
   <div class="rail-grid" id="rail-grid"></div>
-  <!-- AUTO-RECEIVE -->
-  <div class="card" id="auto-receive-panel" style="margin-bottom:10px">
+  <!-- AUTO-WITHDRAW -->
+  <div class="card" id="auto-withdraw-panel" style="margin-bottom:10px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
-      <div style="font-size:11px;font-weight:900;color:var(--g)">⚡ Auto-Receive</div>
+      <div style="font-size:11px;font-weight:900;color:var(--g)">⚡ Auto-Withdraw</div>
       <div style="font-size:8px;color:var(--sub)" id="aw-status-badge">Configure below</div>
     </div>
     <div style="display:flex;gap:5px;margin-bottom:7px">
@@ -1241,7 +1473,7 @@ to {background-position:200%}
     </div>
     <input type="hidden" id="ac-threshold" value="0.01">
     <input type="hidden" id="ac-rail" value="none">
-    <button onclick="collectAndRouteAll()" style="width:100%;background:linear-gradient(135deg,var(--p),#6C3483);border:none;color:#fff;border-radius:9px;padding:10px;font-size:10px;font-weight:900;cursor:pointer">⚡ Collect &amp; Auto-Receive</button>
+    <button onclick="collectAndRouteAll()" style="width:100%;background:linear-gradient(135deg,var(--p),#6C3483);border:none;color:#fff;border-radius:9px;padding:10px;font-size:10px;font-weight:900;cursor:pointer">⚡ Collect &amp; Auto-Withdraw</button>
   </div>
   <!-- TX LOG -->
   <div class="sec">🧾 Transaction History</div>
@@ -1356,18 +1588,18 @@ to {background-position:200%}
 </div></div>
 <div id="toast"></div>
 
-<!-- ══════ RECEIVE MODAL ══════ -->
-<div id="receive-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9000;overflow-y:auto;-webkit-overflow-scrolling:touch">
+<!-- ══════ PAYOUT MODAL ══════ -->
+<div id="payout-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9000;overflow-y:auto;-webkit-overflow-scrolling:touch">
   <div style="background:#0D0D2B;border:2px solid #9B59B6;border-radius:20px 20px 0 0;padding:18px;max-width:500px;margin:60px auto 0;min-height:calc(100vh - 60px)">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-      <div id="receive-modal-title" style="font-size:16px;font-weight:900;color:#fff">💰 Receive Funds</div>
-      <button onclick="closeReceiveModal()" style="background:#1a1a3a;border:1px solid #333;color:#888;border-radius:8px;padding:6px 12px;font-size:11px;cursor:pointer">✕ Close</button>
+      <div id="payout-modal-title" style="font-size:16px;font-weight:900;color:#fff">💳 Withdraw</div>
+      <button onclick="closePayoutModal()" style="background:#1a1a3a;border:1px solid #333;color:#888;border-radius:8px;padding:6px 12px;font-size:11px;cursor:pointer">✕ Close</button>
     </div>
-    <div id="receive-modal-rail-info" style="font-size:9px;color:var(--sub);margin-bottom:12px;padding:8px;background:#050510;border-radius:8px"></div>
+    <div id="payout-modal-rail-info" style="font-size:9px;color:var(--sub);margin-bottom:12px;padding:8px;background:#050510;border-radius:8px"></div>
 
     <!-- RAIL SELECTOR (multi-select checkboxes) -->
     <div style="margin-bottom:12px">
-      <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:8px">💰 Select Receive Rail(s)</div>
+      <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:8px">💳 Select Payout Rail(s)</div>
       <div id="rail-checkboxes" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
         <label style="display:flex;align-items:center;gap:6px;background:#1a1a3a;border:1px solid #2a2a4a;border-radius:8px;padding:8px;cursor:pointer">
           <input type="checkbox" id="rail-cashapp" value="cashapp" onchange="updateRailSelection()" style="accent-color:#00D632">
@@ -1402,14 +1634,14 @@ to {background-position:200%}
       <div style="display:flex;gap:6px">
         <input id="payout-amount" type="number" placeholder="0.00" min="1" step="0.01"
           style="flex:1;background:#050510;border:2px solid #9B59B6;color:#00E676;border-radius:8px;padding:10px;font-size:18px;font-weight:900;outline:none;box-sizing:border-box">
-        <button onclick="receiveSetMax()" style="background:#F1C40F;color:#000;border:none;border-radius:8px;padding:10px 14px;font-size:9px;font-weight:900;cursor:pointer">MAX</button>
+        <button onclick="payoutSetMax()" style="background:#F1C40F;color:#000;border:none;border-radius:8px;padding:10px 14px;font-size:9px;font-weight:900;cursor:pointer">MAX</button>
       </div>
-      <div style="font-size:8px;color:#555;margin-top:4px">Available: <span id="receive-available" style="color:#00E676;font-weight:700">$0.00</span></div>
+      <div style="font-size:8px;color:#555;margin-top:4px">Available: <span id="payout-available" style="color:#00E676;font-weight:700">$0.00</span></div>
     </div>
 
     <!-- PAYEE -->
     <div style="margin-bottom:12px">
-      <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:6px">📧 Receiving Account (Email / $tag / Wallet)</div>
+      <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:6px">📧 Payee (Email / $tag / Wallet)</div>
       <input id="payout-email" type="text" placeholder="mccreary.bm@gmail.com or $tenaweek"
         style="width:100%;background:#050510;border:1px solid #2a2a4a;color:#fff;border-radius:8px;padding:10px;font-size:11px;outline:none;box-sizing:border-box">
     </div>
@@ -1420,13 +1652,13 @@ to {background-position:200%}
     </div>
 
     <!-- SEND BUTTON -->
-    <button id="receive-send-btn" onclick="executeMultiRailReceive()"
+    <button id="payout-send-btn" onclick="executeMultiRailPayout()"
       style="width:100%;background:linear-gradient(135deg,#9B59B6,#6C3483);border:none;color:#fff;border-radius:12px;padding:16px;font-size:14px;font-weight:900;cursor:pointer;margin-bottom:8px">
-      ⚡ Receive Funds
+      ⚡ Send Payout
     </button>
 
     <!-- RESULT -->
-    <div id="receive-result-box" style="display:none;background:#050510;border-radius:8px;padding:12px;font-size:10px;color:#00E676;white-space:pre-line"></div>
+    <div id="payout-result-box" style="display:none;background:#050510;border-radius:8px;padding:12px;font-size:10px;color:#00E676;white-space:pre-line"></div>
   </div>
 </div>
 
@@ -1569,9 +1801,6 @@ to {background-position:200%}
 </div>
 
 <script>
-// Null-safe DOM helper
-function _gid(id) { var el = document.getElementById(id); return el || {style:{},classList:{add:function(){},remove:function(){},toggle:function(){}},value:'',textContent:'',innerHTML:'',className:'',children:[],appendChild:function(){},addEventListener:function(){},onclick:null,append:function(){}}; }
-
 
 // CONFIG
 
@@ -1728,12 +1957,12 @@ var S={
     id:'TATA-AGENT-WALLET-LOCAL-001',owner:'TaTatalicious Agent Network',linkedAgents:10101,
     autoCollect:true,total:0,balances:{},txs:[],
     paymentRails:{
-      cashapp:  {id:'cashapp', name:'Cash App', ico:'💵',linked:false,handle:'',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null},
-      applepay: {id:'applepay',name:'Apple Pay',ico:'🍎',linked:false,handle:'',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'ETH',autoIntervalMins:60,lastAutoAt:null},
-      paypal:   {id:'paypal',  name:'PayPal',   ico:'🅿',linked:false,handle:'',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null}
+      cashapp:  {id:'cashapp', name:'Cash App', ico:'💵',linked:false,handle:'',depositedUsd:0,withdrawnUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null},
+      applepay: {id:'applepay',name:'Apple Pay',ico:'🍎',linked:false,handle:'',depositedUsd:0,withdrawnUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'ETH',autoIntervalMins:60,lastAutoAt:null},
+      paypal:   {id:'paypal',  name:'PayPal',   ico:'🅿',linked:false,handle:'',depositedUsd:0,withdrawnUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null}
     }
   },
-  autoReceiveLog:[]
+  autoWithdrawLog:[]
 };
 var activeRailId='cashapp';
 
@@ -1955,19 +2184,19 @@ function completeDomain(d){
 }
 function startLearning(){
   S.learning.active=true;
-  _gid('learn-banner').className='learn-banner lb-run';
+  document.getElementById('learn-banner').className='learn-banner lb-run';
   txt('lb-title','🧠 Learning Engine ACTIVE');
   txt('lb-sub',S.agents.assignedToWork.toLocaleString()+' agents learning');
-  _gid('learn-start').textContent='⏸ Pause';
+  document.getElementById('learn-start').textContent='⏸ Pause';
   if(!S.learning.interval)S.learning.interval=setInterval(learningCycle,200);
   toast('🧠 Learning ACTIVATED — '+S.agents.assignedToWork.toLocaleString()+' agents!');
   saveState('learning-start');
 }
 function pauseLearning(){
   S.learning.active=false;
-  _gid('learn-banner').className='learn-banner lb-idle';
+  document.getElementById('learn-banner').className='learn-banner lb-idle';
   txt('lb-title','🧠 Learning Paused');txt('lb-sub','Resume to continue');
-  _gid('learn-start').textContent='▶ Start Learning';
+  document.getElementById('learn-start').textContent='▶ Start Learning';
   if(S.learning.interval){clearInterval(S.learning.interval);S.learning.interval=null;}
   saveState('learning-pause');
 }
@@ -2135,7 +2364,7 @@ function toggleLevel(k){
   var lv=S.agents.levels[k];if(!lv||lv.tier==='MASTER')return;
   lv.active=!lv.active;
   S.agents.assignedToWork=Object.values(S.agents.levels).filter(function(l){return l.active;}).reduce(function(a,l){return a+l.count;},0);
-  _gid('assign-slider').value=S.agents.assignedToWork;
+  document.getElementById('assign-slider').value=S.agents.assignedToWork;
   txt('assign-val',S.agents.assignedToWork.toLocaleString());
   updateBotUI();saveState();toast((lv.active?'✅ Activated: ':'❌ Deactivated: ')+lv.name);
 }
@@ -2182,21 +2411,21 @@ function renderRails(){
     return '<div class="rail-card'+(linked?' linked':'')+(active?' active-rail':'')+'" data-rail="'+rail.id+'">'
       +'<span class="rail-ico">'+rail.ico+'</span>'
       +'<div class="rail-name">'+rail.name+'</div>'
-      +(linked?'<div class="rail-stat">'+rail.handle+'</div><div class="rail-stat">In: $'+rail.depositedUsd.toFixed(2)+' · Out: $'+rail.receivedUsd.toFixed(2)+'</div><div class="rail-status" style="color:var(--ok)">✔ LINKED</div>':'<div class="rail-status" style="color:var(--mu)">Not Linked</div>')
+      +(linked?'<div class="rail-stat">'+rail.handle+'</div><div class="rail-stat">In: $'+rail.depositedUsd.toFixed(2)+' · Out: $'+rail.withdrawnUsd.toFixed(2)+'</div><div class="rail-status" style="color:var(--ok)">✔ LINKED</div>':'<div class="rail-status" style="color:var(--mu)">Not Linked</div>')
       +'</div>';
   }).join('');
 }
 function openRailForm(railId){/* removed — stale refs only */}
 (document.getElementById('rail-link-btn')||{addEventListener:function(){}}).addEventListener('click',function(){
   var rail=S.wallet.paymentRails[activeRailId];if(!rail)return;
-  var handle=(_gid('rail-handle').value||'').trim();
+  var handle=(document.getElementById('rail-handle').value||'').trim();
   if(!handle){toast('⚠ Enter a handle, email, or phone');return;}
   rail.handle=handle;rail.linked=true;rail.linkedAt=rail.linkedAt||new Date().toISOString();
   txt('rail-status','✔ '+rail.name+' linked as '+handle);
   var rlf=document.getElementById('rail-link-form');if(rlf)rlf.style.display='none';
   renderRails();saveState();toast('🔗 '+rail.name+' linked as '+handle+'!');
 });
-(document.getElementById('rail-cancel-btn')||{addEventListener:function(){}}).addEventListener('click',function(){_gid('rail-link-form').style.display='none';});
+(document.getElementById('rail-cancel-btn')||{addEventListener:function(){}}).addEventListener('click',function(){document.getElementById('rail-link-form').style.display='none';});
 (document.getElementById('rail-grid')||{addEventListener:function(){}}).addEventListener('click',function(e){
   var card=e.target.closest('[data-rail]');if(!card)return;openRailForm(card.getAttribute('data-rail'));
 });
@@ -2214,9 +2443,9 @@ function renderWallet(){
   if(tl){tl.innerHTML=S.wallet.txs.length?S.wallet.txs.slice(0,25).map(function(t){return '<div style="background:var(--card);border:1px solid #2A2A4A;border-radius:7px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><div><div style="font-size:9px;font-weight:700">'+t.ico+' '+t.sym+' — '+t.src+'</div><div style="font-size:7px;color:var(--mu)">'+t.ts+'</div></div><div style="text-align:right"><div style="font-size:10px;font-weight:900;color:var(--ok)">+'+fC(t.amount)+' '+t.sym+'</div><div style="font-size:8px;color:var(--sub)">'+fU(t.usd)+'</div></div></div>';}).join(''):'<div style="color:var(--sub);font-size:10px;text-align:center;padding:10px">No transactions yet</div>';}
   renderRails();
 
-  // Auto-receive log
+  // Auto-withdraw log
   var awl=document.getElementById('aw-log-display');
-  if(awl){var awLog=S.wallet.autoReceiveLog||[];awl.innerHTML=awLog.length?awLog.slice(0,10).map(function(t){return '<div style="background:var(--card);border:1px solid #2A2A4A;border-radius:7px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><div><div style="font-size:9px;font-weight:700">'+(t.railIco||'💳')+' '+(t.rail||'')+' ⬆ '+t.sym+'</div><div style="font-size:7px;color:var(--mu)">'+t.ts+' → '+(t.handle||'')+'</div></div><div style="text-align:right"><div style="font-size:9px;font-weight:900;color:var(--h)">-'+fC(t.amount)+' '+t.sym+'</div><div style="font-size:7px;color:var(--sub)">$'+t.usd.toFixed(2)+'</div></div></div>';}).join(''):'<div style="font-size:9px;color:var(--sub);text-align:center;padding:10px">No auto-receives yet — link a rail and enable above!</div>';}
+  if(awl){var awLog=S.wallet.autoWithdrawLog||[];awl.innerHTML=awLog.length?awLog.slice(0,10).map(function(t){return '<div style="background:var(--card);border:1px solid #2A2A4A;border-radius:7px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><div><div style="font-size:9px;font-weight:700">'+(t.railIco||'💳')+' '+(t.rail||'')+' ⬆ '+t.sym+'</div><div style="font-size:7px;color:var(--mu)">'+t.ts+' → '+(t.handle||'')+'</div></div><div style="text-align:right"><div style="font-size:9px;font-weight:900;color:var(--h)">-'+fC(t.amount)+' '+t.sym+'</div><div style="font-size:7px;color:var(--sub)">$'+t.usd.toFixed(2)+'</div></div></div>';}).join(''):'<div style="font-size:9px;color:var(--sub);text-align:center;padding:10px">No auto-withdrawals yet — link a rail and enable above!</div>';}
 }
 
 // STOCK AI (5 dropdowns, myninja knowledge)
@@ -2226,9 +2455,9 @@ var STRATS={momentum:{r:['Strong momentum above 50-day MA','RSI trending bullish
 var RISK={low:['BUY','STRONG BUY'],medium:['BUY','STRONG BUY','HOLD'],high:['BUY','STRONG BUY','SELL','STRONG SELL']};
 function sigColor(a){return a==='STRONG BUY'?'var(--ok)':a==='BUY'?'#27ae60':a==='HOLD'?'var(--g)':a==='SELL'?'#c0392b':'var(--no)';}
 function genSignals(){
-  var sec=_gid('sel-sector').value,strat=_gid('sel-strat').value;
-  var tf=_gid('sel-tf').value,ord=_gid('sel-order').value;
-  var risk=_gid('sel-risk').value;
+  var sec=document.getElementById('sel-sector').value,strat=document.getElementById('sel-strat').value;
+  var tf=document.getElementById('sel-tf').value,ord=document.getElementById('sel-order').value;
+  var risk=document.getElementById('sel-risk').value;
   var pool=sec==='all'?Object.values(STOCKS).flat():STOCKS[sec]||Object.values(STOCKS).flat();
   var picks=pool.slice().sort(function(){return Math.random()-.5;}).slice(0,6);
   var sr=STRATS[strat]||STRATS.momentum;var ra=RISK[risk];
@@ -2337,9 +2566,9 @@ function showPage(id){
   if(id==='bots')      setTimeout(function(){try{updateBotUI();if(typeof updateBotsUI==='function')updateBotsUI();}catch(e){}},100);
   if(id==='learning')  setTimeout(function(){try{buildDomains();updateLearningUI();updateLearnHeader();}catch(e){}},100);
   if(id==='mining')    setTimeout(function(){try{buildCoins();renderCoins();if(typeof updateMiningAgentPanel==='function')updateMiningAgentPanel();if(typeof updateMineTransferPanel==='function')updateMineTransferPanel();if(typeof buildTokenSendCoinList==='function')buildTokenSendCoinList();}catch(e){}},100);
-  if(id==='stocks')    setTimeout(function(){try{if(typeof loadStocksData==='function')loadStocksData();fetchAlpaca();if(!document.getElementById('stk-signals')||!_gid('stk-signals').children.length)genSignals();}catch(e){}},100);
+  if(id==='stocks')    setTimeout(function(){try{if(typeof loadStocksData==='function')loadStocksData();fetchAlpaca();if(!document.getElementById('stk-signals')||!document.getElementById('stk-signals').children.length)genSignals();}catch(e){}},100);
   if(id==='crypto')    setTimeout(function(){try{fetchMarket();fetchSignals();if(typeof loadCryptoData==='function')loadCryptoData();}catch(e){}},100);
-  if(id==='wallet')    setTimeout(function(){try{renderWallet();renderAutoReceiveStatus();updateWalletUI();if(typeof renderWalletTxLog==='function')renderWalletTxLog();if(typeof renderWalletPortfolio==='function')renderWalletPortfolio();if(typeof populateCoinSelect==='function')populateCoinSelect();if(typeof updateAvailableSend==='function')updateAvailableSend();if(typeof updateTokenSendAvailable==='function')updateTokenSendAvailable();}catch(e){}},100);
+  if(id==='wallet')    setTimeout(function(){try{renderWallet();renderAutoWithdrawStatus();updateWalletUI();if(typeof renderWalletTxLog==='function')renderWalletTxLog();if(typeof renderWalletPortfolio==='function')renderWalletPortfolio();if(typeof populateCoinSelect==='function')populateCoinSelect();if(typeof updateAvailableSend==='function')updateAvailableSend();if(typeof updateTokenSendAvailable==='function')updateTokenSendAvailable();}catch(e){}},100);
   if(id==='chat')      setTimeout(function(){try{if(typeof initChat==='function')initChat();}catch(e){}},100);
   if(id==='knowledge') setTimeout(function(){try{if(typeof buildKnowledge==='function')buildKnowledge();}catch(e){}},100);
   if(id==='behavior')  setTimeout(function(){try{if(typeof buildBehavior==='function')buildBehavior();}catch(e){}},100);
@@ -2371,8 +2600,8 @@ PAGES.forEach(function(p){
 (document.getElementById('mine-get')||{addEventListener:function(){}}).addEventListener('click',collectAll);
 (document.getElementById('mine-opt')||{addEventListener:function(){}}).addEventListener('click',optAll);
 (document.getElementById('mine-bots-btn')||{addEventListener:function(){}}).addEventListener('click',botAll);
-(document.getElementById('bot-act-all')||{addEventListener:function(){}}).addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){S.agents.levels[k].active=true;});S.agents.assignedToWork=10101;_gid('assign-slider').value=10101;updateBotUI();saveState();toast('✅ ALL 10,101 agents ACTIVATED!');});
-(document.getElementById('bot-deact-all')||{addEventListener:function(){}}).addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){if(S.agents.levels[k].tier!=='MASTER')S.agents.levels[k].active=false;});S.agents.assignedToWork=1;_gid('assign-slider').value=1;updateBotUI();saveState();toast('❌ Bots deactivated (Master stays on)');});
+(document.getElementById('bot-act-all')||{addEventListener:function(){}}).addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){S.agents.levels[k].active=true;});S.agents.assignedToWork=10101;document.getElementById('assign-slider').value=10101;updateBotUI();saveState();toast('✅ ALL 10,101 agents ACTIVATED!');});
+(document.getElementById('bot-deact-all')||{addEventListener:function(){}}).addEventListener('click',function(){Object.keys(S.agents.levels).forEach(function(k){if(S.agents.levels[k].tier!=='MASTER')S.agents.levels[k].active=false;});S.agents.assignedToWork=1;document.getElementById('assign-slider').value=1;updateBotUI();saveState();toast('❌ Bots deactivated (Master stays on)');});
 (document.getElementById('bot-learn-all')||{addEventListener:function(){}}).addEventListener('click',function(){setWorkMode('learning');startLearning();});
 (document.getElementById('bot-mine-all')||{addEventListener:function(){}}).addEventListener('click',function(){setWorkMode('mining');startAll();});
 document.querySelectorAll('.mode-btn').forEach(function(b){b.addEventListener('click',function(){setWorkMode(this.getAttribute('data-mode'));});});
@@ -2383,11 +2612,11 @@ document.querySelectorAll('.mode-btn').forEach(function(b){b.addEventListener('c
 var _wsync = document.getElementById('wallet-sync');
 if(_wsync) _wsync.addEventListener('click',function(){fetchPrices();renderWallet();toast('🔄 Syncing prices...');});
 var _el_aw_save_btn = document.getElementById('aw-save-btn');
-if(_el_aw_save_btn) _el_aw_save_btn.addEventListener('click',saveAutoReceiveSettings);
+if(_el_aw_save_btn) _el_aw_save_btn.addEventListener('click',saveAutoWithdrawSettings);
 var _el_aw_off_btn = document.getElementById('aw-off-btn');
-if(_el_aw_off_btn) _el_aw_off_btn.addEventListener('click',disableAutoReceive);
+if(_el_aw_off_btn) _el_aw_off_btn.addEventListener('click',disableAutoWithdraw);
 var _el_aw_now_btn = document.getElementById('aw-now-btn');
-if(_el_aw_now_btn) _el_aw_now_btn.addEventListener('click',receiveNow);
+if(_el_aw_now_btn) _el_aw_now_btn.addEventListener('click',withdrawNow);
 // Sync selectors when rail changes
 (document.getElementById('aw-rail-sel')||{addEventListener:function(){}}).addEventListener('change',function(){
   var r=S.wallet.paymentRails[this.value];if(!r)return;
@@ -2395,7 +2624,7 @@ if(_el_aw_now_btn) _el_aw_now_btn.addEventListener('click',receiveNow);
   var ts=document.getElementById('aw-threshold');if(ts&&r.autoThreshold)ts.value=r.autoThreshold;
   var is=document.getElementById('aw-interval-sel');if(is&&r.autoIntervalMins)is.value=r.autoIntervalMins;
 });
-(document.getElementById('modal-close')||{addEventListener:function(){}}).addEventListener('click',function(){_gid('modalbg').classList.remove('show');});
+(document.getElementById('modal-close')||{addEventListener:function(){}}).addEventListener('click',function(){document.getElementById('modalbg').classList.remove('show');});
 (document.getElementById('modalbg')||{addEventListener:function(){}}).addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
 
 // HELPERS
@@ -2407,16 +2636,16 @@ function fH(h){return h>=1000?(h/1000).toFixed(1)+'GH/s':h.toFixed(1)+'MH/s';}
 function fP(p){return p>=1000?'$'+Math.round(p).toLocaleString():p>=1?'$'+p.toFixed(2):'$'+p.toFixed(4);}
 function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2400);}
 
-// AUTO-RECEIVE SYSTEM (Cash App, Apple Pay, PayPal)
+// AUTO-WITHDRAW SYSTEM (Cash App, Apple Pay, PayPal)
 
-function saveAutoReceiveSettings(){
-  var railId = _gid('aw-rail-sel').value;
+function saveAutoWithdrawSettings(){
+  var railId = document.getElementById('aw-rail-sel').value;
   var coinSel = document.getElementById('aw-coin-sel');
   var selectedCoins = Array.from(coinSel.selectedOptions).map(function(o){return o.value;});
   var coin = selectedCoins.length ? selectedCoins[0] : 'BTC'; // primary coin
   var coins = selectedCoins; // all selected
-  var thresh = parseFloat(_gid('aw-threshold').value)||5;
-  var mins   = parseInt(_gid('aw-interval-sel').value)||60;
+  var thresh = parseFloat(document.getElementById('aw-threshold').value)||5;
+  var mins   = parseInt(document.getElementById('aw-interval-sel').value)||60;
   var rail   = S.wallet.paymentRails[railId];
   if(!rail){toast('⚠ Rail not found');return;}
   if(!rail.linked){toast('⚠ Link '+rail.name+' first in the rail panel above!');return;}
@@ -2425,21 +2654,21 @@ function saveAutoReceiveSettings(){
   rail.autoCoin      = coin;
   rail.autoCoins     = coins;
   rail.autoIntervalMins = mins;
-  renderAutoReceiveStatus();
-  saveState('auto-receive-set');
-  toast('✅ Auto-Receive ON: '+rail.name+' → '+coins.join('+')+' every '+mins+'min when $'+thresh+' available!');
+  renderAutoWithdrawStatus();
+  saveState('auto-withdraw-set');
+  toast('✅ Auto-Withdraw ON: '+rail.name+' → '+coins.join('+')+' every '+mins+'min when $'+thresh+' available!');
 }
-function disableAutoReceive(){
-  var railId = _gid('aw-rail-sel').value;
+function disableAutoWithdraw(){
+  var railId = document.getElementById('aw-rail-sel').value;
   var rail   = S.wallet.paymentRails[railId];
   if(!rail)return;
   rail.autoWithdraw = false;
-  renderAutoReceiveStatus();
-  saveState('auto-receive-off');
-  toast('⏹ Auto-Receive disabled for '+rail.name);
+  renderAutoWithdrawStatus();
+  saveState('auto-withdraw-off');
+  toast('⏹ Auto-Withdraw disabled for '+rail.name);
 }
-function receiveNow(){
-  var railId = _gid('aw-rail-sel').value;
+function withdrawNow(){
+  var railId = document.getElementById('aw-rail-sel').value;
   var coinSel = document.getElementById('aw-coin-sel');
   var selectedCoins = Array.from(coinSel.selectedOptions).map(function(o){return o.value;});
   if(!selectedCoins.length){toast('⚠ Select at least one coin');return;}
@@ -2450,12 +2679,12 @@ function receiveNow(){
   selectedCoins.forEach(function(coin){
     var bal=S.wallet.balances[coin];
     if(!bal||bal.amount<=0)return;
-    doReceive(rail,coin,bal.usd||bal.amount*(bal.price||1),'manual');
+    doWithdraw(rail,coin,bal.usd||bal.amount*(bal.price||1),'manual');
     any=true;
   });
   if(!any)toast('⚠ No balances found for selected coins — mine first!');
 }
-async function doReceive(rail, coin, usd, src){
+async function doWithdraw(rail, coin, usd, src){
   var bal = S.wallet.balances[coin];
   if(!bal||bal.amount<=0||usd<=0) return;
   var amt = usd / (bal.price||1);
@@ -2465,40 +2694,40 @@ async function doReceive(rail, coin, usd, src){
   // Deduct from wallet immediately
   bal.amount  -= amt;
   bal.usd      = bal.amount * (bal.price||1);
-  rail.receivedUsd += actualUsd;
+  rail.withdrawnUsd += actualUsd;
   rail.lastTxAt      = new Date().toISOString();
   rail.lastAutoAt    = new Date().toISOString();
   var txId = (src||'aw').toUpperCase()+'-'+Date.now()+'-'+Math.floor(Math.random()*99999);
   var txEntry = {
-    id:txId, ts:new Date().toLocaleTimeString(), type:'receive',
+    id:txId, ts:new Date().toLocaleTimeString(), type:'withdraw',
     rail:rail.name, railIco:rail.ico, sym:coin, amount:amt, usd:actualUsd,
     handle:rail.handle, src:src||'auto', status:'processing'
   };
-  S.wallet.autoReceiveLog = S.wallet.autoReceiveLog||[];
-  S.wallet.autoReceiveLog.unshift(txEntry);
-  S.wallet.autoReceiveLog = S.wallet.autoReceiveLog.slice(0,100);
+  S.wallet.autoWithdrawLog = S.wallet.autoWithdrawLog||[];
+  S.wallet.autoWithdrawLog.unshift(txEntry);
+  S.wallet.autoWithdrawLog = S.wallet.autoWithdrawLog.slice(0,100);
   S.wallet.txs.unshift(txEntry);
   S.wallet.txs = S.wallet.txs.slice(0,100);
   S.wallet.total = Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*(b.price||1);return a+b.usd;},0);
   txt('wallet-total','$'+S.wallet.total.toFixed(2));
   txt('mine-walval','$'+S.wallet.total.toFixed(2));
-  renderAutoReceiveStatus();
+  renderAutoWithdrawStatus();
   if(curPage==='wallet') renderWallet();
-  saveState('receive-processing');
+  saveState('withdraw-processing');
   toast('⏳ Routing $'+actualUsd.toFixed(2)+' '+coin+' → '+rail.name+'...');
 
   // ── CORRECTED API CALL — uses liveOps with proper action names ──
   var isPaypal   = rail.id==='paypal'||rail.name.toLowerCase().includes('paypal');
   var isACH      = rail.id==='ach'||rail.name.toLowerCase().includes('bank');
   var isLink     = rail.id==='link'||rail.name.toLowerCase().includes('link');
-  var backendAction = isPaypal ? 'receive_paypal'
-                    : isACH   ? 'receive_ach'
-                    : isLink  ? 'receive_link'
-                    : 'receive_checkout';  // cashapp / applepay / card
+  var backendAction = isPaypal ? 'payout_paypal'
+                    : isACH   ? 'payout_bank'
+                    : isLink  ? 'payout_link'
+                    : 'payout_checkout';  // cashapp / applepay / card
 
   var payload = {action: backendAction, amount_usd: actualUsd.toFixed(2),
                  email: rail.handle||'mccreary.bm@gmail.com',
-                 note: coin+' Receive Funds via '+rail.name+' | TaTatalicious'};
+                 note: coin+' Mining Payout via '+rail.name+' | TaTatalicious'};
 
   try {
     var resp = await fetch(API, {
@@ -2508,7 +2737,7 @@ async function doReceive(rail, coin, usd, src){
     var data = await resp.json();
     if(data.ok){
       txEntry.status    = 'confirmed';
-      txEntry.receive_id = data.payout_id||data.payment_id||data.batch_id||data.session_id||'confirmed';
+      txEntry.payout_id = data.payout_id||data.payment_id||data.batch_id||data.session_id||'confirmed';
       txEntry.arrival   = data.arrival||data.status||'sent';
       saveState(); renderWallet();
       if(data.approval_url){
@@ -2533,7 +2762,7 @@ async function doReceive(rail, coin, usd, src){
     toast(rail.ico+' $'+actualUsd.toFixed(2)+' '+coin+' logged → '+rail.name+' ('+rail.handle+')');
   }
 }
-function runAutoReceives(){
+function runAutoWithdraws(){
 
   var now = Date.now();
   Object.values(S.wallet.paymentRails).forEach(function(rail){
@@ -2549,17 +2778,17 @@ function runAutoReceives(){
       if(!bal||bal.amount<=0)return;
       var usd = bal.usd||bal.amount*(bal.price||1);
       if(usd < (rail.autoThreshold||5))return;
-      void doReceive(rail, coin, usd, 'auto');
+      void doWithdraw(rail, coin, usd, 'auto');
       didWithdraw = true;
     });
   });
 }
-function renderAutoReceiveStatus(){
+function renderAutoWithdrawStatus(){
   var list = document.getElementById('aw-active-list');
   if(!list)return;
   var active = Object.values(S.wallet.paymentRails).filter(function(r){return r.autoWithdraw&&r.linked;});
-  if(!active.length){list.innerHTML='<div style="font-size:9px;color:var(--mu);text-align:center;padding:6px">No auto-receives active yet</div>';return;}
-  list.innerHTML = '<div style="font-size:9px;font-weight:900;color:var(--g);margin-bottom:5px">⚡ ACTIVE AUTO-RECEIVES</div>'
+  if(!active.length){list.innerHTML='<div style="font-size:9px;color:var(--mu);text-align:center;padding:6px">No auto-withdrawals active yet</div>';return;}
+  list.innerHTML = '<div style="font-size:9px;font-weight:900;color:var(--g);margin-bottom:5px">⚡ ACTIVE AUTO-WITHDRAWALS</div>'
     + active.map(function(r){
         var bal = S.wallet.balances[r.autoCoin]||{};
         var avail = (bal.usd||0).toFixed(2);
@@ -2577,9 +2806,9 @@ function renderAutoReceiveStatus(){
           +'Last: <b style="color:var(--sub)">'+last+'</b>'
           +'</div></div>';
       }).join('')
-    + (S.wallet.autoReceiveLog&&S.wallet.autoReceiveLog.length ? 
-        '<div style="font-size:9px;font-weight:900;color:var(--g);margin:8px 0 5px">📋 Recent Auto-Receives</div>'
-        + S.wallet.autoReceiveLog.slice(0,5).map(function(t){
+    + (S.wallet.autoWithdrawLog&&S.wallet.autoWithdrawLog.length ? 
+        '<div style="font-size:9px;font-weight:900;color:var(--g);margin:8px 0 5px">📋 Recent Auto-Withdrawals</div>'
+        + S.wallet.autoWithdrawLog.slice(0,5).map(function(t){
             return '<div style="background:var(--card);border:1px solid #2A2A4A;border-radius:6px;padding:6px 9px;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center">'
               +'<div><div style="font-size:9px;font-weight:700">'+t.railIco+' '+t.rail+' ⬆ '+t.sym+'</div>'
               +'<div style="font-size:7px;color:var(--mu)">'+t.ts+' · '+t.handle+'</div></div>'
@@ -2591,7 +2820,7 @@ function renderAutoReceiveStatus(){
 
 // TATATATALICIOUS PAYOUT ENGINE v3.0
   
-  var PAYOUT_URL = 'https://base44.app/api/apps/69f8f80581e1d336233e7632/functions/paymentVerify';
+  var PAYOUT_URL = 'https://base44.app/api/apps/69f8f80581e1d336233e7632/functions/liveOps';
   var currentPayoutRail = 'all';
   var editingPayeeIdx = -1;
 
@@ -2611,13 +2840,13 @@ function renderAutoReceiveStatus(){
     var badge = document.getElementById('stripe-live-badge');
     var box   = document.getElementById('stripe-status-box');
     if(badge) badge.innerHTML = 'CHECKING...';
-    fetch(PAYOUT_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'dashboard'})})
+    fetch(PAYOUT_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'payout_status'})})
     .then(function(r){return r.json();}).then(function(d){
       if(d.ok && d.stripe){
         var s = d.stripe;
         txt('stripe-avail','$'+(s.available||0).toFixed(2));
         txt('stripe-pending','$'+(s.pending||0).toFixed(2));
-        if(document.getElementById('stripe-caps')) _gid('stripe-caps').innerHTML = (s.cashapp_cap==='active'?'✅ CashApp<br>':'') + (s.payouts_enabled?'✅ Payouts':'⚠ No Payouts');
+        if(document.getElementById('stripe-caps')) document.getElementById('stripe-caps').innerHTML = (s.cashapp_cap==='active'?'✅ CashApp<br>':'') + (s.payouts_enabled?'✅ Payouts':'⚠ No Payouts');
         if(badge) { badge.innerHTML = s.payouts_enabled ? '🟢 LIVE' : '🟡 LIMITED'; badge.style.color = s.payouts_enabled ? '#00E676' : '#F1C40F'; }
         if(box) box.innerHTML = '✅ Stripe LIVE · Payouts: '+(s.payouts_enabled?'Enabled':'Check dashboard')+' · Charges: '+(s.charges_enabled?'Active':'—')+' · US Account';
       } else {
@@ -2654,16 +2883,16 @@ function renderAutoReceiveStatus(){
 
   function toggleCustomAmt(){/* removed — stale refs only */}
   function applyCustomAmt(){
-    var custom = parseFloat(_gid('payout-custom-amt').value||'0');
+    var custom = parseFloat(document.getElementById('payout-custom-amt').value||'0');
     if(custom < 0.5){ toast('⚠ Min $0.50'); return; }
     var limitPer = parseFloat(localStorage.getItem('limit_per_'+currentPayoutRail)||'0');
     if(limitPer > 0 && custom > limitPer){
       toast('⚠ Exceeds per-payout limit of $'+limitPer.toFixed(2));
       custom = limitPer;
     }
-    _gid('payout-amount').value = custom.toFixed(2);
-    _gid('custom-amt-row').style.display = 'none';
-    _gid('custom-amt-btn').innerHTML = '✏ Enter Other / Custom Amount';
+    document.getElementById('payout-amount').value = custom.toFixed(2);
+    document.getElementById('custom-amt-row').style.display = 'none';
+    document.getElementById('custom-amt-btn').innerHTML = '✏ Enter Other / Custom Amount';
     toast('✅ Amount set to $' + custom.toFixed(2));
   }
 
@@ -2714,7 +2943,7 @@ function renderAutoReceiveStatus(){
     var box = document.getElementById('payee-list-container');
     if(!box) return;
     if(!payees.length){
-      box.innerHTML = '<div style="font-size:9px;color:#555;text-align:center;padding:12px">No receiving accounts saved. Tap + Add Account above.</div>';
+      box.innerHTML = '<div style="font-size:9px;color:#555;text-align:center;padding:12px">No payees saved. Tap + Add Payee above.</div>';
       return;
     }
     var html = '';
@@ -2728,7 +2957,7 @@ function renderAutoReceiveStatus(){
         +   '<div style="font-size:8px;color:'+rail.color+'">'+rail.label+' · '+(p.amount?'$'+p.amount:'any amount')+'</div>'
         + '</div>'
         + '<div style="display:flex;flex-direction:column;gap:4px">'
-        +   '<button onclick="payPayee('+i+')" style="background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;border:none;border-radius:6px;padding:5px 8px;font-size:8px;font-weight:700;cursor:pointer">💰 Receive</button>'
+        +   '<button onclick="payPayee('+i+')" style="background:linear-gradient(135deg,#9B59B6,#F1C40F);color:#000;border:none;border-radius:6px;padding:5px 8px;font-size:8px;font-weight:700;cursor:pointer">💸 Pay</button>'
         +   '<button onclick="editPayee('+i+')" style="background:#0D0D2B;border:1px solid #333;color:#888;border-radius:6px;padding:5px 8px;font-size:8px;cursor:pointer">✏ Edit</button>'
         +   '<button onclick="deletePayee('+i+')" style="background:#1a0000;border:1px solid #500;color:#F44336;border-radius:6px;padding:5px 8px;font-size:8px;cursor:pointer">🗑</button>'
         + '</div>'
@@ -2741,28 +2970,28 @@ function renderAutoReceiveStatus(){
     editingPayeeIdx = (idx !== undefined) ? idx : -1;
     var payees = getPayees();
     var p = editingPayeeIdx >= 0 ? payees[editingPayeeIdx] : {};
-    _gid('payee-name-inp').value    = p.name||'';
-    _gid('payee-email-inp').value   = p.email||'';
-    _gid('payee-cashapp-inp').value = p.cashapp||'';
-    _gid('payee-paypal-inp').value  = p.paypal||'';
-    _gid('payee-apple-inp').value   = p.apple||'';
-    _gid('payee-rail-inp').value    = p.rail||'all';
-    _gid('payee-amount-inp').value  = p.amount||'';
-    _gid('payee-modal').style.display='block';
+    document.getElementById('payee-name-inp').value    = p.name||'';
+    document.getElementById('payee-email-inp').value   = p.email||'';
+    document.getElementById('payee-cashapp-inp').value = p.cashapp||'';
+    document.getElementById('payee-paypal-inp').value  = p.paypal||'';
+    document.getElementById('payee-apple-inp').value   = p.apple||'';
+    document.getElementById('payee-rail-inp').value    = p.rail||'all';
+    document.getElementById('payee-amount-inp').value  = p.amount||'';
+    document.getElementById('payee-modal').style.display='block';
     document.body.style.overflow='hidden';
   }
   function closePayeeModal(){/* removed — stale refs only */}
   function savePayee(){
-    var name = _gid('payee-name-inp').value.trim();
+    var name = document.getElementById('payee-name-inp').value.trim();
     if(!name){ toast('⚠ Name required'); return; }
     var p = {
       name:    name,
-      email:   _gid('payee-email-inp').value.trim(),
-      cashapp: _gid('payee-cashapp-inp').value.trim(),
-      paypal:  _gid('payee-paypal-inp').value.trim(),
-      apple:   _gid('payee-apple-inp').value.trim(),
-      rail:    _gid('payee-rail-inp').value,
-      amount:  parseFloat(_gid('payee-amount-inp').value)||0
+      email:   document.getElementById('payee-email-inp').value.trim(),
+      cashapp: document.getElementById('payee-cashapp-inp').value.trim(),
+      paypal:  document.getElementById('payee-paypal-inp').value.trim(),
+      apple:   document.getElementById('payee-apple-inp').value.trim(),
+      rail:    document.getElementById('payee-rail-inp').value,
+      amount:  parseFloat(document.getElementById('payee-amount-inp').value)||0
     };
     var payees = getPayees();
     if(editingPayeeIdx >= 0) payees[editingPayeeIdx] = p;
@@ -2786,7 +3015,7 @@ function renderAutoReceiveStatus(){
     var p = payees[i];
     if(!p) return;
     currentPayoutRail = p.rail||'all';
-    openReceiveModal(p.rail||'all');
+    openPayoutModal(p.rail||'all');
     setTimeout(function(){
       var amtEl = document.getElementById('payout-amount');
       var emailEl = document.getElementById('payout-email');
@@ -2802,7 +3031,7 @@ function renderAutoReceiveStatus(){
     if(!payees.length){ toast('⚠ No payees saved'); return; }
     toast('⏳ Sending multi-payout to '+payees.length+' payees...');
     var payload = {
-      action:'receive_multi',
+      action:'payout_multi',
       payees: payees.filter(function(p){return p.amount>0;}).map(function(p){
         return {name:p.name, email:p.email||p.paypal||'', amount_usd:p.amount||1, rail:p.rail||'all'};
       })
@@ -2869,7 +3098,7 @@ function renderAutoReceiveStatus(){
     var usd = parseFloat(prompt('Amount to collect ($):', '10')||'0');
     if(usd<0.5){ toast('⚠ Min $0.50'); return; }
     toast('⏳ Creating payment link...');
-    fetch(PAYOUT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'receive_link',amount_usd:usd.toFixed(2),payee_name:'TaTatalicious',description:'TaTa Mining Payout $'+usd})})
+    fetch(PAYOUT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'payout_link',amount_usd:usd.toFixed(2),payee_name:'TaTatalicious',description:'TaTa Mining Payout $'+usd})})
     .then(function(r){return r.json();}).then(function(d){
       if(d.ok&&d.payment_link){
         window.open(d.payment_link,'_blank');
@@ -2887,7 +3116,7 @@ function renderAutoReceiveStatus(){
   
   // MINING INTELLIGENCE SYSTEM v2.0
   // 30-min auto-collect, positive balance tracker,
-  // pool receive center, productivity analytics
+  // pool withdrawal center, productivity analytics
   
   var autoCollectTimer = null;
   var collectCountdownTimer = null;
@@ -3022,7 +3251,7 @@ function renderAutoReceiveStatus(){
     txt('mine-wval',    '$'+S.wallet.total.toFixed(2));
     txt('ms-wal',       '$'+S.wallet.total.toFixed(2));
     if(document.getElementById('incoming-balance-display'))
-      _gid('incoming-balance-display').innerHTML = '$'+S.wallet.incoming.toFixed(4);
+      document.getElementById('incoming-balance-display').innerHTML = '$'+S.wallet.incoming.toFixed(4);
 
     saveState();
 
@@ -3054,7 +3283,7 @@ function renderAutoReceiveStatus(){
   function autoTransferOut(usd, rail){
     toast('⏳ Auto-transferring $'+usd.toFixed(2)+' via '+rail+'...');
     fetch(PAYOUT_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      action: rail==='link' ? 'receive_link' : 'receive_checkout',
+      action: rail==='link' ? 'payout_link' : 'payout_checkout',
       amount_usd: usd.toFixed(2),
       rail: rail,
       description: 'TaTatalicious Auto-Collect Transfer $'+usd.toFixed(2),
@@ -3088,8 +3317,8 @@ function renderAutoReceiveStatus(){
   // ── AUTO-COLLECT SCHEDULER ────────────────────
   function startAutoCollect(){
     stopAutoCollect();
-    var intervalMs = parseInt(_gid('ac-interval').value||'1800000');
-    var label = _gid('ac-interval').options;
+    var intervalMs = parseInt(document.getElementById('ac-interval').value||'1800000');
+    var label = document.getElementById('ac-interval').options;
     var labelText = label && label.selectedIndex >= 0 ? label[label.selectedIndex].text : '30 min';
 
     nextCollectAt = Date.now() + intervalMs;
@@ -3163,7 +3392,7 @@ function renderAutoReceiveStatus(){
   function initiateWithdraw(platform){
     var cfg = POOL_PLATFORMS[platform];
     var resultEl = document.getElementById('pool-result-'+platform);
-    if(resultEl) resultEl.innerHTML='<span style="color:#888">⏳ Initiating receive...</span>';
+    if(resultEl) resultEl.innerHTML='<span style="color:#888">⏳ Initiating withdrawal...</span>';
     if(platform === 'nicehash'){
       // NiceHash withdrawal requires whitelisted address — direct to dashboard
       window.open('https://www.nicehash.com/my/wallet/withdrawal','_blank');
@@ -3175,7 +3404,7 @@ function renderAutoReceiveStatus(){
       window.open(cfg.site,'_blank');
       if(resultEl) resultEl.innerHTML='<span style="color:#00E676">✅ Opened '+cfg.name+' · Payouts are automatic to your wallet address.<br>No manual step needed!</span>';
     }
-    toast('🏦 '+cfg.name+' receive initiated — no bank needed!');
+    toast('🏦 '+cfg.name+' withdrawal initiated — no bank needed!');
   }
 
   // ── PRODUCTIVITY ANALYTICS ────────────────────
@@ -3272,7 +3501,7 @@ function renderAutoReceiveStatus(){
     if(localStorage.getItem('tata_ac_running')==='1'){
       var savedInterval = localStorage.getItem('tata_ac_interval');
       if(savedInterval && document.getElementById('ac-interval')){
-        _gid('ac-interval').value = savedInterval;
+        document.getElementById('ac-interval').value = savedInterval;
       }
       startAutoCollect();
       toast('▶ Auto-collect resumed');
@@ -3363,7 +3592,7 @@ function renderAutoReceiveStatus(){
         +'<div style="background:#0A0A0A;border-radius:3px;height:3px;margin-top:4px">'
         +'<div style="background:'+(b.color||'#9B59B6')+';height:3px;border-radius:3px;width:'+Math.min(100,pct).toFixed(1)+'%"></div>'
         +'</div>'
-        +'<button onclick="openReceiveModal()" style="width:100%;background:transparent;border:1px solid '+(b.color||'#333')+';color:'+(b.color||'#888')+';border-radius:6px;padding:5px;font-size:8px;font-weight:700;cursor:pointer;margin-top:6px">⬆ Withdraw '+(b.sym||'')+'</button>'
+        +'<button onclick="openPayoutModal()" style="width:100%;background:transparent;border:1px solid '+(b.color||'#333')+';color:'+(b.color||'#888')+';border-radius:6px;padding:5px;font-size:8px;font-weight:700;cursor:pointer;margin-top:6px">⬆ Withdraw '+(b.sym||'')+'</button>'
         +'</div>';
     });
     box.innerHTML = html;
@@ -3418,12 +3647,12 @@ function pauseAllMining(){
 function mineWithdrawToWallet(){
   var pos = typeof getPositiveBalances==='function' ? getPositiveBalances() : [];
   var total = pos.reduce(function(a,c){return a+(c.minedUSD||0);},0);
-  if(total<=0){ toast('⚠ No mined balance to receive yet'); return; }
+  if(total<=0){ toast('⚠ No mined balance to withdraw yet'); return; }
   collectAllPositive();
   setTimeout(function(){
     S.wallet.total = (S.wallet.total||0) + total;
     updateWalletUI(); saveState();
-    toast('💸 $'+total.toFixed(2)+' received to OS Wallet!');
+    toast('💸 $'+total.toFixed(2)+' withdrawn to OS Wallet!');
     if(typeof renderWallet==='function') renderWallet();
   }, 500);
 }
@@ -3436,7 +3665,7 @@ async function coinbaseAutoApprove5000(){
   toast('?? Sending $5,000 Coinbase approval...');
   try {
     var resp = await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'receive_paypal',amount_usd:'5000.00',email:'mccreary.bm@gmail.com',
+      body:JSON.stringify({action:'payout_paypal',amount_usd:'5000.00',email:'mccreary.bm@gmail.com',
         note:'Coinbase OS Wallet $5000 auto-approval | addr:'+walletAddr+' | TaTatalicious v10'})});
     var d = await resp.json();
     CB_AUTO_SENT=true;
@@ -3740,7 +3969,7 @@ function setMiningAgents(n){
   function renderWalletTxLog(){
     var box=document.getElementById('wallet-tx-log'); if(!box)return;
     var txs=(S.wallet&&S.wallet.txs)?S.wallet.txs:[];
-    if(!txs.length){box.innerHTML='<div style="text-align:center;padding:12px;font-size:9px;color:#333">No transactions yet — make a receive to see history</div>';return;}
+    if(!txs.length){box.innerHTML='<div style="text-align:center;padding:12px;font-size:9px;color:#333">No transactions yet — make a withdrawal to see history</div>';return;}
     box.innerHTML=txs.slice(0,25).map(function(tx){
       return '<div style="background:#050510;border:1px solid #1a1a3a;border-radius:8px;padding:9px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center">'
         +'<div><div style="font-size:11px;font-weight:900;color:#00E676">$'+(tx.usd||0).toFixed(2)+'</div>'
@@ -3881,7 +4110,7 @@ function setMiningAgents(n){
   {n:'Algorithm Design Paradigms',ico:'🧠',count:12,
    topics:['Divide & Conquer','Greedy Algorithms','Dynamic Programming','Backtracking','Branch & Bound','Randomized Algorithms','Approximation Algorithms','Online Algorithms','Streaming Algorithms','Amortized Analysis','Reduction Techniques','Output-Sensitive Algorithms'],
    analysis:[
-     {algo:'Greedy Algorithms',complexity:'Varies',space:'O(1) typical',best:'Local optimum decisions, scheduling',note:'TaTa auto-receive timing uses greedy scheduling — always pick highest-balance rail first'},
+     {algo:'Greedy Algorithms',complexity:'Varies',space:'O(1) typical',best:'Local optimum decisions, scheduling',note:'TaTa auto-withdraw timing uses greedy scheduling — always pick highest-balance rail first'},
      {algo:'Randomized Algorithms',complexity:'Expected O(n log n)',space:'Varies',best:'Avoiding adversarial worst cases',note:'Randomized quickselect used in real-time median price calculation'},
      {algo:'Approximation Algorithms',complexity:'Poly-time',space:'Varies',best:'NP-hard problems with quality guarantees',note:'Portfolio rebalancing is NP-hard — TaTa uses FPTAS approximation'}
    ]},
@@ -3907,7 +4136,7 @@ function setMiningAgents(n){
    analysis:[
      {algo:'Kalman Filter',complexity:'O(n)',space:'O(state²)',best:'Real-time noisy signal filtering',note:'TaTa price feeds use Kalman filter to smooth market microstructure noise'},
      {algo:'GARCH',complexity:'O(n)',space:'O(p+q)',best:'Financial volatility modeling',note:'Industry standard for crypto volatility — TaTa risk engine uses GARCH(1,1) for position sizing'},
-     {algo:'ARIMA',complexity:'O(n)',space:'O(p+q)',best:'Univariate time series forecasting',note:'Used to forecast mining revenue 7 days ahead for auto-receive scheduling'},
+     {algo:'ARIMA',complexity:'O(n)',space:'O(p+q)',best:'Univariate time series forecasting',note:'Used to forecast mining revenue 7 days ahead for auto-withdrawal scheduling'},
      {algo:'Monte Carlo Simulation',complexity:'O(n·sims)',space:'O(n)',best:'Risk analysis, option pricing',note:'TaTa risk team runs 10,000 Monte Carlo simulations per trade to estimate VaR'}
    ]},
   {n:'TaTa Financial Algorithms',ico:'💰',count:24,
@@ -3945,7 +4174,7 @@ var FIN_TEAM = [
     desc:'Deploys capital across DeFi protocols — staking, liquidity pools, yield farming — always chasing the highest APY.',
     actions:['Yield farming','Liquidity provision','Staking optimization','APY tracking'] },
   { name:'Rho',    ico:'🏦', role:'Cash Flow Manager',    color:'#E91E9A',
-    desc:'Routes all receives across 6 payment rails. Manages receive timing, limits, and reinvestment cycles.',
+    desc:'Routes all payouts across 6 payment rails. Manages withdrawal timing, limits, and reinvestment cycles.',
     actions:['Payout routing','Rail optimization','Reinvestment cycles','Cash management'] },
   { name:'Theta',  ico:'📈', role:'Growth Scaler',        color:'#FF6B35',
     desc:'Identifies scaling opportunities. Compounds profits into new mining pools, stocks, and business ventures automatically.',
@@ -4118,8 +4347,8 @@ function toggleAlgoAnalysis(idx){
 }
 
 function openModal(data){
-  _gid('modal-title').innerHTML = data.ico+' '+data.n;
-  _gid('modal-sub').textContent = data.sub || '';
+  document.getElementById('modal-title').innerHTML = data.ico+' '+data.n;
+  document.getElementById('modal-sub').textContent = data.sub || '';
   var tl = document.getElementById('modal-topics');
   tl.innerHTML = '';
   (data.topics||[]).forEach(function(t){
@@ -4128,7 +4357,7 @@ function openModal(data){
     span.textContent = t;
     tl.appendChild(span);
   });
-  _gid('modalbg').classList.add('show');
+  document.getElementById('modalbg').classList.add('show');
   document.body.style.overflow = 'hidden';
 }
 
@@ -4183,7 +4412,7 @@ function getResp(q){
     if(typeof S==='undefined'||!S.wallet||S.wallet.total<0.01){
       toast('💰 Collect mining balance first! Use COLLECT ALL first.'); return;
     }
-    openReceiveModal('all');
+    openPayoutModal('all');
   }
 
   // Auto-update mine transfer panel every 10s
@@ -4194,14 +4423,14 @@ function getResp(q){
   
   // PAYOUT MODAL — MULTI-RAIL ENGINE
   
-  function openReceiveModal(rail){
+  function openPayoutModal(rail){
   rail = rail||'all';
     var modal = document.getElementById('payout-modal');
     if(!modal) return;
     // Pre-fill amount
     var total = (typeof S!=='undefined' && S.wallet) ? (S.wallet.total||0) : 0;
     var amtIn = document.getElementById('payout-amount');
-    var avail = document.getElementById('receive-available');
+    var avail = document.getElementById('payout-available');
     if(amtIn && total>0) amtIn.value = total.toFixed(2);
     if(avail) avail.textContent = '$'+total.toFixed(2);
     // Pre-fill payee
@@ -4216,15 +4445,15 @@ function getResp(q){
     document.body.style.overflow = 'hidden';
   }
 
-  function closeReceiveModal(){
+  function closePayoutModal(){
     var modal = document.getElementById('payout-modal');
     if(modal) modal.style.display = 'none';
     document.body.style.overflow = '';
-    var res = document.getElementById('receive-result-box');
+    var res = document.getElementById('payout-result-box');
     if(res){ res.style.display='none'; res.innerHTML=''; }
   }
 
-  function receiveSetMax(){
+  function payoutSetMax(){
     var total = (typeof S!=='undefined' && S.wallet) ? (S.wallet.total||0) : 0;
     var amtIn = document.getElementById('payout-amount');
     if(amtIn) amtIn.value = total.toFixed(2);
@@ -4237,37 +4466,37 @@ function getResp(q){
       return cb && cb.checked;
     });
     var summary = document.getElementById('payout-rails-summary');
-    var btn = document.getElementById('receive-send-btn');
+    var btn = document.getElementById('payout-send-btn');
     if(!summary) return;
     if(selected.length===0){
       summary.innerHTML = '<span style="color:#555">No rails selected — pick at least one above</span>';
-      if(btn) btn.textContent = '⚡ Receive Funds';
+      if(btn) btn.textContent = '⚡ Send Payout';
       return;
     }
     var labels = {cashapp:'💵 Cash App',applepay:' Apple Pay',paypal:'🅿 PayPal',ach:'🏦 ACH Bank',card:'💳 Card',link:'🔗 Pay Link'};
     summary.innerHTML = '<span style="color:#F1C40F;font-weight:700">Selected: </span>'
       + selected.map(function(r){ return '<span style="background:#1a1a3a;border-radius:4px;padding:2px 6px;margin:1px;display:inline-block">'+labels[r]+'</span>'; }).join(' ');
-    if(btn) btn.textContent = '⚡ Receive via '+selected.length+' Rail'+(selected.length>1?'s':'');
+    if(btn) btn.textContent = '⚡ Send via '+selected.length+' Rail'+(selected.length>1?'s':'');
   }
 
-  async function executeMultiRailReceive(){
+  async function executeMultiRailPayout(){
     var rails = ['cashapp','applepay','paypal','ach','card','link'];
     var selected = rails.filter(function(r){
       var cb = document.getElementById('rail-'+r);
       return cb && cb.checked;
     });
-    if(selected.length===0){ toast('❌ Select at least one receive rail'); return; }
+    if(selected.length===0){ toast('❌ Select at least one payout rail'); return; }
     var amtIn   = document.getElementById('payout-amount');
     var emailIn = document.getElementById('payout-email');
-    var resBox  = document.getElementById('receive-result-box');
-    var btn     = document.getElementById('receive-send-btn');
+    var resBox  = document.getElementById('payout-result-box');
+    var btn     = document.getElementById('payout-send-btn');
     var amount  = parseFloat((amtIn&&amtIn.value)||0);
     var payee   = (emailIn&&emailIn.value)||'mccreary.bm@gmail.com';
     var walletTotal = (typeof S!=='undefined'&&S.wallet) ? (S.wallet.total||0) : 0;
     if(amount < 1)    { toast('❌ Minimum $1.00 required'); return; }
     if(amount > walletTotal) { toast('❌ Insufficient wallet balance. Collect mining first!'); return; }
     if(btn){ btn.disabled=true; btn.textContent='⏳ Processing...'; }
-    if(resBox){ resBox.style.display='block'; resBox.innerHTML='⏳ Receiving via '+selected.length+' rail(s)...'; }
+    if(resBox){ resBox.style.display='block'; resBox.innerHTML='⏳ Routing to '+selected.length+' rail(s)...'; }
     var amtEach = (amount / selected.length).toFixed(2);
     var results = [];
     for(var i=0; i<selected.length; i++){
@@ -4275,20 +4504,20 @@ function getResp(q){
       try {
         // Route each rail to the correct backend action
         var action_map = {
-          paypal:'receive_paypal',
-          ach:'receive_ach',
-          link:'receive_link',
-          cashapp:'receive_checkout',
-          applepay:'receive_checkout',
-          card:'receive_checkout'
+          paypal:'payout_paypal',
+          ach:'payout_bank',
+          link:'payout_link',
+          cashapp:'payout_checkout',
+          applepay:'payout_checkout',
+          card:'payout_checkout'
         };
-        var backendAction = action_map[rail]||'receive_checkout';
+        var backendAction = action_map[rail]||'payout_checkout';
         var payload = {action: backendAction};
-        if(backendAction==='receive_paypal'){
+        if(backendAction==='payout_paypal'){
           payload.amount_usd = amtEach;
           payload.email = payee;
           payload.note = 'TaTa '+rail.toUpperCase()+' Payout';
-        } else if(backendAction==='receive_ach'){
+        } else if(backendAction==='payout_bank'){
           payload.amount_usd = amtEach;
           payload.description = 'TaTa ACH Payout $'+amtEach;
         } else {
@@ -4325,9 +4554,9 @@ function getResp(q){
     var out = results.map(function(r){
       return (r.ok?'✅':'⚠ ') + r.rail.toUpperCase() + ': $'+amtEach+' → '+r.msg;
     }).join('\n');
-    if(resBox){ resBox.innerHTML = out + (anyOk?'\n\n🏆 Funds received!':'\n\n⚠ Check PayPal eligibility at developer.paypal.com'); }
-    if(btn){ btn.disabled=false; btn.textContent='⚡ Receive Funds'; }
-    if(anyOk) toast('💰 $'+amount.toFixed(2)+' received via '+selected.filter(function(r){return results.find(function(x){return x.rail===r&&x.ok;});}).length+' rail(s)!');
+    if(resBox){ resBox.innerHTML = out + (anyOk?'\n\n🏆 Payout sent!':'\n\n⚠ Check PayPal eligibility at developer.paypal.com'); }
+    if(btn){ btn.disabled=false; btn.textContent='⚡ Send Payout'; }
+    if(anyOk) toast('💰 $'+amount.toFixed(2)+' routed to '+selected.filter(function(r){return results.find(function(x){return x.rail===r&&x.ok;});}).length+' rail(s)!');
   }
 
   // ── Legacy wrapper (called from rail buttons) ──
@@ -4431,8 +4660,8 @@ function showVerificationModal(code, amount, rail, destination) {
   overlay.innerHTML = '<div style="background:#1a1a2e;border:2px solid #9B59B6;border-radius:16px;padding:24px;max-width:340px;width:100%;box-shadow:0 0 40px rgba(155,89,182,.4)">' +
     '<div style="text-align:center;margin-bottom:16px">' +
       '<div style="font-size:28px">🔐</div>' +
-      '<div style="font-size:16px;font-weight:900;color:#F1C40F;margin-top:4px">Receive Verification</div>' +
-      '<div style="font-size:10px;color:#888;margin-top:4px">iMessage verification required to receive</div>' +
+      '<div style="font-size:16px;font-weight:900;color:#F1C40F;margin-top:4px">Payment Verification</div>' +
+      '<div style="font-size:10px;color:#888;margin-top:4px">iMessage verification required</div>' +
     '</div>' +
     '<div style="background:#0d0d1a;border-radius:8px;padding:12px;margin-bottom:16px">' +
       '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:#888;font-size:11px">Amount</span><span style="color:#fff;font-weight:700;font-size:14px">$' + amount.toFixed(2) + '</span></div>' +
@@ -4486,7 +4715,7 @@ function executeVerifiedPayment(pv) {
     body: JSON.stringify({ action: 'execute', rail: pv.rail, amount: pv.amount, destination: pv.destination, code: pv.code })
   }).then(function(r){ return r.json(); }).then(function(data){
     if(data.ok){
-      toast('$' + pv.amount.toFixed(2) + ' via ' + pv.rail.toUpperCase() + ' RECEIVED & PROCESSING');
+      toast('$' + pv.amount.toFixed(2) + ' via ' + pv.rail.toUpperCase() + ' APPROVED & EXECUTING');
       pendingVerification = null;
       // Update the PaymentVerification entity to executed
       try {
@@ -4521,7 +4750,7 @@ if(_originalExecutePayout){
       var cb = document.getElementById('rail-'+r);
       return cb && cb.checked;
     });
-    if(selected.length===0){ toast('Select at least one receive rail'); return; }
+    if(selected.length===0){ toast('Select at least one payout rail'); return; }
     var amtIn = document.getElementById('payout-amount');
     var emailIn = document.getElementById('payout-email');
     var amount = parseFloat((amtIn&&amtIn.value)||0);
@@ -4631,7 +4860,7 @@ async function ppPayout(amount, email, note){
   try {
     var r = await fetch(API, {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ action:'receive_paypal', amount_usd: parseFloat(amount).toFixed(2),
+      body: JSON.stringify({ action:'payout_paypal', amount_usd: parseFloat(amount).toFixed(2),
         email: email||'mccreary.bm@gmail.com', note: note||'TaTatalicious payout' })
     });
     var d = await r.json();
@@ -4651,11 +4880,11 @@ async function ppPayout(amount, email, note){
 }
 
 function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
-  var old = document.getElementById('pp-approval-overlay');
-  if(old && old.remove) old.remove();
+  var old = (document.getElementById('pp-approval-overlay')||{});
+  if(old) old.remove();
   var overlay = document.createElement('div');
   overlay.id = 'pp-approval-overlay';
-  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;';
   var amt = parseFloat(amount||0).toFixed(2);
   var pid = String(paymentId||'').substring(0,22);
   overlay.innerHTML = '<div style="background:#1a1a2e;border:2px solid #9B59B6;border-radius:16px;padding:28px;max-width:380px;width:90%;text-align:center;box-shadow:0 0 40px rgba(155,89,182,0.5);">'
@@ -4672,8 +4901,8 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
   if(cb) cb.addEventListener('click', function(){ overlay.remove(); });
 }
 
-  // ── verifyPayPalReceive: test $0.01 verification ──
-  async function verifyPayPalReceive(){
+  // ── verifyPayPalPayout: test $0.01 verification ──
+  async function verifyPayPalPayout(){
     var btn = document.getElementById('pp-verify-btn');
     if(btn){ btn.disabled=true; btn.textContent='⏳ Verifying...'; }
     var result = await ppPayout(0.01, 'mccreary.bm@gmail.com', 'TaTa PayPal Verification');
@@ -4857,19 +5086,19 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
             +'<div style="display:flex;gap:4px;margin-top:5px">'
               +'<button onclick="addFundsToAsset(\''+a.sym+'\')" style="flex:1;background:#1a2a3a;border:1px solid #00BCD4;color:#00BCD4;border-radius:5px;padding:4px;font-size:7px;cursor:pointer">💰 Add Funds</button>'
               +'<button onclick="transferAssetToWallet(\''+a.sym+'\')" style="flex:1;background:#1a3a1a;border:1px solid #00E676;color:#00E676;border-radius:5px;padding:4px;font-size:7px;cursor:pointer">→ Wallet</button>'
-              +'<button onclick="openReceiveModal(\'all\')" style="flex:1;background:#2a1a3a;border:1px solid #9B59B6;color:#9B59B6;border-radius:5px;padding:4px;font-size:7px;cursor:pointer">⬇ Receive</button>'
+              +'<button onclick="openPayoutModal(\'all\')" style="flex:1;background:#2a1a3a;border:1px solid #9B59B6;color:#9B59B6;border-radius:5px;padding:4px;font-size:7px;cursor:pointer">💳 Withdraw</button>'
             +'</div>'
             +'</div>';
         }).join('');
   }
 
   // ── Portfolio asset management ──
-  function openAddAssetModal(){ _gid('add-asset-modal').style.display='block'; }
-  function closeAddAssetModal(){ _gid('add-asset-modal').style.display='none'; }
+  function openAddAssetModal(){ document.getElementById('add-asset-modal').style.display='block'; }
+  function closeAddAssetModal(){ document.getElementById('add-asset-modal').style.display='none'; }
   function savePortfolioAsset(){
-    var sym = (_gid('asset-symbol').value||'').toUpperCase().trim();
-    var qty = parseFloat(_gid('asset-qty').value||0);
-    var wallet = _gid('asset-wallet').value||'';
+    var sym = (document.getElementById('asset-symbol').value||'').toUpperCase().trim();
+    var qty = parseFloat(document.getElementById('asset-qty').value||0);
+    var wallet = document.getElementById('asset-wallet').value||'';
     if(!sym){ toast('❌ Enter a symbol'); return; }
     PORTFOLIO.push({sym:sym, qty:qty, price:0, value:0, pl:0, wallet:wallet, type:'manual'});
     localStorage.setItem('tata_portfolio', JSON.stringify(PORTFOLIO));
@@ -4917,7 +5146,7 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
       w1:'0x486f662020286e17e7469df4e5f2cf2415f36662',
       w5:'0x9c192dddd51bd7c1e840d0401ecd34637ea70556',
       w6:'0x78cdbef65ede022351f2dd635abc41ac74788cbd',
-      custom:_gid('token-custom-addr').value||''
+      custom:document.getElementById('token-custom-addr').value||''
     };
     var destAddr = DEST_ADDRS[dest]||DEST_ADDRS.main;
     var coin = coinSel ? coinSel.value : 'all';
@@ -5010,7 +5239,7 @@ var _adminPinBuffer = '';
 
 // ── Open admin overlay ─────────────────────────────────────
 function openAdmin(){
-  _gid('admin-overlay').style.display='block';
+  document.getElementById('admin-overlay').style.display='block';
   document.body.style.overflow='hidden';
   // If already authenticated this session, skip PIN
   if(S.admin.authenticated){
@@ -5020,21 +5249,21 @@ function openAdmin(){
   }
 }
 function closeAdmin(){
-  _gid('admin-overlay').style.display='none';
+  document.getElementById('admin-overlay').style.display='none';
   document.body.style.overflow='';
   _adminPinBuffer='';
   renderAdminPinDisplay();
 }
 function showAdminPin(){
-  _gid('admin-pin-screen').style.display='block';
-  _gid('admin-dashboard').style.display='none';
-  _gid('admin-pin-err').textContent='';
+  document.getElementById('admin-pin-screen').style.display='block';
+  document.getElementById('admin-dashboard').style.display='none';
+  document.getElementById('admin-pin-err').textContent='';
   _adminPinBuffer='';
   renderAdminPinDisplay();
 }
 function showAdminDashboard(){
-  _gid('admin-pin-screen').style.display='none';
-  _gid('admin-dashboard').style.display='block';
+  document.getElementById('admin-pin-screen').style.display='none';
+  document.getElementById('admin-dashboard').style.display='block';
   refreshAdminDashboard();
 }
 
@@ -5066,11 +5295,11 @@ function checkAdminPin(){
     S.admin.autoTransfer.enabled=true;
     S.admin.autoTransfer.threshold=S.admin.autoTransfer.threshold||10;
     S.admin.autoTransfer.rails=S.admin.autoTransfer.rails.length?S.admin.autoTransfer.rails:['paypal'];
-    _gid('admin-pin-err').textContent='';
+    document.getElementById('admin-pin-err').textContent='';
     showAdminDashboard();
     toast('👑 Admin access granted! Auto-transfer ACTIVE');
   } else {
-    _gid('admin-pin-err').textContent='❌ Incorrect PIN — try again';
+    document.getElementById('admin-pin-err').textContent='❌ Incorrect PIN — try again';
     _adminPinBuffer='';
     renderAdminPinDisplay();
   }
@@ -5138,8 +5367,8 @@ function adminSetApproval(on){
   toast(on ? '✋ Approval required before sending' : '⚡ Auto-send without approval');
 }
 function adminSaveSettings(){
-  var thr = parseFloat(_gid('adm-threshold').value)||10;
-  var itv = parseInt(_gid('adm-interval').value)||30;
+  var thr = parseFloat(document.getElementById('adm-threshold').value)||10;
+  var itv = parseInt(document.getElementById('adm-interval').value)||30;
   S.admin.autoTransfer.threshold = Math.max(1,thr);
   S.admin.autoTransfer.intervalMins = Math.max(5,itv);
   saveState('admin-save-settings');
@@ -5157,9 +5386,9 @@ function adminSaveRails(){
 // ── Manual admin transfer ─────────────────────────────────
 function adminManualTransfer(){
   if(!S.admin.authenticated){ toast('🔒 Admin lock active'); return; }
-  var amt = parseFloat(_gid('adm-manual-amt').value)||0;
-  var dest = _gid('adm-manual-dest').value||'mccreary.bm@gmail.com';
-  var rail = _gid('adm-manual-rail').value||'paypal';
+  var amt = parseFloat(document.getElementById('adm-manual-amt').value)||0;
+  var dest = document.getElementById('adm-manual-dest').value||'mccreary.bm@gmail.com';
+  var rail = document.getElementById('adm-manual-rail').value||'paypal';
   if(amt<1){ toast('❌ Minimum $1.00'); return; }
   if(amt>S.wallet.total){ toast('❌ Insufficient wallet balance ($'+S.wallet.total.toFixed(2)+' available)'); return; }
 
@@ -5195,11 +5424,11 @@ async function adminQuickTest20(){
 // ── Fire the actual transfer ───────────────────────────────
 async function adminFireTransfer(amount, dest, rail, src){
   var actionMap = {
-    paypal:'receive_paypal', ach:'receive_ach',
-    cashapp:'receive_checkout', applepay:'receive_checkout',
-    card:'receive_checkout', link:'receive_link', all:'receive_paypal'
+    paypal:'payout_paypal', ach:'payout_bank',
+    cashapp:'payout_checkout', applepay:'payout_checkout',
+    card:'payout_checkout', link:'payout_link', all:'payout_paypal'
   };
-  var action = actionMap[rail]||'receive_paypal';
+  var action = actionMap[rail]||'payout_paypal';
   var payload = {action:action, amount_usd:parseFloat(amount).toFixed(2), email:dest, note:'Admin Transfer via TaTatalicious'};
 
   toast('⏳ Admin transfer firing — $'+parseFloat(amount).toFixed(2)+' → '+rail+'...');
@@ -5313,15 +5542,15 @@ function renderAdminTxHistory(){
 
 // ── Change PIN ─────────────────────────────────────────────
 function adminChangePin(){
-  var np = _gid('adm-new-pin').value;
-  var cp = _gid('adm-confirm-pin').value;
+  var np = document.getElementById('adm-new-pin').value;
+  var cp = document.getElementById('adm-confirm-pin').value;
   if(!np||np.length<4){ toast('❌ PIN must be at least 4 digits'); return; }
   if(np!==cp){ toast('❌ PINs do not match'); return; }
   if(!/^[0-9]+$/.test(np)){ toast('❌ PIN must be numeric'); return; }
   S.admin.pin = np;
   saveState('admin-change-pin');
-  _gid('adm-new-pin').value='';
-  _gid('adm-confirm-pin').value='';
+  document.getElementById('adm-new-pin').value='';
+  document.getElementById('adm-confirm-pin').value='';
   toast('🔐 PIN updated successfully');
 }
 function adminLockout(){
@@ -5469,7 +5698,7 @@ document.addEventListener('click', function(e){
   var pm = document.getElementById('payout-modal');
   if(pm && pm.style.display !== 'none'){
     if(e.target === pm){ // clicked the backdrop
-      if(typeof closeReceiveModal==='function') closeReceiveModal();
+      if(typeof closePayoutModal==='function') closePayoutModal();
     }
   }
   var mb = document.getElementById('modalbg');
@@ -5511,7 +5740,7 @@ document.addEventListener('touchend', function(e){
 // ═══ MODAL ESCAPE ═══
 document.addEventListener('click', function(e){
   var pm=document.getElementById('payout-modal');
-  if(pm&&pm.style.display!=='none'&&e.target===pm){if(typeof closeReceiveModal==='function')closeReceiveModal();}
+  if(pm&&pm.style.display!=='none'&&e.target===pm){if(typeof closePayoutModal==='function')closePayoutModal();}
   var mb=document.getElementById('modalbg');
   if(mb&&(mb.style.display==='flex'||mb.classList.contains('show'))&&e.target===mb){mb.style.display='none';mb.classList.remove('show');}
   var ao=document.getElementById('admin-overlay');
@@ -5648,26 +5877,22 @@ function renderPendingPayouts(pending){
     el.innerHTML = '<div style="font-size:10px;color:#555;text-align:center;padding:12px">No pending payouts</div>';
     return;
   }
-  var RAIL_ICO = {cashapp:'💵',applepay:'🍎',paypal:'🅿',ach:'🏦',card:'💳',link:'🔗',all:'🌐'};
-  var RAIL_CLR = {cashapp:'#00D632',applepay:'#fff',paypal:'#009cde',ach:'#F1C40F',card:'#00BCD4',link:'#9B59B6',all:'#F1C40F'};
   var html = '';
   if(active.length > 0){
-    html += '<div style="font-size:9px;color:#F1C40F;font-weight:900;margin-bottom:6px">RECEIVING APPROVAL (' + active.length + ')</div>';
+    html += '<div style="font-size:9px;color:#F1C40F;font-weight:900;margin-bottom:6px">AWAITING APPROVAL (' + active.length + ')</div>';
     active.forEach(function(p){
       var timeStr = p.created_date ? new Date(p.created_date).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
       var expStr = p.expires_at ? new Date(p.expires_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
-      var railIco = RAIL_ICO[p.rail] || '💰';
-      var railClr = RAIL_CLR[p.rail] || '#9B59B6';
-      html += '<div style="background:#0d0d2a;border:1px solid ' + railClr + '44;border-left:3px solid ' + railClr + ';border-radius:8px;padding:10px;margin-bottom:6px">'
+      html += '<div style="background:#0d0d2a;border:1px solid #9B59B6;border-radius:8px;padding:10px;margin-bottom:6px">'
         + '<div style="display:flex;justify-content:space-between;align-items:flex-start">'
         + '<div>'
-        + '<div style="font-size:14px;font-weight:900;color:#F1C40F">' + railIco + ' $' + (p.amount || 0).toFixed(2) + '</div>'
-        + '<div style="font-size:9px;color:' + railClr + ';font-weight:700;margin-top:2px">' + (p.rail || 'unknown').toUpperCase() + ' &rarr; ' + (p.destination || 'N/A') + '</div>'
+        + '<div style="font-size:14px;font-weight:900;color:#F1C40F">$' + (p.amount || 0).toFixed(2) + '</div>'
+        + '<div style="font-size:9px;color:#9B59B6;font-weight:700;margin-top:2px">' + (p.rail || 'unknown').toUpperCase() + ' &rarr; ' + (p.destination || 'N/A') + '</div>'
         + '<div style="font-size:8px;color:#666;margin-top:2px">' + timeStr + ' &middot; expires ' + expStr + '</div>'
         + '<div style="font-size:8px;color:#555;margin-top:2px">Code: <span style="color:#F1C40F;font-weight:700;letter-spacing:1px">' + (p.verification_code || '') + '</span></div>'
         + '</div>'
         + '<div style="display:flex;flex-direction:column;gap:4px">'
-        + '<button onclick="approvePendingPayout(\'' + p.id + '\',\'' + p.verification_code + '\',' + p.amount + ',\'' + p.rail + '\')" style="background:linear-gradient(135deg,#27ae60,#2ecc71);color:#000;border:none;border-radius:6px;padding:6px 10px;font-size:9px;font-weight:900;cursor:pointer">APPROVE</button>'
+        + '<button onclick="approvePendingPayout(\'' + p.id + '\',\'' + p.verification_code + '\')" style="background:linear-gradient(135deg,#27ae60,#2ecc71);color:#000;border:none;border-radius:6px;padding:6px 10px;font-size:9px;font-weight:900;cursor:pointer">APPROVE</button>'
         + '<button onclick="rejectPendingPayout(\'' + p.id + '\',\'' + p.verification_code + '\')" style="background:linear-gradient(135deg,#E74C3C,#C0392B);color:#fff;border:none;border-radius:6px;padding:6px 10px;font-size:9px;font-weight:900;cursor:pointer">REJECT</button>'
         + '</div>'
         + '</div></div>';
@@ -5700,19 +5925,20 @@ function renderRecentPayouts(recent){
   el.innerHTML = html;
 }
 
-function approvePendingPayout(recordId, code, amount, rail){
+function approvePendingPayout(recordId, code){
   if(!code){ toast('No verification code for this payout'); return; }
-  toast('Receiving $' + (amount||0).toFixed(2) + ' via ' + (rail||'').toUpperCase() + '... processing');
+  toast('Approving $' + ' payout... executing via ' + 'rail');
+  // Execute the payment directly with the verification code
   fetch(PV_API, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ action: 'approve', code: code, record_id: recordId })
+    body: JSON.stringify({ action: 'execute', code: code, record_id: recordId })
   }).then(function(r){ return r.json(); }).then(function(data){
     if(data.ok){
-      toast('Payment RECEIVED: $' + (data.amount||amount||0).toFixed(2) + ' via ' + (data.rail||rail||'').toUpperCase());
+      toast('✅ Payout APPROVED & EXECUTING: $' + (data.amount||0).toFixed(2) + ' via ' + (data.rail||'').toUpperCase());
       loadPendingPayouts();
     } else {
-      toast('Approval failed: ' + (data.error || 'Unknown'));
+      toast('❌ Approval failed: ' + (data.error || 'Unknown'));
     }
   }).catch(function(e){ toast('Network error: ' + e.message); });
 }
@@ -5736,7 +5962,7 @@ function rejectPendingPayout(recordId, code){
 function goToApproval(){
   showPage('wallet');
   setTimeout(function(){
-    openReceiveModal('all');
+    openPayoutModal('all');
   }, 300);
 }
 
@@ -5804,10 +6030,10 @@ setInterval(function(){
   if(curPage==='learning'){updateLearningUI();updateLearnHeader();}
   if(curPage==='bots')updateBotUI();
   if(curPage==='wallet')renderWallet();
-  runAutoReceives();
+  runAutoWithdraws();
   checkAdminAutoTransfer();
 },5000);
-setInterval(runAutoReceives, 60000);
+setInterval(runAutoWithdraws, 60000);
 setTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
 ; // Also check every 60s independently
 // AUTO-COLLECT: sweep mined balance into wallet every 30 minutes
@@ -5851,31 +6077,6 @@ window.addEventListener('hashchange', function(){
   checkUrlForApproval();
 });
 
-</script>
-
-<script>
-// GENIUS MODE — Live Transaction Verification
-async function geniusVerifyTransactions() {
-  try {
-    var resp = await fetch(API, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({action: 'payment_history'})
-    });
-    var data = await resp.json();
-    if (data.ok && data.payments) {
-      var verified = data.payments.filter(function(p) { return p.status === 'paid'; });
-      var total = verified.reduce(function(s, p) { return s + p.usd; }, 0);
-      console.log('[GENIUS] Live transactions verified:', verified.length, 'Total received: $' + total.toFixed(2));
-      // Update any genius status elements
-      var gStatus = document.getElementById('genius-status');
-      if (gStatus) gStatus.textContent = verified.length + ' verified / $' + total.toFixed(2) + ' received';
-      window.GENIUS_TX = { count: verified.length, total: total, payments: verified };
-    }
-  } catch(e) { console.log('[GENIUS] Transaction check:', e.message); }
-}
-// Run after page loads
-setTimeout(geniusVerifyTransactions, 3000);
 </script>
 </body>
 </html>
