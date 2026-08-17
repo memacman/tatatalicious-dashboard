@@ -527,7 +527,7 @@ to {background-position:200%}
     <div onclick="togglePendingDropdown()" id="pending-dropdown-header" style="cursor:pointer;touch-action:manipulation;background:#0d0d2a;border:1px solid #2a2a4a;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px">
       <div style="font-size:20px;flex-shrink:0">📋</div>
       <div style="flex:1">
-        <div style="font-size:12px;font-weight:900;color:#fff">Receiving Payouts Pending Approval</div>
+        <div style="font-size:12px;font-weight:900;color:#fff">Receiving Funds Pending Approval</div>
         <div style="font-size:9px;color:#888;margin-top:2px"><span id="pending-count-badge" style="background:#E74C3C;color:#fff;border-radius:10px;padding:1px 8px;font-weight:900;font-size:10px">0</span> waiting for your approval</div>
       </div>
       <div id="pending-dropdown-arrow" style="font-size:14px;color:#888;transition:transform .3s">▼</div>
@@ -749,7 +749,7 @@ to {background-position:200%}
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
       <button id="mine-get" onclick="collectAllPositive()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#0070BA,#003087);color:#fff;font-size:10px">&#128200; Collect All</button>
-      <button onclick="openReceiveModal('all')" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#E74C3C,#C0392B);color:#fff;font-size:10px">&#128184; Payout</button>
+      <button onclick="openReceiveModal('all')" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#E74C3C,#C0392B);color:#fff;font-size:10px">&#128184; Receive</button>
     </div>
   </div>
   <!-- MINING STATS -->
@@ -1400,7 +1400,7 @@ to {background-position:200%}
     <div style="margin-bottom:12px">
       <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:6px">💰 Amount (USD)</div>
       <div style="display:flex;gap:6px">
-        <input id="payout-amount" type="number" placeholder="0.00" min="1" step="0.01"
+        <input id="receive-amount" type="number" placeholder="0.00" min="1" step="0.01"
           style="flex:1;background:#050510;border:2px solid #9B59B6;color:#00E676;border-radius:8px;padding:10px;font-size:18px;font-weight:900;outline:none;box-sizing:border-box">
         <button onclick="receiveSetMax()" style="background:#F1C40F;color:#000;border:none;border-radius:8px;padding:10px 14px;font-size:9px;font-weight:900;cursor:pointer">MAX</button>
       </div>
@@ -1410,12 +1410,12 @@ to {background-position:200%}
     <!-- PAYEE -->
     <div style="margin-bottom:12px">
       <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:6px">📧 Receiving Account (Email / $tag / Wallet)</div>
-      <input id="payout-email" type="text" placeholder="mccreary.bm@gmail.com or $tenaweek"
+      <input id="receive-email" type="text" placeholder="mccreary.bm@gmail.com or $tenaweek"
         style="width:100%;background:#050510;border:1px solid #2a2a4a;color:#fff;border-radius:8px;padding:10px;font-size:11px;outline:none;box-sizing:border-box">
     </div>
 
     <!-- SELECTED RAILS SUMMARY -->
-    <div id="payout-rails-summary" style="background:#050510;border-radius:8px;padding:8px;margin-bottom:12px;font-size:8px;color:#555;min-height:30px">
+    <div id="receive-rails-summary" style="background:#050510;border-radius:8px;padding:8px;margin-bottom:12px;font-size:8px;color:#555;min-height:30px">
       Select one or more rails above...
     </div>
 
@@ -2332,7 +2332,7 @@ function showPage(id){
   var stuckModal = (document.getElementById('pp-approval-overlay')||{});
   if(stuckModal && id !== 'wallet') { /* keep approval popup */ }
   // Tab hooks — all wrapped in try/catch
-  if(id==='home')      setTimeout(function(){try{updateHomeStats();if(typeof loadPendingPayouts==='function')loadPendingPayouts();}catch(e){}},100);
+  if(id==='home')      setTimeout(function(){try{updateHomeStats();if(typeof loadPendingReceives==='function')loadPendingReceives();}catch(e){}},100);
   if(id==='mastery')   setTimeout(function(){try{calcMastery();updateMasteryUI();saveGlobalBalances();}catch(e){}},100);
   if(id==='bots')      setTimeout(function(){try{updateBotUI();if(typeof updateBotsUI==='function')updateBotsUI();}catch(e){}},100);
   if(id==='learning')  setTimeout(function(){try{buildDomains();updateLearningUI();updateLearnHeader();}catch(e){}},100);
@@ -2508,14 +2508,14 @@ async function doReceive(rail, coin, usd, src){
     var data = await resp.json();
     if(data.ok){
       txEntry.status    = 'confirmed';
-      txEntry.receive_id = data.payout_id||data.payment_id||data.batch_id||data.session_id||'confirmed';
+      txEntry.receive_id = data.receive_id||data.payment_id||data.batch_id||data.session_id||'confirmed';
       txEntry.arrival   = data.arrival||data.status||'sent';
       saveState(); renderWallet();
       if(data.approval_url){
         showPayPalApprovalPopup(data.approval_url, actualUsd, data.payment_id);
         toast('PayPal $'+actualUsd.toFixed(2)+' ready! Tap popup to approve.');
       } else {
-        toast('CONFIRMED $'+actualUsd.toFixed(2)+' '+coin+' to '+rail.name+' | '+(data.batch_id||data.payment_id||data.payout_id||'done'));
+        toast('CONFIRMED $'+actualUsd.toFixed(2)+' '+coin+' to '+rail.name+' | '+(data.batch_id||data.payment_id||data.receive_id||'done'));
       }
     } else {
       txEntry.status = 'queued';
@@ -2589,10 +2589,10 @@ function renderAutoReceiveStatus(){
       : '');
 }
 
-// TATATATALICIOUS PAYOUT ENGINE v3.0
+// TATATATALICIOUS RECEIVE ENGINE v3.0
   
-  var PAYOUT_URL = 'https://base44.app/api/apps/69f8f80581e1d336233e7632/functions/paymentVerify';
-  var currentPayoutRail = 'all';
+  var RECEIVE_URL = 'https://base44.app/api/apps/69f8f80581e1d336233e7632/functions/paymentVerify';
+  var currentReceiveRail = 'all';
   var editingPayeeIdx = -1;
 
   // Rail config
@@ -2611,37 +2611,37 @@ function renderAutoReceiveStatus(){
     var badge = document.getElementById('stripe-live-badge');
     var box   = document.getElementById('stripe-status-box');
     if(badge) badge.innerHTML = 'CHECKING...';
-    fetch(PAYOUT_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'dashboard'})})
+    fetch(RECEIVE_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'dashboard'})})
     .then(function(r){return r.json();}).then(function(d){
       if(d.ok && d.stripe){
         var s = d.stripe;
         txt('stripe-avail','$'+(s.available||0).toFixed(2));
         txt('stripe-pending','$'+(s.pending||0).toFixed(2));
-        if(document.getElementById('stripe-caps')) _gid('stripe-caps').innerHTML = (s.cashapp_cap==='active'?'✅ CashApp<br>':'') + (s.payouts_enabled?'✅ Payouts':'⚠ No Payouts');
+        if(document.getElementById('stripe-caps')) _gid('stripe-caps').innerHTML = (s.cashapp_cap==='active'?'✅ CashApp<br>':'') + (s.payouts_enabled?'✅ Receives':'⚠ No Receives');
         if(badge) { badge.innerHTML = s.payouts_enabled ? '🟢 LIVE' : '🟡 LIMITED'; badge.style.color = s.payouts_enabled ? '#00E676' : '#F1C40F'; }
-        if(box) box.innerHTML = '✅ Stripe LIVE · Payouts: '+(s.payouts_enabled?'Enabled':'Check dashboard')+' · Charges: '+(s.charges_enabled?'Active':'—')+' · US Account';
+        if(box) box.innerHTML = '✅ Stripe LIVE · Receives: '+(s.payouts_enabled?'Enabled':'Check dashboard')+' · Charges: '+(s.charges_enabled?'Active':'—')+' · US Account';
       } else {
         if(badge) { badge.innerHTML = '🔴 ERROR'; badge.style.color='#F44336'; }
         if(box) box.innerHTML = '❌ ' + (d.error||'Check Stripe connection');
       }
     }).catch(function(){
       if(badge) { badge.innerHTML = '⚠ OFFLINE'; }
-      if(box && box) box.innerHTML = '⚠ Backend offline — payouts logged locally';
+      if(box && box) box.innerHTML = '⚠ Backend offline — receives logged locally';
     });
   }
 
-  // ── PAYOUT MODAL ──────────────────────────────
+  // ── RECEIVE MODAL ──────────────────────────────
   /* replaced by multi-rail engine */
   
-  function setPayoutAmt(n){
-    var el = document.getElementById('payout-amount');
+  function setReceiveAmt(n){
+    var el = document.getElementById('receive-amount');
     if(!el) return;
     if(n === 'max'){
       // Use wallet total as max
       var walletTotal = (S&&S.wallet&&typeof S.wallet.total==='number') ? S.wallet.total : parseFloat(((document.getElementById('wallet-total')||{}).innerHTML||'0').replace(/[^0-9.]/g,''))||0;
-      var limitPer = parseFloat(localStorage.getItem('limit_per_'+currentPayoutRail)||'0');
-      var dailyUsed = getDailyUsed(currentPayoutRail);
-      var dailyLimit = parseFloat(localStorage.getItem('limit_daily_'+currentPayoutRail)||'0');
+      var limitPer = parseFloat(localStorage.getItem('limit_per_'+currentReceiveRail)||'0');
+      var dailyUsed = getDailyUsed(currentReceiveRail);
+      var dailyLimit = parseFloat(localStorage.getItem('limit_daily_'+currentReceiveRail)||'0');
       var maxAmt = walletTotal;
       if(limitPer > 0) maxAmt = Math.min(maxAmt, limitPer);
       if(dailyLimit > 0) maxAmt = Math.min(maxAmt, Math.max(0, dailyLimit - dailyUsed));
@@ -2654,14 +2654,14 @@ function renderAutoReceiveStatus(){
 
   function toggleCustomAmt(){/* removed — stale refs only */}
   function applyCustomAmt(){
-    var custom = parseFloat(_gid('payout-custom-amt').value||'0');
+    var custom = parseFloat(_gid('receive-custom-amt').value||'0');
     if(custom < 0.5){ toast('⚠ Min $0.50'); return; }
-    var limitPer = parseFloat(localStorage.getItem('limit_per_'+currentPayoutRail)||'0');
+    var limitPer = parseFloat(localStorage.getItem('limit_per_'+currentReceiveRail)||'0');
     if(limitPer > 0 && custom > limitPer){
-      toast('⚠ Exceeds per-payout limit of $'+limitPer.toFixed(2));
+      toast('⚠ Exceeds per-receive limit of $'+limitPer.toFixed(2));
       custom = limitPer;
     }
-    _gid('payout-amount').value = custom.toFixed(2);
+    _gid('receive-amount').value = custom.toFixed(2);
     _gid('custom-amt-row').style.display = 'none';
     _gid('custom-amt-btn').innerHTML = '✏ Enter Other / Custom Amount';
     toast('✅ Amount set to $' + custom.toFixed(2));
@@ -2694,14 +2694,14 @@ function renderAutoReceiveStatus(){
     var pct        = limitDaily > 0 ? Math.min(100,(dailyUsed/limitDaily)*100) : 0;
     var pctColor   = pct > 80 ? '#F44336' : pct > 50 ? '#F1C40F' : '#00E676';
     bar.innerHTML  = '<b style="color:#F1C40F">' + railLabel + ' Limits</b><br>'
-      + 'Per Payout: ' + (limitPer > 0 ? '<b style="color:#00E676">$'+limitPer.toFixed(2)+'</b>' : '<span style="color:#555">No limit</span>') + '<br>'
+      + 'Per Receive: ' + (limitPer > 0 ? '<b style="color:#00E676">$'+limitPer.toFixed(2)+'</b>' : '<span style="color:#555">No limit</span>') + '<br>'
       + 'Daily Max:  ' + (limitDaily > 0 ? '<b style="color:#9B59B6">$'+limitDaily.toFixed(2)+'</b>' : '<span style="color:#555">No limit</span>') + '<br>'
       + 'Used Today: <b style="color:'+pctColor+'">$'+dailyUsed.toFixed(2)+'</b>'
       + (limitDaily > 0 ? ' / $'+limitDaily.toFixed(2)+' ('+pct.toFixed(0)+'%)' : '') + '<br>'
       + (limitDaily > 0 ? '<div style="background:#111;border-radius:4px;height:5px;margin-top:4px"><div style="background:'+pctColor+';height:5px;border-radius:4px;width:'+pct+'%"></div></div>' : '');
   }
 
-  function savePayoutLimits(){/* removed — stale refs only */}
+  function saveReceiveLimits(){/* removed — stale refs only */}
 
   /* replaced by multi-rail engine */
 
@@ -2785,22 +2785,22 @@ function renderAutoReceiveStatus(){
     var payees = getPayees();
     var p = payees[i];
     if(!p) return;
-    currentPayoutRail = p.rail||'all';
+    currentReceiveRail = p.rail||'all';
     openReceiveModal(p.rail||'all');
     setTimeout(function(){
-      var amtEl = document.getElementById('payout-amount');
-      var emailEl = document.getElementById('payout-email');
-      var noteEl = document.getElementById('payout-note');
+      var amtEl = document.getElementById('receive-amount');
+      var emailEl = document.getElementById('receive-email');
+      var noteEl = document.getElementById('receive-note');
       if(amtEl && p.amount) amtEl.value = p.amount;
       if(emailEl && (p.email||p.paypal)) emailEl.value = p.email||p.paypal||'';
-      if(noteEl) noteEl.value = 'Payout to '+p.name;
+      if(noteEl) noteEl.value = 'Receive from '+p.name;
     }, 100);
   }
 
   function sendToAllPayees(){
     var payees = getPayees();
     if(!payees.length){ toast('⚠ No payees saved'); return; }
-    toast('⏳ Sending multi-payout to '+payees.length+' payees...');
+    toast('⏳ Sending multi-receive to '+payees.length+' payees...');
     var payload = {
       action:'receive_multi',
       payees: payees.filter(function(p){return p.amount>0;}).map(function(p){
@@ -2808,23 +2808,23 @@ function renderAutoReceiveStatus(){
       })
     };
     if(!payload.payees.length){ toast('⚠ Set a default amount for payees first'); return; }
-    fetch(PAYOUT_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    fetch(RECEIVE_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
     .then(function(r){return r.json();}).then(function(d){
       if(d.ok){
-        toast('✅ Multi-payout generated for '+d.count+' payees! Total: $'+d.total_usd);
+        toast('✅ Multi-receive generated for '+d.count+' payees! Total: $'+d.total_usd);
         // Open first checkout URL
         if(d.payees && d.payees[0]?.checkout_url) window.open(d.payees[0].checkout_url,'_blank');
       } else {
-        toast('❌ Multi-payout error: '+(d.error||'check details'));
+        toast('❌ Multi-receive error: '+(d.error||'check details'));
       }
-    }).catch(function(){ toast('⚠ Multi-payout network error'); });
+    }).catch(function(){ toast('⚠ Multi-receive network error'); });
   }
 
-  // ── PAYOUT HISTORY ─────────────────────────────
+  // ── RECEIVE HISTORY ─────────────────────────────
   function loadPayoutHistory(){
-    var box = document.getElementById('payout-history-box');
+    var box = document.getElementById('receive-history-box');
     if(box) box.innerHTML='<div style="font-size:9px;color:#888;text-align:center;padding:10px">⏳ Loading...</div>';
-    fetch(PAYOUT_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'payout_history'})})
+    fetch(RECEIVE_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'payout_history'})})
     .then(function(r){return r.json();}).then(function(d){
       var html='';
       // Stripe payouts
@@ -2869,7 +2869,7 @@ function renderAutoReceiveStatus(){
     var usd = parseFloat(prompt('Amount to collect ($):', '10')||'0');
     if(usd<0.5){ toast('⚠ Min $0.50'); return; }
     toast('⏳ Creating payment link...');
-    fetch(PAYOUT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'receive_link',amount_usd:usd.toFixed(2),payee_name:'TaTatalicious',description:'TaTa Mining Payout $'+usd})})
+    fetch(RECEIVE_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'receive_link',amount_usd:usd.toFixed(2),payee_name:'TaTatalicious',description:'TaTa Receive $'+usd})})
     .then(function(r){return r.json();}).then(function(d){
       if(d.ok&&d.payment_link){
         window.open(d.payment_link,'_blank');
@@ -2878,7 +2878,7 @@ function renderAutoReceiveStatus(){
     }).catch(function(){ toast('⚠ Network error'); });
   }
 
-  // ── INIT PAYOUT SYSTEM ────────────────────────
+  // ── INIT RECEIVE SYSTEM ────────────────────────
   setTimeout(function(){
     checkStripeStatus();
     renderPayeeList();
@@ -3053,7 +3053,7 @@ function renderAutoReceiveStatus(){
   // ── AUTO-TRANSFER to payment rail ────────────
   function autoTransferOut(usd, rail){
     toast('⏳ Auto-transferring $'+usd.toFixed(2)+' via '+rail+'...');
-    fetch(PAYOUT_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    fetch(RECEIVE_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
       action: rail==='link' ? 'receive_link' : 'receive_checkout',
       amount_usd: usd.toFixed(2),
       rail: rail,
@@ -3071,7 +3071,7 @@ function renderAutoReceiveStatus(){
         localStorage.setItem('tata_collect_log', JSON.stringify(collectLog));
         renderCollectLog();
       } else {
-        toast('⚠ Transfer: '+(d.error||'check payout settings'));
+        toast('⚠ Transfer: '+(d.error||'check receive settings'));
       }
     }).catch(function(){ toast('⚠ Transfer offline — logged locally'); });
   }
@@ -3700,9 +3700,9 @@ function setMiningAgents(n){
     if(!toAddr){toast('⚠ Enter a recipient address');return;}
     if(amount<0.50){toast('⚠ Minimum $0.50');return;}
     if(amount>(S.wallet.total||0)){toast('⚠ Insufficient balance: $'+(S.wallet.total||0).toFixed(2));return;}
-    currentPayoutRail=network;
-    var amtInp=document.getElementById('payout-amount');
-    var emailInp=document.getElementById('payout-email');
+    currentReceiveRail=network;
+    var amtInp=document.getElementById('receive-amount');
+    var emailInp=document.getElementById('receive-email');
     if(amtInp)amtInp.value=amount.toFixed(2);
     if(emailInp)emailInp.value=toAddr;
     executePayout();
@@ -3745,7 +3745,7 @@ function setMiningAgents(n){
       return '<div style="background:#050510;border:1px solid #1a1a3a;border-radius:8px;padding:9px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center">'
         +'<div><div style="font-size:11px;font-weight:900;color:#00E676">$'+(tx.usd||0).toFixed(2)+'</div>'
         +'<div style="font-size:7px;color:#555">'+(tx.ts||'')+'</div>'
-        +'<div style="font-size:8px;color:#888">'+(tx.note||'Payout')+'</div></div>'
+        +'<div style="font-size:8px;color:#888">'+(tx.note||'Receive')+'</div></div>'
         +'<div style="text-align:right">'
         +'<div style="font-size:9px;color:#9B59B6;font-weight:700">'+(tx.rail||'').toUpperCase()+'</div>'
         +'<div style="font-size:7px;color:#'+(tx.status==='confirmed'?'00E676':'F44336')+'">'+(tx.status||'pending')+'</div>'
@@ -3946,7 +3946,7 @@ var FIN_TEAM = [
     actions:['Yield farming','Liquidity provision','Staking optimization','APY tracking'] },
   { name:'Rho',    ico:'🏦', role:'Cash Flow Manager',    color:'#E91E9A',
     desc:'Routes all receives across 6 payment rails. Manages receive timing, limits, and reinvestment cycles.',
-    actions:['Payout routing','Rail optimization','Reinvestment cycles','Cash management'] },
+    actions:['Receive routing','Rail optimization','Reinvestment cycles','Cash management'] },
   { name:'Theta',  ico:'📈', role:'Growth Scaler',        color:'#FF6B35',
     desc:'Identifies scaling opportunities. Compounds profits into new mining pools, stocks, and business ventures automatically.',
     actions:['Opportunity scanning','Profit compounding','New market entry','Portfolio scaling'] },
@@ -3978,7 +3978,7 @@ function finTeamAction(action){
   var msgs = {
     'analyze': '🧠 Alpha + Sigma analyzing portfolio...\n📊 Mining: ' + (typeof S!=='undefined'?'$'+((S.wallet&&S.wallet.total)||0).toFixed(2):'$0.00') + ' wallet balance\n⚡ Running 200+ algo signals across BTC, ETH, SOL...\n✅ Report: Accumulate BTC at current levels. DeFi yield on ETH @ 4.2% APY. Mine BNB pool showing +23% efficiency.',
     'rebalance': '⚖️ Rho initiating rebalance...\n📦 Current allocation: 60% BTC/ETH, 25% mining, 15% DeFi\n🎯 Target: 50% BTC/ETH, 30% mining, 20% DeFi\n✅ Rebalance order queued. Theta compounding into yield pools.',
-    'mine_transfer': '⛏ Omega collecting all mining balances...\n💰 Sweeping agent pools → main wallet\n🔄 Routing profits: 70% hold, 20% reinvest mining, 10% DeFi yield\n✅ Transfer complete. Rho routing to payout rails.',
+    'mine_transfer': '⛏ Omega collecting all mining balances...\n💰 Sweeping agent pools → main wallet\n🔄 Routing profits: 70% hold, 20% reinvest mining, 10% DeFi yield\n✅ Transfer complete. Rho routing to receive rails.',
     'scale': '📈 Theta scanning scaling opportunities...\n🌐 Market: Crypto bull cycle detected\n⚡ Sigma: 3 high-conviction signals active\n✅ Scaling plan: +500 agents to BTC pool. Vega deploying $50 to Aave USDC at 5.8% APY. Alpha approves.'
   };
   out.innerHTML = (msgs[action] || 'Processing...').replace(/\n/g,'\n');
@@ -4192,20 +4192,20 @@ function getResp(q){
   }, 10000);
 
   
-  // PAYOUT MODAL — MULTI-RAIL ENGINE
+  // RECEIVE MODAL — MULTI-RAIL ENGINE
   
   function openReceiveModal(rail){
   rail = rail||'all';
-    var modal = document.getElementById('payout-modal');
+    var modal = document.getElementById('receive-modal');
     if(!modal) return;
     // Pre-fill amount
     var total = (typeof S!=='undefined' && S.wallet) ? (S.wallet.total||0) : 0;
-    var amtIn = document.getElementById('payout-amount');
+    var amtIn = document.getElementById('receive-amount');
     var avail = document.getElementById('receive-available');
     if(amtIn && total>0) amtIn.value = total.toFixed(2);
     if(avail) avail.textContent = '$'+total.toFixed(2);
     // Pre-fill payee
-    var emailIn = document.getElementById('payout-email');
+    var emailIn = document.getElementById('receive-email');
     if(emailIn && !emailIn.value) emailIn.value = 'mccreary.bm@gmail.com';
     // Pre-check rail if passed
     if(rail && rail!=='all'){
@@ -4217,7 +4217,7 @@ function getResp(q){
   }
 
   function closeReceiveModal(){
-    var modal = document.getElementById('payout-modal');
+    var modal = document.getElementById('receive-modal');
     if(modal) modal.style.display = 'none';
     document.body.style.overflow = '';
     var res = document.getElementById('receive-result-box');
@@ -4226,7 +4226,7 @@ function getResp(q){
 
   function receiveSetMax(){
     var total = (typeof S!=='undefined' && S.wallet) ? (S.wallet.total||0) : 0;
-    var amtIn = document.getElementById('payout-amount');
+    var amtIn = document.getElementById('receive-amount');
     if(amtIn) amtIn.value = total.toFixed(2);
   }
 
@@ -4236,7 +4236,7 @@ function getResp(q){
       var cb = document.getElementById('rail-'+r);
       return cb && cb.checked;
     });
-    var summary = document.getElementById('payout-rails-summary');
+    var summary = document.getElementById('receive-rails-summary');
     var btn = document.getElementById('receive-send-btn');
     if(!summary) return;
     if(selected.length===0){
@@ -4257,8 +4257,8 @@ function getResp(q){
       return cb && cb.checked;
     });
     if(selected.length===0){ toast('❌ Select at least one receive rail'); return; }
-    var amtIn   = document.getElementById('payout-amount');
-    var emailIn = document.getElementById('payout-email');
+    var amtIn   = document.getElementById('receive-amount');
+    var emailIn = document.getElementById('receive-email');
     var resBox  = document.getElementById('receive-result-box');
     var btn     = document.getElementById('receive-send-btn');
     var amount  = parseFloat((amtIn&&amtIn.value)||0);
@@ -4287,14 +4287,14 @@ function getResp(q){
         if(backendAction==='receive_paypal'){
           payload.amount_usd = amtEach;
           payload.email = payee;
-          payload.note = 'TaTa '+rail.toUpperCase()+' Payout';
+          payload.note = 'TaTa '+rail.toUpperCase()+' Receive';
         } else if(backendAction==='receive_ach'){
           payload.amount_usd = amtEach;
-          payload.description = 'TaTa ACH Payout $'+amtEach;
+          payload.description = 'TaTa ACH Receive $'+amtEach;
         } else {
           payload.amount_usd = amtEach;
           payload.payee_name = 'Brandon McCreary';
-          payload.description = 'TaTa '+rail.toUpperCase()+' Payout';
+          payload.description = 'TaTa '+rail.toUpperCase()+' Receive';
         }
         var resp = await fetch(API, {
           method:'POST',
@@ -4303,7 +4303,7 @@ function getResp(q){
         });
         var data = await resp.json();
         var msg = data.ok
-          ? (data.batch_id||data.url||data.payment_id||data.payout_id||'Sent!')
+          ? (data.batch_id||data.url||data.payment_id||data.receive_id||'Sent!')
           : (data.error||'Failed');
         if(data.ok && data.approval_url){
           showPayPalApprovalPopup(data.approval_url, parseFloat(amtEach), data.payment_id);
@@ -4333,8 +4333,8 @@ function getResp(q){
   // ── Legacy wrapper (called from rail buttons) ──
   function executePayout(rail, amount, payee){
     if(rail){ var cb=document.getElementById('rail-'+rail); if(cb) cb.checked=true; }
-    if(amount){ var ai=document.getElementById('payout-amount'); if(ai) ai.value=amount; }
-    if(payee){ var pi=document.getElementById('payout-email'); if(pi) pi.value=payee; }
+    if(amount){ var ai=document.getElementById('receive-amount'); if(ai) ai.value=amount; }
+    if(payee){ var pi=document.getElementById('receive-email'); if(pi) pi.value=payee; }
     executeMultiRailPayout();
   }
 
@@ -4410,7 +4410,7 @@ function startPaymentVerification(amount, rail, destination) {
             destination: data.destination || '',
             verification_code: data.verification_code,
             status: 'pending',
-            payment_details: JSON.stringify({note: 'Dashboard payout', rail: data.rail, amount: data.amount}),
+            payment_details: JSON.stringify({note: 'Dashboard receive', rail: data.rail, amount: data.amount}),
             created_by_agent: false,
             expires_at: data.expires_at
           })
@@ -4511,7 +4511,7 @@ function executeVerifiedPayment(pv) {
   }).catch(function(e){ toast('Network error: ' + e.message); });
 }
 
-// Wrap payout execution with iMessage verification
+// Wrap receive execution with iMessage verification
 var _originalExecutePayout = typeof executeMultiRailPayout === 'function' ? executeMultiRailPayout : null;
 if(_originalExecutePayout){
   executeMultiRailPayout = function(){
@@ -4522,8 +4522,8 @@ if(_originalExecutePayout){
       return cb && cb.checked;
     });
     if(selected.length===0){ toast('Select at least one receive rail'); return; }
-    var amtIn = document.getElementById('payout-amount');
-    var emailIn = document.getElementById('payout-email');
+    var amtIn = document.getElementById('receive-amount');
+    var emailIn = document.getElementById('receive-email');
     var amount = parseFloat((amtIn&&amtIn.value)||0);
     var payee = (emailIn&&emailIn.value)||'mccreary.bm@gmail.com';
     var walletTotal = (typeof S!=='undefined'&&S.wallet) ? (S.wallet.total||0) : 0;
@@ -4621,7 +4621,7 @@ function initChat(){
     }
   }
 
-  // ── ppPayout: PayPal live payout via backend ──
+  // ── ppReceive: PayPal live receive via backend ──
   
 // ── PayPal Live Config ────────────────────────────────────
 var PP_CID='AQw5eJFAbu3KfwdZb_RCiCmg0D6fuEKAzNUOk2Kbtiq0ZJuUHff0-dximLjA8q5SrCRkS1MalULIM7Kk';
@@ -4632,7 +4632,7 @@ async function ppPayout(amount, email, note){
     var r = await fetch(API, {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ action:'receive_paypal', amount_usd: parseFloat(amount).toFixed(2),
-        email: email||'mccreary.bm@gmail.com', note: note||'TaTatalicious payout' })
+        email: email||'mccreary.bm@gmail.com', note: note||'TaTatalicious Receive' })
     });
     var d = await r.json();
     if(d.ok && d.approval_url){
@@ -5220,7 +5220,7 @@ async function adminFireTransfer(amount, dest, rail, src){
       rail: rail,
       src: src||'manual',
       status: data.ok ? 'confirmed' : 'failed',
-      batch_id: data.batch_id||data.payout_id||data.session_id||'',
+      batch_id: data.batch_id||data.receive_id||data.session_id||'',
       error: data.ok ? '' : (data.error||'unknown')
     };
     S.admin.txHistory.unshift(tx);
@@ -5236,7 +5236,7 @@ async function adminFireTransfer(amount, dest, rail, src){
       renderAdminTxHistory();
       txt('adm-total-sent','$'+S.admin.autoTransfer.totalSent.toFixed(2));
       txt('adm-wallet-bal','$'+S.wallet.total.toFixed(2));
-      toast('🏆 TRANSFER CONFIRMED! $'+parseFloat(amount).toFixed(2)+' → '+rail+' | ID:'+(data.batch_id||data.payout_id||'done'));
+      toast('🏆 TRANSFER CONFIRMED! $'+parseFloat(amount).toFixed(2)+' → '+rail+' | ID:'+(data.batch_id||data.receive_id||'done'));
     } else {
       saveState();
       renderAdminTxHistory();
@@ -5466,7 +5466,7 @@ document.addEventListener('touchend', function(e){
 
 // ═══ MODAL ESCAPE: click outside closes any stuck modal ═══
 document.addEventListener('click', function(e){
-  var pm = document.getElementById('payout-modal');
+  var pm = document.getElementById('receive-modal');
   if(pm && pm.style.display !== 'none'){
     if(e.target === pm){ // clicked the backdrop
       if(typeof closeReceiveModal==='function') closeReceiveModal();
@@ -5510,7 +5510,7 @@ document.addEventListener('touchend', function(e){
 },{passive:false});
 // ═══ MODAL ESCAPE ═══
 document.addEventListener('click', function(e){
-  var pm=document.getElementById('payout-modal');
+  var pm=document.getElementById('receive-modal');
   if(pm&&pm.style.display!=='none'&&e.target===pm){if(typeof closeReceiveModal==='function')closeReceiveModal();}
   var mb=document.getElementById('modalbg');
   if(mb&&(mb.style.display==='flex'||mb.classList.contains('show'))&&e.target===mb){mb.style.display='none';mb.classList.remove('show');}
@@ -5611,10 +5611,10 @@ function togglePendingDropdown(){
   var arrow = document.getElementById('pending-dropdown-arrow');
   if(body) body.style.display = _pendingExpanded ? 'block' : 'none';
   if(arrow) arrow.style.transform = _pendingExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
-  if(_pendingExpanded) loadPendingPayouts();
+  if(_pendingExpanded) loadPendingReceives();
 }
 
-function loadPendingPayouts(){
+function loadPendingReceives(){
   var listEl = document.getElementById('pending-payouts-list');
   if(listEl) listEl.innerHTML = '<div style="font-size:10px;color:#888;padding:8px">Loading...</div>';
   fetch(PV_API, {
@@ -5701,7 +5701,7 @@ function renderRecentPayouts(recent){
 }
 
 function approvePendingPayout(recordId, code, amount, rail){
-  if(!code){ toast('No verification code for this payout'); return; }
+  if(!code){ toast('No verification code for this receive'); return; }
   toast('Receiving $' + (amount||0).toFixed(2) + ' via ' + (rail||'').toUpperCase() + '... processing');
   fetch(PV_API, {
     method: 'POST',
@@ -5710,7 +5710,7 @@ function approvePendingPayout(recordId, code, amount, rail){
   }).then(function(r){ return r.json(); }).then(function(data){
     if(data.ok){
       toast('Payment RECEIVED: $' + (data.amount||amount||0).toFixed(2) + ' via ' + (data.rail||rail||'').toUpperCase());
-      loadPendingPayouts();
+      loadPendingReceives();
     } else {
       toast('Approval failed: ' + (data.error || 'Unknown'));
     }
@@ -5724,8 +5724,8 @@ function rejectPendingPayout(recordId, code){
     body: JSON.stringify({ action: 'reject', code: code, record_id: recordId })
   }).then(function(r){ return r.json(); }).then(function(data){
     if(data.ok){
-      toast('❌ Payout rejected');
-      loadPendingPayouts();
+      toast('❌ Receive rejected');
+      loadPendingReceives();
     } else {
       toast('Reject failed: ' + (data.error || 'Unknown'));
     }
@@ -5740,7 +5740,7 @@ function goToApproval(){
   }, 300);
 }
 
-// URL hash handler — #approve opens payout modal directly
+// URL hash handler — #approve opens receive modal directly
 function checkUrlForApproval(){
   var hash = window.location.hash || '';
   var params = new URLSearchParams(window.location.search);
@@ -5842,7 +5842,7 @@ showPage('home');
   // Check URL for #approve hash
   checkUrlForApproval();
   // Auto-refresh pending payouts every 30 seconds
-  setInterval(function(){ if(typeof loadPendingPayouts==='function' && _pendingExpanded) loadPendingPayouts(); }, 30000);
+  setInterval(function(){ if(typeof loadPendingReceives==='function' && _pendingExpanded) loadPendingReceives(); }, 30000);
 })();
 
 
