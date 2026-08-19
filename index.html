@@ -1025,8 +1025,12 @@ to {background-position:200%}
           <option value="base">🔵 Base (0x8335...)</option>
           <option value="solana">◎ Solana (4m5H...)</option>
           <option value="w1">W1 EVM (0x486f...)</option>
+          <option value="w2">W2 Base (0x2245...)</option>
           <option value="w5">W5 EVM (0x9c19...)</option>
           <option value="w6">W6 EVM (0x78cd...)</option>
+          <option value="coinbase"> Coinbase (0x8335...)</option>
+          <option value="metamask"> MetaMask (0x486f...)</option>
+          <option value="rainbow"> Rainbow (0x9c19...)</option>
           <option value="custom">✏ Custom Address</option>
         </select>
       </div>
@@ -1234,7 +1238,7 @@ to {background-position:200%}
     <div style="display:flex;gap:5px;margin-bottom:7px">
       <div style="flex:1"><div style="font-size:8px;color:var(--sub);margin-bottom:3px">Rail</div>
         <select id="aw-rail-sel" style="background:var(--el);border:1px solid #2A2A4A;color:var(--tx);border-radius:7px;padding:7px;font-size:10px;width:100%;outline:none">
-          <option value="cashapp">💵 Cash App</option><option value="applepay">🍎 Apple Pay</option><option value="paypal">🅿 PayPal</option>
+          <option value="cashapp">💵 Cash App</option><option value="applepay">🍎 Apple Pay</option><option value="paypal">🅿 PayPal</option><option value="zelle">⚡ Zelle</option><option value="ach">🏦 ACH Bank</option>
         </select></div>
       <div style="flex:1"><div style="font-size:8px;color:var(--sub);margin-bottom:3px">Min $ trigger</div>
         <input id="ac-transfer-min" type="number" value="5" min="0.1" step="0.1" style="background:var(--el);border:1px solid #2A2A4A;color:var(--tx);border-radius:7px;padding:7px;font-size:10px;width:100%;box-sizing:border-box;outline:none"></div>
@@ -1391,7 +1395,10 @@ to {background-position:200%}
         </label>
         <label style="display:flex;align-items:center;gap:6px;background:#1a1a3a;border:1px solid #2a2a4a;border-radius:8px;padding:8px;cursor:pointer">
           <input type="checkbox" id="rail-link" value="link" onchange="updateRailSelection()" style="accent-color:#F1C40F">
-          <span style="font-size:10px;font-weight:700;color:#F1C40F">🔗 Pay Link</span>
+          <span style="font-size:10px;font-weight:700;color:#F1C40F">🔗 Pay Link
+          <label style="display:flex;align-items:center;gap:4px;cursor:pointer">
+          <input type="checkbox" id="rail-zelle" value="zelle" onchange="updateRailSelection()" style="accent-color:#6C5CE7">
+          <span style="font-size:10px;font-weight:700;color:#6C5CE7">⚡ Zelle</span></span>
         </label>
       </div>
     </div>
@@ -1728,9 +1735,13 @@ var S={
     id:'TATA-AGENT-WALLET-LOCAL-001',owner:'TaTatalicious Agent Network',linkedAgents:10101,
     autoCollect:true,total:0,balances:{},txs:[],
     paymentRails:{
-      cashapp:  {id:'cashapp', name:'Cash App', ico:'💵',linked:false,handle:'',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null},
-      applepay: {id:'applepay',name:'Apple Pay',ico:'🍎',linked:false,handle:'',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'ETH',autoIntervalMins:60,lastAutoAt:null},
-      paypal:   {id:'paypal',  name:'PayPal',   ico:'🅿',linked:false,handle:'',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null}
+      cashapp:  {id:'cashapp', name:'Cash App', ico:'💵',linked:true,handle:'$tenaweek',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null},
+      applepay: {id:'applepay',name:'Apple Pay',ico:'🍎',linked:true,handle:'mccreary.bm@gmail.com',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'ETH',autoIntervalMins:60,lastAutoAt:null},
+      paypal:   {id:'paypal',  name:'PayPal',   ico:'🅿',linked:true,handle:'mccreary.bm@gmail.com',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'BTC',autoIntervalMins:60,lastAutoAt:null},
+      ach:      {id:'ach',     name:'ACH Bank', ico:'🏦',linked:true,handle:'mccreary.bm@gmail.com',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'USDC',autoIntervalMins:60,lastAutoAt:null},
+      card:     {id:'card',    name:'Credit/Debit',ico:'💳',linked:true,handle:'mccreary.bm@gmail.com',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'USDC',autoIntervalMins:60,lastAutoAt:null},
+      link:     {id:'link',    name:'Payment Link',ico:'🔗',linked:true,handle:'mccreary.bm@gmail.com',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'USDC',autoIntervalMins:60,lastAutoAt:null},
+      zelle:    {id:'zelle',   name:'Zelle',    ico:'zap',linked:true,handle:'mccreary.bm@gmail.com',depositedUsd:0,receivedUsd:0,lastTxAt:null,autoWithdraw:false,autoThreshold:5,autoCoin:'USDC',autoIntervalMins:60,lastAutoAt:null}
     }
   },
   autoReceiveLog:[]
@@ -4231,7 +4242,7 @@ function getResp(q){
   }
 
   function updateRailSelection(){
-    var rails = ['cashapp','applepay','paypal','ach','card','link'];
+    var rails = ['cashapp','applepay','paypal','ach','card','link','zelle'];
     var selected = rails.filter(function(r){
       var cb = document.getElementById('rail-'+r);
       return cb && cb.checked;
@@ -4244,14 +4255,14 @@ function getResp(q){
       if(btn) btn.textContent = '⚡ Receive Funds';
       return;
     }
-    var labels = {cashapp:'💵 Cash App',applepay:' Apple Pay',paypal:'🅿 PayPal',ach:'🏦 ACH Bank',card:'💳 Card',link:'🔗 Pay Link'};
+    var labels = {cashapp:'💵 Cash App',applepay:' Apple Pay',paypal:'🅿 PayPal',ach:'🏦 ACH Bank',card:'💳 Card',link:'🔗 Pay Link',zelle:'⚡ Zelle'};
     summary.innerHTML = '<span style="color:#F1C40F;font-weight:700">Selected: </span>'
       + selected.map(function(r){ return '<span style="background:#1a1a3a;border-radius:4px;padding:2px 6px;margin:1px;display:inline-block">'+labels[r]+'</span>'; }).join(' ');
     if(btn) btn.textContent = '⚡ Receive via '+selected.length+' Rail'+(selected.length>1?'s':'');
   }
 
   async function executeMultiRailReceive(){
-    var rails = ['cashapp','applepay','paypal','ach','card','link'];
+    var rails = ['cashapp','applepay','paypal','ach','card','link','zelle'];
     var selected = rails.filter(function(r){
       var cb = document.getElementById('rail-'+r);
       return cb && cb.checked;
@@ -4280,7 +4291,8 @@ function getResp(q){
           link:'receive_link',
           cashapp:'receive_checkout',
           applepay:'receive_checkout',
-          card:'receive_checkout'
+          card:'receive_checkout',
+          zelle:'receive_ach'
         };
         var backendAction = action_map[rail]||'receive_checkout';
         var payload = {action: backendAction};
@@ -4516,7 +4528,7 @@ var _originalExecutePayout = typeof executeMultiRailPayout === 'function' ? exec
 if(_originalExecutePayout){
   executeMultiRailPayout = function(){
     // Extract values from DOM (same as original function)
-    var rails = ['cashapp','applepay','paypal','ach','card','link'];
+    var rails = ['cashapp','applepay','paypal','ach','card','link','zelle'];
     var selected = rails.filter(function(r){
       var cb = document.getElementById('rail-'+r);
       return cb && cb.checked;
@@ -4915,8 +4927,12 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
       base:'0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
       sol:'4m5HrJD8JVrBRYW4f66bRvC3Umy7wGGKE3iWQwEwmYYx',
       w1:'0x486f662020286e17e7469df4e5f2cf2415f36662',
+      w2:'0x2245141f8b387798392e734be9477f281dad867f',
       w5:'0x9c192dddd51bd7c1e840d0401ecd34637ea70556',
       w6:'0x78cdbef65ede022351f2dd635abc41ac74788cbd',
+      coinbase:'0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
+      metamask:'0x486f662020286e17e7469df4e5f2cf2415f36662',
+      rainbow:'0x9c192dddd51bd7c1e840d0401ecd34637ea70556',
       custom:_gid('token-custom-addr').value||''
     };
     var destAddr = DEST_ADDRS[dest]||DEST_ADDRS.main;
@@ -5197,7 +5213,8 @@ async function adminFireTransfer(amount, dest, rail, src){
   var actionMap = {
     paypal:'receive_paypal', ach:'receive_ach',
     cashapp:'receive_checkout', applepay:'receive_checkout',
-    card:'receive_checkout', link:'receive_link', all:'receive_paypal'
+    card:'receive_checkout',
+          zelle:'receive_ach', link:'receive_link', all:'receive_paypal'
   };
   var action = actionMap[rail]||'receive_paypal';
   var payload = {action:action, amount_usd:parseFloat(amount).toFixed(2), email:dest, note:'Admin Transfer via TaTatalicious'};
@@ -5533,8 +5550,12 @@ function sendMinedTokensNew(){
     base: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
     solana: '4m5HrJD8JVrBRYW4f66bRvC3Umy7wGGKE3iWQwEwmYYx',
     w1: '0x486f662020286e17e7469df4e5f2cf2415f36662',
+    w2: '0x2245141f8b387798392e734be9477f281dad867f',
     w5: '0x9c192dddd51bd7c1e840d0401ecd34637ea70556',
     w6: '0x78cdbef65ede022351f2dd635abc41ac74788cbd',
+    coinbase: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
+    metamask: '0x486f662020286e17e7469df4e5f2cf2415f36662',
+    rainbow: '0x9c192dddd51bd7c1e840d0401ecd34637ea70556',
     custom: customEl ? customEl.value : ''
   };
   var destAddr = DEST_ADDRS[dest] || DEST_ADDRS.main;
