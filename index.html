@@ -1389,6 +1389,32 @@ to {background-position:200%}
     </div>
     <div id="receive-modal-rail-info" style="font-size:9px;color:var(--sub);margin-bottom:12px;padding:8px;background:#050510;border-radius:8px"></div>
 
+    <!-- FUND SOURCE SELECTOR — v2.1 -->
+    <div style="margin-bottom:12px">
+      <div style="font-size:10px;font-weight:900;color:#9B59B6;margin-bottom:6px">🔧 Fund Source</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <label style="display:flex;align-items:center;gap:4px;background:#1a1a3a;border:1px solid #2a2a4a;border-radius:8px;padding:6px 10px;cursor:pointer">
+          <input type="radio" name="fund-source" value="simulated" checked style="accent-color:#F1C40F">
+          <span style="font-size:9px;color:#F1C40F">⚙️ Simulated</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:4px;background:#1a1a3a;border:1px solid #2a2a4a;border-radius:8px;padding:6px 10px;cursor:pointer">
+          <input type="radio" name="fund-source" value="pool_verified" style="accent-color:#00E676">
+          <span style="font-size:9px;color:#00E676">✅ Pool Verified</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:4px;background:#1a1a3a;border:1px solid #2a2a4a;border-radius:8px;padding:6px 10px;cursor:pointer">
+          <input type="radio" name="fund-source" value="manual" style="accent-color:#3498db">
+          <span style="font-size:9px;color:#3498db">📝 Manual</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:4px;background:#1a1a3a;border:1px solid #2a2a4a;border-radius:8px;padding:6px 10px;cursor:pointer">
+          <input type="radio" name="fund-source" value="external" style="accent-color:#9B59B6">
+          <span style="font-size:9px;color:#9B59B6">🌐 External</span>
+        </label>
+      </div>
+      <div id="receive-source-info" style="font-size:8px;color:#555;margin-top:4px;padding:4px 6px;background:#050510;border-radius:4px">
+        ⚙️ Simulated — dashboard-calculated earnings. Transfer gate will verify pool balance before execution.
+      </div>
+    </div>
+
     <!-- RAIL SELECTOR (multi-select checkboxes) -->
     <div style="margin-bottom:12px">
       <div style="font-size:10px;font-weight:900;color:#F1C40F;margin-bottom:8px">💰 Select Receive Rail(s)</div>
@@ -3288,6 +3314,20 @@ function renderAutoReceiveStatus(){
     }
   }, true);
 
+  // Update source info text when radio changes
+  document.addEventListener('change', function(e){
+    if(e.target && e.target.name === 'fund-source'){
+      var info = document.getElementById('receive-source-info');
+      var srcInfo = {
+        simulated: '⚙️ Simulated — dashboard-calculated earnings. Transfer gate will verify pool balance before execution.',
+        pool_verified: '✅ Pool Verified — backed by real confirmed pool balance. Transfer gate bypassed.',
+        manual: '📝 Manual — manually initiated receive. Transfer gate bypassed.',
+        external: '🌐 External — funds from external source. Transfer gate bypassed.'
+      };
+      if(info) info.innerHTML = srcInfo[e.target.value] || '';
+    }
+  }, true);
+
   // ── PRODUCTIVITY ANALYTICS ────────────────────
   function updateProductivity(){
     var coins   = S.mining && S.mining.coins ? S.mining.coins : [];
@@ -4383,6 +4423,23 @@ function getResp(q){
     var amount  = parseFloat((amtIn&&amtIn.value)||0);
     var payee   = (emailIn&&emailIn.value)||'mccreary.bm@gmail.com';
     var walletTotal = (typeof S!=='undefined'&&S.wallet) ? (S.wallet.total||0) : 0;
+    // Get selected fund source
+    var fundSource = 'simulated';
+    var srcRadios = document.getElementsByName('fund-source');
+    for(var si=0; si<srcRadios.length; si++){ if(srcRadios[si].checked) fundSource = srcRadios[si].value; }
+
+    // If pool_verified, check transfer gate first
+    if(fundSource === 'simulated'){
+      var gateResp = await fetch(PV_API, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'transfer_gate',amount_usd:amount})}).then(function(r){return r.json();}).catch(function(){return {ok:false};});
+      if(gateResp.ok === false){
+        var gateMsg = gateResp.error || 'Transfer gate denied';
+        if(resBox){ resBox.style.display='block'; resBox.innerHTML='🟡 TRANSFER GATE: ' + gateMsg + '\n\nSwitch to Manual or External source to bypass the gate, or wait for pool balances to confirm.'; }
+        if(btn){ btn.disabled=false; btn.textContent='⚡ Receive Funds'; }
+        toast('🟡 Transfer gate: ' + (gateResp.note || gateMsg));
+        return;
+      }
+    }
+
     if(amount < 1)    { toast('❌ Minimum $1.00 required'); return; }
     if(amount > walletTotal) { toast('❌ Insufficient wallet balance. Collect mining first!'); return; }
     if(btn){ btn.disabled=true; btn.textContent='⏳ Processing...'; }
@@ -4408,13 +4465,16 @@ function getResp(q){
           payload.amount_usd = amtEach;
           payload.email = payee;
           payload.note = 'TaTa '+rail.toUpperCase()+' Receive';
+          payload.source = fundSource;
         } else if(backendAction==='receive_ach'){
           payload.amount_usd = amtEach;
           payload.description = 'TaTa ACH Receive $'+amtEach;
+          payload.source = fundSource;
         } else {
           payload.amount_usd = amtEach;
           payload.payee_name = 'Brandon McCreary';
           payload.description = 'TaTa '+rail.toUpperCase()+' Receive';
+          payload.source = fundSource;
         }
         var resp = await fetch(API, {
           method:'POST',
@@ -4443,7 +4503,7 @@ function getResp(q){
       saveState();
     }
     var out = results.map(function(r){
-      return (r.ok?'✅':'⚠ ') + r.rail.toUpperCase() + ': $'+amtEach+' → '+r.msg;
+      return (r.ok?'✅':'⚠ ') + r.rail.toUpperCase() + ': $'+amtEach+' → '+r.msg + ' ['+fundSource+']';
     }).join('\n');
     if(resBox){ resBox.innerHTML = out + (anyOk?'\n\n🏆 Funds received!':'\n\n⚠ Check PayPal eligibility at developer.paypal.com'); }
     if(btn){ btn.disabled=false; btn.textContent='⚡ Receive Funds'; }
