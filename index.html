@@ -2066,7 +2066,7 @@ function collectCoin_(c,amt,src){
   if(!S.wallet.balances[c.sym])S.wallet.balances[c.sym]={name:c.name,sym:c.sym,ico:c.ico,color:c.color,wallet:c.wallet,amount:0,price:c.price,usd:0};
   S.wallet.balances[c.sym].amount+=amt;S.wallet.balances[c.sym].price=c.price;S.wallet.balances[c.sym].usd=S.wallet.balances[c.sym].amount*c.price;
   c.wc=(c.wc||0)+amt;
-  S.wallet.txs.unshift({ts:new Date().toLocaleTimeString(),sym:c.sym,ico:c.ico,color:c.color,amount:amt,usd:amt*c.price,src:src});
+  S.wallet.txs.unshift({ts:new Date().toLocaleTimeString(),sym:c.sym,ico:c.ico,color:c.color,amount:amt,usd:amt*c.price,src:src,source:'simulated'});
   S.wallet.txs=S.wallet.txs.slice(0,60);
   // Always recalc total
   S.wallet.total=Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*b.price;return a+b.usd;},0);
@@ -2529,7 +2529,7 @@ async function doReceive(rail, coin, usd, src){
   var txEntry = {
     id:txId, ts:new Date().toLocaleTimeString(), type:'receive',
     rail:rail.name, railIco:rail.ico, sym:coin, amount:amt, usd:actualUsd,
-    handle:rail.handle, src:src||'auto', status:'processing'
+    handle:rail.handle, src:src||'auto', source:(typeof fundSource!=='undefined'?fundSource:'simulated'), status:'processing'
   };
   S.wallet.autoReceiveLog = S.wallet.autoReceiveLog||[];
   S.wallet.autoReceiveLog.unshift(txEntry);
@@ -3900,15 +3900,37 @@ function setMiningAgents(n){
     var box=document.getElementById('wallet-tx-log'); if(!box)return;
     var txs=(S.wallet&&S.wallet.txs)?S.wallet.txs:[];
     if(!txs.length){box.innerHTML='<div style="text-align:center;padding:12px;font-size:9px;color:#333">No transactions yet — make a receive to see history</div>';return;}
+    // Source tag colors
+    var srcColors = {
+      'simulated': '#F1C40F',
+      'pool_verified': '#00E676',
+      'manual': '#3498db',
+      'external': '#9B59B6',
+      'auto': '#F1C40F',
+      'aw': '#F1C40F'
+    };
+    var srcIcons = {
+      'simulated': '\u2699\uFE0F',
+      'pool_verified': '\u2705',
+      'manual': '\uD83D\uDCDD',
+      'external': '\uD83C\uDF10',
+      'auto': '\u2699\uFE0F',
+      'aw': '\u2699\uFE0F'
+    };
     box.innerHTML=txs.slice(0,25).map(function(tx){
+      var src = tx.source || tx.src || 'simulated';
+      var srcColor = srcColors[src] || '#F1C40F';
+      var srcIcon = srcIcons[src] || '\u2699\uFE0F';
+      var srcLabel = src.replace(/_/g,' ');
       return '<div style="background:#050510;border:1px solid #1a1a3a;border-radius:8px;padding:9px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center">'
         +'<div><div style="font-size:11px;font-weight:900;color:#00E676">$'+(tx.usd||0).toFixed(2)+'</div>'
         +'<div style="font-size:7px;color:#555">'+(tx.ts||'')+'</div>'
-        +'<div style="font-size:8px;color:#888">'+(tx.note||'Receive')+'</div></div>'
+        +'<div style="font-size:8px;color:#888">'+(tx.note||'Receive')+'</div>'
+        +'<div style="font-size:7px;color:'+srcColor+';font-weight:700;margin-top:2px">'+srcIcon+' '+srcLabel+'</div></div>'
         +'<div style="text-align:right">'
         +'<div style="font-size:9px;color:#9B59B6;font-weight:700">'+(tx.rail||'').toUpperCase()+'</div>'
         +'<div style="font-size:7px;color:#'+(tx.status==='confirmed'?'00E676':'F44336')+'">'+(tx.status||'pending')+'</div>'
-        +(tx.url?'<a href="'+tx.url+'" target="_blank" style="font-size:7px;color:#9B59B6">↗</a>':'')
+        +(tx.url?'<a href="'+tx.url+'" target="_blank" style="font-size:7px;color:#9B59B6">\u2197</a>':'')
         +'</div></div>';
     }).join('');
   }
@@ -4499,7 +4521,25 @@ function getResp(q){
       var deduct = results.filter(function(r){return r.ok;}).length * parseFloat(amtEach);
       S.wallet.total = Math.max(0, (S.wallet.total||0) - deduct);
       S.wallet.outgoing = (S.wallet.outgoing||0) + deduct;
+      // Log each successful receive with source tag
+      results.forEach(function(r){
+        if(r.ok){
+          S.wallet.txs = S.wallet.txs || [];
+          S.wallet.txs.unshift({
+            id: 'recv-'+Date.now()+'-'+Math.floor(Math.random()*99999),
+            ts: new Date().toLocaleTimeString(),
+            type: 'receive',
+            rail: r.rail,
+            usd: parseFloat(amtEach),
+            source: fundSource,
+            status: 'confirmed',
+            note: r.msg || 'Receive confirmed'
+          });
+          S.wallet.txs = S.wallet.txs.slice(0,100);
+        }
+      });
       updateWalletUI();
+      renderWalletTxLog();
       saveState();
     }
     var out = results.map(function(r){
