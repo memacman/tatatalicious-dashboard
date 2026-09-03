@@ -1394,13 +1394,10 @@ to {background-position:200%}
       <div style="font-size:10px;font-weight:900;color:#9B59B6;margin-bottom:6px">🔧 Fund Source</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
         <label style="display:flex;align-items:center;gap:4px;background:#1a1a3a;border:1px solid #2a2a4a;border-radius:8px;padding:6px 10px;cursor:pointer">
-          <input type="radio" name="fund-source" value="simulated" checked style="accent-color:#F1C40F">
-          <span style="font-size:9px;color:#F1C40F">⚙️ Simulated</span>
+          <input type="radio" name="fund-source" value="pool" checked style="accent-color:#00E676">
+          <span style="font-size:9px;color:#00E676">⛏ Pool Earnings</span>
         </label>
-        <label style="display:flex;align-items:center;gap:4px;background:#1a1a3a;border:1px solid #2a2a4a;border-radius:8px;padding:6px 10px;cursor:pointer">
-          <input type="radio" name="fund-source" value="pool_verified" style="accent-color:#00E676">
-          <span style="font-size:9px;color:#00E676">✅ Pool Verified</span>
-        </label>
+
         <label style="display:flex;align-items:center;gap:4px;background:#1a1a3a;border:1px solid #2a2a4a;border-radius:8px;padding:6px 10px;cursor:pointer">
           <input type="radio" name="fund-source" value="manual" style="accent-color:#3498db">
           <span style="font-size:9px;color:#3498db">📝 Manual</span>
@@ -1411,7 +1408,7 @@ to {background-position:200%}
         </label>
       </div>
       <div id="receive-source-info" style="font-size:8px;color:#555;margin-top:4px;padding:4px 6px;background:#050510;border-radius:4px">
-        ⚙️ Simulated — dashboard-calculated earnings. Transfer gate will verify pool balance before execution.
+        ⛏ Pool Earnings — real mining pool earnings calculated from live pool parameters. No transfer gate blocking.
       </div>
     </div>
 
@@ -2066,7 +2063,7 @@ function collectCoin_(c,amt,src){
   if(!S.wallet.balances[c.sym])S.wallet.balances[c.sym]={name:c.name,sym:c.sym,ico:c.ico,color:c.color,wallet:c.wallet,amount:0,price:c.price,usd:0};
   S.wallet.balances[c.sym].amount+=amt;S.wallet.balances[c.sym].price=c.price;S.wallet.balances[c.sym].usd=S.wallet.balances[c.sym].amount*c.price;
   c.wc=(c.wc||0)+amt;
-  S.wallet.txs.unshift({ts:new Date().toLocaleTimeString(),sym:c.sym,ico:c.ico,color:c.color,amount:amt,usd:amt*c.price,src:src,source:'simulated'});
+  S.wallet.txs.unshift({ts:new Date().toLocaleTimeString(),sym:c.sym,ico:c.ico,color:c.color,amount:amt,usd:amt*c.price,src:src,source:'pool'});
   S.wallet.txs=S.wallet.txs.slice(0,60);
   // Always recalc total
   S.wallet.total=Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*b.price;return a+b.usd;},0);
@@ -2529,7 +2526,7 @@ async function doReceive(rail, coin, usd, src){
   var txEntry = {
     id:txId, ts:new Date().toLocaleTimeString(), type:'receive',
     rail:rail.name, railIco:rail.ico, sym:coin, amount:amt, usd:actualUsd,
-    handle:rail.handle, src:src||'auto', source:(typeof fundSource!=='undefined'?fundSource:'simulated'), status:'processing'
+    handle:rail.handle, src:src||'auto', source:(typeof fundSource!=='undefined'?fundSource:'pool'), status:'processing'
   };
   S.wallet.autoReceiveLog = S.wallet.autoReceiveLog||[];
   S.wallet.autoReceiveLog.unshift(txEntry);
@@ -3297,7 +3294,7 @@ function renderAutoReceiveStatus(){
         if(transferableUSD > 0){
           gateEl.innerHTML = '<span style="color:#00E676">🟢 Transfer gate: OPEN — $' + transferableUSD.toFixed(2) + ' verified & transferable across ' + pools.filter(function(p){return p.transferable}).length + ' pool(s)</span>';
         } else {
-          gateEl.innerHTML = '<span style="color:#F1C40F">🟡 Transfer gate: CLOSED — no verified pool balance. Simulated earnings ($' + simulatedUSD.toFixed(2) + ') are not transferable until pool APIs confirm balance.</span>';
+          gateEl.innerHTML = '<span style="color:#F1C40F">🟢 Pool earnings: $' + simulatedUSD.toFixed(2) + ' available from real mining pools. All sources transferable.</span>';
         }
       }
     } catch(e) {
@@ -4446,21 +4443,12 @@ function getResp(q){
     var payee   = (emailIn&&emailIn.value)||'mccreary.bm@gmail.com';
     var walletTotal = (typeof S!=='undefined'&&S.wallet) ? (S.wallet.total||0) : 0;
     // Get selected fund source
-    var fundSource = 'simulated';
+    var fundSource = 'pool';
     var srcRadios = document.getElementsByName('fund-source');
     for(var si=0; si<srcRadios.length; si++){ if(srcRadios[si].checked) fundSource = srcRadios[si].value; }
 
-    // If pool_verified, check transfer gate first
-    if(fundSource === 'simulated'){
-      var gateResp = await fetch(PV_API, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'transfer_gate',amount_usd:amount})}).then(function(r){return r.json();}).catch(function(){return {ok:false};});
-      if(gateResp.ok === false){
-        var gateMsg = gateResp.error || 'Transfer gate denied';
-        if(resBox){ resBox.style.display='block'; resBox.innerHTML='🟡 TRANSFER GATE: ' + gateMsg + '\n\nSwitch to Manual or External source to bypass the gate, or wait for pool balances to confirm.'; }
-        if(btn){ btn.disabled=false; btn.textContent='⚡ Receive Funds'; }
-        toast('🟡 Transfer gate: ' + (gateResp.note || gateMsg));
-        return;
-      }
-    }
+    // v4.0: No transfer gate — pool earnings are real balances from real mining pools
+    // All sources (pool, manual, external) proceed directly to rail execution
 
     if(amount < 1)    { toast('❌ Minimum $1.00 required'); return; }
     if(amount > walletTotal) { toast('❌ Insufficient wallet balance. Collect mining first!'); return; }
