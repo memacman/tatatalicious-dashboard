@@ -586,6 +586,7 @@ to {background-position:200%}
     <div style="display:flex;justify-content:space-between"><span style="color:var(--sub)">Active Agents</span><span id="ms-bots" style="color:var(--p);font-weight:900">10,101</span></div>
     <div style="display:flex;justify-content:space-between"><span style="color:var(--sub)">Total Earned</span><span id="ms-earn" style="color:var(--ok);font-weight:900">$0.00</span></div>
     <div style="display:flex;justify-content:space-between"><span style="color:var(--sub)">Wallet Value</span><span id="ms-wal" style="color:var(--g);font-weight:900">$0.00</span></div>
+    <div style="display:flex;justify-content:space-between"><span style="color:var(--sub)">Verified Pool</span><span id="ms-vb" style="color:#00E676;font-weight:900">$0.00</span></div>
   </div>
   <div class="sec">🏆 Rank Scale</div>
   <div class="card">
@@ -816,6 +817,25 @@ to {background-position:200%}
       <button onclick="setPoolTab('prohashing')" class="speed-btn" id="pool-tab-prohashing">ProHashing</button>
     </div>
     <div id="pool-detail-panel"></div>
+  </div>
+  <!-- VERIFIED POOL BALANCE — v2.1 Architecture -->
+  <div class="card" style="margin-bottom:10px;border:1px solid #9B59B6">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <div style="font-size:10px;font-weight:900;color:#9B59B6">&#128737; Verified Pool Balance</div>
+      <button onclick="refreshVerifiedBalance()" id="vb-refresh-btn" style="background:#9B59B6;color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:8px;font-weight:700;cursor:pointer;touch-action:manipulation">&#128260; Refresh</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+      <div style="background:#050510;border-radius:8px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#888;margin-bottom:2px">&#9989; Verified (Transferable)</div>
+        <div id="vb-transferable-usd" style="font-size:16px;font-weight:900;color:#00E676">$0.00</div>
+      </div>
+      <div style="background:#050510;border-radius:8px;padding:8px;text-align:center">
+        <div style="font-size:8px;color:#888;margin-bottom:2px">&#9881; Simulated (Dashboard)</div>
+        <div id="vb-simulated-usd" style="font-size:16px;font-weight:900;color:#F1C40F">$0.00</div>
+      </div>
+    </div>
+    <div id="vb-pool-list" style="font-size:8px;line-height:1.8;color:#888">Tap refresh to load pool balances...</div>
+    <div id="vb-gate-status" style="margin-top:6px;font-size:8px;padding:6px;border-radius:6px;background:#0A0A14;color:#555"></div>
   </div>
   <!-- SEND + COLLECT LOG -->
   <div class="card" style="margin-bottom:10px">
@@ -3189,6 +3209,85 @@ function renderAutoReceiveStatus(){
     toast('🏦 '+cfg.name+' receive initiated — no bank needed!');
   }
 
+
+  // ── VERIFIED POOL BALANCE — v2.1 Architecture ───────────
+  var vbCache = null;
+  var vbLoading = false;
+
+  async function refreshVerifiedBalance(){
+    if(vbLoading) return;
+    vbLoading = true;
+    var btn = document.getElementById('vb-refresh-btn');
+    var listEl = document.getElementById('vb-pool-list');
+    var gateEl = document.getElementById('vb-gate-status');
+    if(btn) btn.textContent = '⏳ Loading...';
+    if(listEl) listEl.innerHTML = '<span style="color:#888">Querying pool APIs...</span>';
+    if(gateEl) gateEl.innerHTML = '';
+
+    // Fetch verified balance from liveOps
+    try {
+      var resp = await fetch(API, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({action: 'verified_balance'})
+      });
+      var data = await resp.json();
+      vbCache = data;
+      vbLoading = false;
+      if(btn) btn.textContent = '🔄 Refresh';
+
+      if(!data.ok){
+        if(listEl) listEl.innerHTML = '<span style="color:#F44336">❌ ' + (data.error || 'API error') + '</span>';
+        return;
+      }
+
+      // Update verified transferable amount
+      var transferableUSD = data.transferable_usd || 0;
+      var transferableBTC = data.transferable_btc || 0;
+      var simulatedUSD = (typeof S !== 'undefined' && S.wallet) ? (S.wallet.total || 0) : 0;
+
+      txt('vb-transferable-usd', '$' + transferableUSD.toFixed(2));
+      txt('vb-simulated-usd', '$' + simulatedUSD.toFixed(2));
+
+      // Render pool list
+      var pools = data.pools || [];
+      var html = pools.map(function(p){
+        var statusIcon = p.verified ? '✅' : (p.status === 'connected' ? '⚠️' : '❌');
+        var balStr = p.unpaid_usd ? ('$' + p.unpaid_usd.toFixed(2) + ' / ' + p.unpaid_btc + ' BTC')
+                   : p.balance_usd ? ('$' + p.balance_usd.toFixed(2) + ' / ' + p.balance_btc + ' BTC')
+                   : p.estimated_usd ? ('~$' + p.estimated_usd.toFixed(2))
+                   : '—';
+        var transferable = p.transferable ? '<span style="color:#00E676">TRANSFERABLE</span>' : '<span style="color:#555">locked</span>';
+        var verifiedTag = p.verified ? '<span style="color:#00E676">verified</span>' : '<span style="color:#F1C40F">unverified</span>';
+        return '<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #111">'
+          + '<span>' + statusIcon + ' ' + p.name + ' <span style="color:#555">(' + (p.type||'') + ')</span></span>'
+          + '<span>' + balStr + ' ' + transferable + ' ' + verifiedTag + '</span>'
+          + '</div>';
+      }).join('');
+      if(listEl) listEl.innerHTML = html || '<span style="color:#555">No pools connected</span>';
+
+      // Gate status
+      if(gateEl){
+        if(transferableUSD > 0){
+          gateEl.innerHTML = '<span style="color:#00E676">🟢 Transfer gate: OPEN — $' + transferableUSD.toFixed(2) + ' verified & transferable across ' + pools.filter(function(p){return p.transferable}).length + ' pool(s)</span>';
+        } else {
+          gateEl.innerHTML = '<span style="color:#F1C40F">🟡 Transfer gate: CLOSED — no verified pool balance. Simulated earnings ($' + simulatedUSD.toFixed(2) + ') are not transferable until pool APIs confirm balance.</span>';
+        }
+      }
+    } catch(e) {
+      vbLoading = false;
+      if(btn) btn.textContent = '🔄 Refresh';
+      if(listEl) listEl.innerHTML = '<span style="color:#F44336">❌ Network error: ' + e.message + '</span>';
+    }
+  }
+
+  // Auto-refresh verified balance when mining tab is opened
+  document.addEventListener('click', function(e){
+    if(e.target && e.target.getAttribute && e.target.getAttribute('onclick') && e.target.getAttribute('onclick').indexOf("showPage('mining')") > -1){
+      setTimeout(refreshVerifiedBalance, 500);
+    }
+  }, true);
+
   // ── PRODUCTIVITY ANALYTICS ────────────────────
   function updateProductivity(){
     var coins   = S.mining && S.mining.coins ? S.mining.coins : [];
@@ -5038,7 +5137,18 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
   txt('hs-wallet',  '$'+(S.wallet.total||0).toFixed(2));
   txt('hs-earned',  '$'+(S.mining.totalEarnings||0).toFixed(2));
   txt('ms-wal',     '$'+(S.wallet.total||0).toFixed(2));
+  // Update verified pool balance from cache if available
+  if(vbCache && vbCache.transferable_usd){
+    txt('ms-vb', '$'+(vbCache.transferable_usd||0).toFixed(2));
+  }
 }
+
+// Auto-refresh verified balance every 60 seconds
+setInterval(function(){
+  if(typeof curPage !== 'undefined' && (curPage === 'mining' || curPage === 'home')){
+    refreshVerifiedBalance();
+  }
+}, 60000);
 
 // ADMIN PANEL SYSTEM — TaTatalicious v9
 // PIN-protected · Auto-Transfer · Approval Queue · TX History
