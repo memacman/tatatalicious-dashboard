@@ -466,7 +466,7 @@ to {background-position:200%}
 <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0">
   <div class="stat-card" style="background:#0A0A1E;border:1px solid #9B59B6;border-radius:10px;padding:12px;text-align:center">
     <div style="color:#F1C40F;font-size:10px;font-weight:700">⚡ SPEED</div>
-    <div id="hs-speed" style="color:#fff;font-size:18px;font-weight:900">10,000x</div>
+    <div id="hs-speed" style="color:#fff;font-size:18px;font-weight:900">REAL</div>
   </div>
   <div class="stat-card" style="background:#0A0A1E;border:1px solid #9B59B6;border-radius:10px;padding:12px;text-align:center">
     <div style="color:#F1C40F;font-size:10px;font-weight:700">🤖 AGENTS</div>
@@ -727,7 +727,7 @@ to {background-position:200%}
     </div>
     <!-- SPEED SELECTOR 50x-10,000x -->
     <div style="margin-bottom:10px">
-      <div style="font-size:9px;color:#F1C40F;font-weight:700;margin-bottom:6px">&#9889; Mining Speed (50x &rarr; 10,000x)</div>
+      <div style="font-size:9px;color:#F1C40F;font-weight:700;margin-bottom:6px">&#9889; Display Speed (visual only — real hashrate comes from your rig)</div>
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:4px">
         <button onclick="setMiningSpeed(50)"   class="speed-btn" data-speed="50">50x</button>
         <button onclick="setMiningSpeed(100)"  class="speed-btn" data-speed="100">100x</button>
@@ -749,7 +749,7 @@ to {background-position:200%}
       <button onclick="mineWithdrawToWallet()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#9B59B6,#6C3483);color:#fff">&#128176; RECEIVE</button>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-      <button id="mine-get" onclick="collectAllPositive()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#0070BA,#003087);color:#fff;font-size:10px">&#128200; Collect All</button>
+      <button id="mine-get" onclick="collectAllPositive()" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#0070BA,#003087);color:#fff;font-size:10px">&#128200; Check Real Balance</button>
       <button onclick="openReceiveModal('all')" class="mine-ctrl-btn" style="background:linear-gradient(135deg,#E74C3C,#C0392B);color:#fff;font-size:10px">&#128184; Receive</button>
     </div>
   </div>
@@ -797,7 +797,7 @@ to {background-position:200%}
     </div>
     <div id="positive-balances" style="max-height:120px;overflow-y:auto"></div>
     <div style="display:flex;gap:5px;margin-top:8px">
-      <button onclick="collectAllPositive()" style="flex:2;background:#00E676;color:#000;border:none;border-radius:8px;padding:8px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">&#128200; Collect All Now</button>
+      <button onclick="collectAllPositive()" style="flex:2;background:#00E676;color:#000;border:none;border-radius:8px;padding:8px;font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation">&#128200; Check Real Balance</button>
       <button onclick="clearCollectLog()" style="flex:1;background:#1a1a2e;color:#555;border:1px solid #333;border-radius:8px;padding:8px;font-size:9px;cursor:pointer;touch-action:manipulation">Clear</button>
     </div>
   </div>
@@ -830,7 +830,7 @@ to {background-position:200%}
         <div id="vb-transferable-usd" style="font-size:16px;font-weight:900;color:#00E676">$0.00</div>
       </div>
       <div style="background:#050510;border-radius:8px;padding:8px;text-align:center">
-        <div style="font-size:8px;color:#888;margin-bottom:2px">&#9881; Simulated (Dashboard)</div>
+        <div style="font-size:8px;color:#888;margin-bottom:2px">&#127981; Real Pool Total</div>
         <div id="vb-simulated-usd" style="font-size:16px;font-weight:900;color:#F1C40F">$0.00</div>
       </div>
     </div>
@@ -1119,12 +1119,11 @@ to {background-position:200%}
         <div style="font-size:7px;color:#9B59B6;font-family:monospace;word-break:break-all">0x9c192d...0556</div>
       </div>
     </div>
-    <!-- COINBASE $5000 AUTO APPROVAL -->
+    <!-- v5.0 REAL MODE — REAL BALANCE PANEL -->
     <div style="background:linear-gradient(135deg,#001a00,#002200);border:2px solid #00E676;border-radius:10px;padding:12px;margin-bottom:8px">
-      <div style="font-size:10px;font-weight:900;color:#00E676;margin-bottom:4px">&#128184; Coinbase $5,000 Auto-Approval</div>
-      <div style="font-size:8px;color:#888;margin-bottom:8px">Sends $5,000 payment approval request via PayPal v1/payments API to your Coinbase wallet.</div>
-      <div id="cb-approval-log" style="font-size:9px;color:#555;margin-bottom:8px;min-height:16px">Ready...</div>
-      <button onclick="coinbaseAutoApprove5000()" style="width:100%;background:linear-gradient(135deg,#00C853,#00E676);color:#000;border:none;border-radius:10px;padding:12px;font-size:12px;font-weight:900;cursor:pointer;touch-action:manipulation">&#128184; SEND $5,000 COINBASE APPROVAL</button>
+      <div style="font-size:10px;font-weight:900;color:#00E676;margin-bottom:4px">&#128176; Real Verified Balance</div>
+      <div id="real-balance-note" style="font-size:8px;color:#888;margin-bottom:8px">Loading real pool balances...</div>
+      <button onclick="refreshRealBalances(true)" style="width:100%;background:linear-gradient(135deg,#0070BA,#00E676);color:#000;border:none;border-radius:10px;padding:12px;font-size:12px;font-weight:900;cursor:pointer;touch-action:manipulation">&#128260; REFRESH REAL BALANCE</button>
     </div>
     <!-- EXTERNAL WALLET LINKS -->
     <div style="display:flex;gap:5px">
@@ -1408,7 +1407,7 @@ to {background-position:200%}
         </label>
       </div>
       <div id="receive-source-info" style="font-size:8px;color:#555;margin-top:4px;padding:4px 6px;background:#050510;border-radius:4px">
-        ⛏ Pool Earnings — real mining pool earnings calculated from live pool parameters. No transfer gate blocking.
+        ⛏ Pool Earnings — real verified balance from connected mining pools. Amount cannot exceed verified balance.
       </div>
     </div>
 
@@ -1710,7 +1709,7 @@ var S={
     unlocked:false,active:false,totalEarnings:0,totalHashrate:0,
     offlineEnabled:true,offlineLastActiveAt:null,offlineLastAppliedAt:null,
     coins:[
-      {name:'Bitcoin',      sym:'BTC', ico:'₿', color:'#F7931A',price:97000, algo:'SHA-256',   br:0.00000012,hr:0,mined:0,minedUSD:0,bot:false,opt:false,on:false,mastery:0,ml:'NOVICE',masteryMaxed:false,wc:0,shares:{v:0,i:0,s:0},pool:'F2Pool',      poolUrl:'stratum+tcp://btc.f2pool.com:3333',      wallet:'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh'},
+      {name:'Bitcoin',      sym:'BTC', ico:'₿', color:'#F7931A',price:97000, algo:'SHA-256',   br:0.00000012,hr:0,mined:0,minedUSD:0,bot:false,opt:false,on:false,mastery:0,ml:'NOVICE',masteryMaxed:false,wc:0,shares:{v:0,i:0,s:0},pool:'F2Pool',      poolUrl:'stratum+tcp://btc.f2pool.com:3333',      wallet:''},
       {name:'Ethereum',     sym:'ETH', ico:'Ξ', color:'#627EEA',price:2400,  algo:'Ethash',    br:0.00000234,hr:0,mined:0,minedUSD:0,bot:false,opt:false,on:false,mastery:0,ml:'NOVICE',masteryMaxed:false,wc:0,shares:{v:0,i:0,s:0},pool:'Ethermine',   poolUrl:'stratum+tcp://eth.ethermine.org:5555',   wallet:'0x833589fcd6edb6e08f4c7c32d4f71b54bda02913'},
       {name:'BNB',          sym:'BNB', ico:'⬡', color:'#F3BA2F',price:650,   algo:'PoS',       br:0.00001234,hr:0,mined:0,minedUSD:0,bot:false,opt:false,on:false,mastery:0,ml:'NOVICE',masteryMaxed:false,wc:0,shares:{v:0,i:0,s:0},pool:'Binance',     poolUrl:'stratum+tcp://bnb.poolbinance.com:3333', wallet:'0x833589fcd6edb6e08f4c7c32d4f71b54bda02913'},
       {name:'Solana',       sym:'SOL', ico:'◎', color:'#9945FF',price:170,   algo:'PoH',       br:0.00005678,hr:0,mined:0,minedUSD:0,bot:false,opt:false,on:false,mastery:0,ml:'NOVICE',masteryMaxed:false,wc:0,shares:{v:0,i:0,s:0},pool:'Binance',     poolUrl:'stratum+tcp://sol.poolbinance.com:3333', wallet:'4m5HrJD8JVrBRYW4f66bRvC3Umy7wGGKE3iWQwEwmYYx'},
@@ -1896,23 +1895,8 @@ function loadState(){
 // OFFLINE EARNINGS (myninja applyOfflineMiningSince cloned)
 
 function applyOfflineMining(savedAt){
-  if(!S.mining.offlineEnabled||!savedAt)return;
-  var active=S.mining.coins.filter(function(c){return c.bot||c.hr>0;});
-  if(!active.length)return;
-  var elapsed=Math.min(Math.floor((Date.now()-new Date(savedAt).getTime())/1000),86400*7);
-  if(elapsed<5)return;
-  var wm=Math.max(0.1,S.agents.assignedToWork/S.agents.total);
-  var earned=false;
-  active.forEach(function(c){
-    var sm=S.mining.speedMult||1000; var earn=c.br*(c.hr||120)*wm*(c.opt?1.35:1.0)*(elapsed/(TICK/1000))*0.001*10000*sm;
-    c.mined+=earn;c.minedUSD=c.mined*c.price;S.mining.totalEarnings+=earn*c.price;
-    if(S.wallet.autoCollect)collectCoin_(c,earn,'offline');
-    earned=true;
-  });
-  if(earned){
-    S.wallet.total=Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*b.price;return a+b.usd;},0);
-    toast('💰 Offline mining earnings applied!');
-  }
+  // v5.0 REAL MODE — offline mining simulation removed. Real pool balances only.
+  return;
 }
 function applyOfflineLearning(savedAt){
   if(!S.learning.offlineEnabled||!savedAt)return;
@@ -2056,8 +2040,8 @@ function updateLearnHeader(){
 
 var miningTmr=null;
 function calcEarn(c){
-  var sm = S.mining.speedMult||1000;
-  return c.br*(c.hr/100)*(c.opt?1.35:1.0)*(0.9+Math.random()*0.2) * 10000 * sm;
+  // v5.0 REAL MODE — simulated earnings disabled. Only real pool balances count.
+  return 0;
 }
 function collectCoin_(c,amt,src){
   if(!S.wallet.balances[c.sym])S.wallet.balances[c.sym]={name:c.name,sym:c.sym,ico:c.ico,color:c.color,wallet:c.wallet,amount:0,price:c.price,usd:0};
@@ -2070,32 +2054,15 @@ function collectCoin_(c,amt,src){
 }
 var _tickCount=0;
 function miningTick(){
-  var any=false,th=0;
-  S.mining.coins.forEach(function(c){
-    if(!c.on&&!c.bot)return;
-    any=true;c.hr=(c.opt?180:120)+Math.random()*60-30;th+=c.hr;
-    var agentRatio = Math.max(0.01,(S.agents.assignedToWork||10101)/10101);
-    var earn = calcEarn(c) * agentRatio;
-    c.mined+=earn; c.minedUSD=c.mined*c.price; S.mining.totalEarnings+=earn*c.price;
-    c.activeAgents = Math.round(agentRatio*10101);
-    if(Math.random()>0.05)c.shares.v++;else if(Math.random()>0.5)c.shares.s++;else c.shares.i++;
-    c.mastery=Math.min(100,c.mastery+0.008);c.ml=getMasteryLevel(c.mastery);
-    // Mastery maxed at LEGENDARY
-    if(c.mastery>=95&&!c.masteryMaxed){c.masteryMaxed=true;toast('🏆 '+c.name+' LEGENDARY mastery achieved!');}
-    // Auto-collect using delta
-    if(S.wallet.autoCollect){var delta=c.mined-(c.wc||0);if(delta>0){collectCoin_(c,delta,'auto');txt('mine-wval','$'+S.wallet.total.toFixed(2));txt('wallet-total','$'+S.wallet.total.toFixed(2));txt('ms-wal','$'+S.wallet.total.toFixed(2));txt('mine-earnings','$'+S.mining.totalEarnings.toFixed(2));txt('mine-hashrate',(S.mining.totalHashrate||0).toFixed(0)+' MH/s');txt('mine-agents',(S.agents.assignedToWork||10101).toLocaleString()+' agents');
-    if(curPage==='wallet')updateAvailableSend();}}
-  });
-  S.mining.totalHashrate=th;S.mining.active=any;
-  S.mining.offlineLastActiveAt=new Date().toISOString();
-  calcMastery();
-  if(curPage==='mining')renderCoins();
-  if(curPage==='mastery')updateMasteryUI();
-  _tickCount++; if(_tickCount%5===0)updateHomeStats();if(_tickCount%30===0){saveState('mine-tick');_tickCount=0;}
+  // v5.0 REAL MODE — no simulated earnings. Refreshes real backend pool status.
+  _tickCount++;
+  if(_tickCount%5===0 && curPage==='mining') renderCoins();
+  if(_tickCount%10===0 && typeof refreshRealBalances==='function') refreshRealBalances();
+  if(_tickCount%30===0){ if(typeof updateHomeStats==='function') updateHomeStats(); _tickCount=0; }
 }
-function startCoin(sym){var c=cget(sym);if(!c)return;c.on=true;c.hr=120+Math.random()*40;S.mining.unlocked=true;if(!miningTmr)miningTmr=setInterval(miningTick,TICK);renderCoins();saveState();toast('⛏ '+c.name+' mining started!');}
+function startCoin(sym){ toast('⛏ Simulation removed — run real mining software on your PC'); }
 function stopCoin(sym){var c=cget(sym);if(!c)return;c.on=false;c.bot=false;c.hr=0;checkStop();renderCoins();saveState();toast('⏹ '+c.name+' stopped');}
-function botCoin(sym){var c=cget(sym);if(!c)return;c.bot=!c.bot;if(c.bot){c.on=true;c.opt=true;S.mining.unlocked=true;if(!miningTmr)miningTmr=setInterval(miningTick,TICK);toast('🤖 AI Bot ON: '+c.name);}else toast('🤖 Bot OFF: '+c.name);renderCoins();saveState();}
+function botCoin(sym){ toast('⛏ Simulation removed — real hashrate required'); }
 function optCoin(sym){var c=cget(sym);if(!c)return;c.opt=!c.opt;toast(c.name+(c.opt?' ⚡ +35% optimized!':' optimization off'));renderCoins();saveState();}
 function collectOneCoin(sym){
   var c=cget(sym);if(!c)return;
@@ -2103,10 +2070,10 @@ function collectOneCoin(sym){
   if(delta>0){collectCoin_(c,delta,'manual');S.wallet.total=Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*b.price;return a+b.usd;},0);txt('mine-wval','$'+S.wallet.total.toFixed(2));txt('wallet-total','$'+S.wallet.total.toFixed(2));txt('ms-wal','$'+S.wallet.total.toFixed(2));txt('mine-earnings','$'+S.mining.totalEarnings.toFixed(2));txt('mine-hashrate',(S.mining.totalHashrate||0).toFixed(0)+' MH/s');txt('mine-agents',(S.agents.assignedToWork||10101).toLocaleString()+' agents');toast('💰 '+fC(delta)+' '+c.sym+' ≈ '+fU(delta*c.price));saveState();}
   else toast('Nothing new to collect');
 }
-function startAll(){S.mining.coins.forEach(function(c){c.on=true;c.hr=120+Math.random()*40;});S.mining.unlocked=true;if(!miningTmr)miningTmr=setInterval(miningTick,TICK);renderCoins();saveState();toast('▶ All 10 coins mining!');}
+function startAll(){ toast('⛏ Simulation removed — real rigs only'); }
 function stopAll(){S.mining.coins.forEach(function(c){c.on=false;c.bot=false;c.hr=0;});checkStop();renderCoins();saveState();toast('⏹ All stopped');}
 function optAll(){S.mining.coins.forEach(function(c){c.opt=true;});renderCoins();saveState();toast('⚡ All coins optimized +35%!');}
-function botAll(){S.mining.coins.forEach(function(c){c.bot=true;c.on=true;c.opt=true;});S.mining.unlocked=true;if(!miningTmr)miningTmr=setInterval(miningTick,TICK);renderCoins();saveState();toast('🤖 AI Bots ON for ALL 10 coins!');}
+function botAll(){ toast('⛏ Simulation removed — real rigs only'); }
 function collectAll(){
   var n=0;S.mining.coins.forEach(function(c){var d=c.mined-(c.wc||0);if(d>0){collectCoin_(c,d,'manual');n++;}});
   if(n){S.wallet.total=Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*b.price;return a+b.usd;},0);txt('mine-wval','$'+S.wallet.total.toFixed(2));txt('wallet-total','$'+S.wallet.total.toFixed(2));txt('ms-wal','$'+S.wallet.total.toFixed(2));txt('mine-earnings','$'+S.mining.totalEarnings.toFixed(2));txt('mine-hashrate',(S.mining.totalHashrate||0).toFixed(0)+' MH/s');txt('mine-agents',(S.agents.assignedToWork||10101).toLocaleString()+' agents');toast('💰 Collected '+n+' coins! Wallet: '+fU(S.wallet.total));saveState();}
@@ -2588,6 +2555,8 @@ async function doReceive(rail, coin, usd, src){
   }
 }
 function runAutoReceives(){
+  // v5.0 REAL MODE — auto-receive requires real verified balance
+  if(!(S.wallet.real&&S.wallet.real.verified_usd>0)) return;
 
   var now = Date.now();
   Object.values(S.wallet.paymentRails).forEach(function(rail){
@@ -2952,11 +2921,11 @@ function renderAutoReceiveStatus(){
 
   // Pool platform configs (no bank account needed — all pay to crypto wallet)
   var POOL_PLATFORMS = {
-    nicehash:  { name:'NiceHash',   minUSD:6,    fee:0.0001, wallet:'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh', coin:'BTC',  site:'https://www.nicehash.com/my/mining/rigs' },
-    mph:       { name:'PoolHub',    minUSD:0.50, fee:0.009,  wallet:'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh', coin:'BTC',  site:'https://miningpoolhub.com/?page=account' },
-    '2miners': { name:'2Miners',    minUSD:0.50, fee:0,      wallet:'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh', coin:'AUTO', site:'https://2miners.com/btc-mining-pool' },
-    unmineable:{ name:'Unmineable', minUSD:1,    fee:0.01,   wallet:'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh', coin:'BTC',  site:'https://unmineable.com/address' },
-    prohashing:{ name:'ProHashing', minUSD:1,    fee:0.0499, wallet:'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh', coin:'BTC',  site:'https://prohashing.com/login' },
+    nicehash:  { name:'NiceHash',   minUSD:6,    fee:0.0001, wallet:'', coin:'BTC',  site:'https://www.nicehash.com/my/mining/rigs' },
+    mph:       { name:'PoolHub',    minUSD:0.50, fee:0.009,  wallet:'', coin:'BTC',  site:'https://miningpoolhub.com/?page=account' },
+    '2miners': { name:'2Miners',    minUSD:0.50, fee:0,      wallet:'', coin:'AUTO', site:'https://2miners.com/btc-mining-pool' },
+    unmineable:{ name:'Unmineable', minUSD:1,    fee:0.01,   wallet:'', coin:'BTC',  site:'https://unmineable.com/address' },
+    prohashing:{ name:'ProHashing', minUSD:1,    fee:0.0499, wallet:'', coin:'BTC',  site:'https://prohashing.com/login' },
   };
   var currentPoolTab = 'nicehash';
 
@@ -3024,88 +2993,22 @@ function renderAutoReceiveStatus(){
 
   // ── COLLECT ALL POSITIVE ──────────────────────
   function collectAllPositive(){
-    var pos    = getPositiveBalances();
-    var total  = pos.reduce(function(a,c){ return a+c.minedUSD; },0);
-    var thresh = parseFloat((document.getElementById('ac-threshold')||{}).value||'0.01');
-    if(total < thresh){
-      toast('⚠ Balance $'+total.toFixed(4)+' below threshold $'+thresh.toFixed(2));
+    // v5.0 REAL MODE — only real verified pool balance exists. No simulated coins.
+    if(typeof refreshRealBalances==='function') refreshRealBalances(true);
+    var realUSD=(S.wallet.real&&S.wallet.real.verified_usd)||0;
+    if(realUSD<=0){
+      toast('⚠ No real mining earnings yet — start a rig on your pool first');
       return;
     }
-    var ts = new Date();
-    var today = ts.toDateString();
-    var hist  = JSON.parse(localStorage.getItem(COLLECT_HISTORY_KEY)||'{}');
-    hist[today] = (hist[today]||0) + total;
-    localStorage.setItem(COLLECT_HISTORY_KEY, JSON.stringify(hist));
-
-    // SNAPSHOT coin details BEFORE zeroing
-    var coinSnapshot = pos.map(function(pc){
-      var coinObj = S.mining && S.mining.coins ? S.mining.coins.find(function(c){ return c.sym===pc.sym; }) : null;
-      return { sym:pc.sym, ico:pc.ico, color:pc.color, price:pc.price,
-               mined: coinObj ? coinObj.mined : pc.mined,
-               minedUSD: coinObj ? coinObj.mined*(pc.price||0) : pc.minedUSD };
-    });
-    var snapTotal = coinSnapshot.reduce(function(a,b){ return a+(b.minedUSD||0); },0);
-
-    // MOVE FUNDS TO WALLET AND ZERO OUT MINING
-    S.wallet = S.wallet || { balances: {}, total:0, incoming:0, outgoing:0, txs:[] };
-    S.wallet.balances = S.wallet.balances || {};
-    S.wallet.incoming = S.wallet.incoming || 0;
-
-    coinSnapshot.forEach(function(pc) {
-      if(pc.mined <= 0) return;
-      var coinObj = S.mining && S.mining.coins ? S.mining.coins.find(function(c){ return c.sym===pc.sym; }) : null;
-
-      // Add to wallet balances
-      if(!S.wallet.balances[pc.sym]) {
-        S.wallet.balances[pc.sym] = { amount:0, price:pc.price, usd:0, sym:pc.sym, ico:pc.ico||'🪙', color:pc.color||'#888' };
-      }
-      S.wallet.balances[pc.sym].amount += pc.mined;
-      S.wallet.balances[pc.sym].price   = pc.price;
-      S.wallet.balances[pc.sym].usd     = S.wallet.balances[pc.sym].amount * pc.price;
-
-      // Zero out mining
-      if(coinObj){ coinObj.mined=0; coinObj.minedUSD=0; }
-    });
-
-    // Recalc totals
-    S.wallet.total    = Object.values(S.wallet.balances).reduce(function(a,b){ return a+(b.usd||0); },0);
-    S.wallet.incoming = (S.wallet.incoming||0) + snapTotal;
-
-    // Update DOM immediately
-    txt('wallet-total', '$'+S.wallet.total.toFixed(2));
-    txt('mine-wval',    '$'+S.wallet.total.toFixed(2));
-    txt('ms-wal',       '$'+S.wallet.total.toFixed(2));
-    if(document.getElementById('incoming-balance-display'))
-      _gid('incoming-balance-display').innerHTML = '$'+S.wallet.incoming.toFixed(4);
-
-    saveState();
-
-    // Log it
-    var entry = {
-      id:    'COL-'+Date.now(),
-      ts:    ts.toLocaleString(),
-      coins: coinSnapshot.map(function(c){return c.sym+'='+c.minedUSD.toFixed(4)+'USD';}).join(', '),
-      total: snapTotal,
-      type:  'manual-collect'
-    };
-    collectLog.unshift(entry);
-    collectLog = collectLog.slice(0,200);
-    localStorage.setItem('tata_collect_log', JSON.stringify(collectLog));
-
-    toast('✅ Collected $'+total.toFixed(4)+' from '+pos.length+' coins!');
-    renderPositiveBalances();
-    renderCollectLog();
-
-    // Auto-transfer if above transfer minimum
-    var rail = (document.getElementById('ac-rail')||{}).value||'none';
-    var minTransfer = parseFloat((document.getElementById('ac-transfer-min')||{}).value||'5');
-    if(rail !== 'none' && total >= minTransfer){
-      setTimeout(function(){ autoTransferOut(total, rail); }, 500);
-    }
+    toast('✅ Real verified balance: $'+realUSD.toFixed(2)+' — available to receive');
+    if(typeof updateWalletUI==='function') updateWalletUI();
   }
 
   // ── AUTO-TRANSFER to payment rail ────────────
   function autoTransferOut(usd, rail){
+    // v5.0 REAL MODE — only real verified balance may be transferred
+    var realUSD=(S.wallet.real&&S.wallet.real.verified_usd)||0;
+    if(realUSD<=0 || usd>realUSD){ toast('⚠ Blocked: real verified balance is $'+realUSD.toFixed(2)); return; }
     toast('⏳ Auto-transferring $'+usd.toFixed(2)+' via '+rail+'...');
     fetch(RECEIVE_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
       action: rail==='link' ? 'receive_link' : 'receive_checkout',
@@ -3316,8 +3219,9 @@ function renderAutoReceiveStatus(){
     if(e.target && e.target.name === 'fund-source'){
       var info = document.getElementById('receive-source-info');
       var srcInfo = {
-        simulated: '⚙️ Simulated — dashboard-calculated earnings. Transfer gate will verify pool balance before execution.',
-        pool_verified: '✅ Pool Verified — backed by real confirmed pool balance. Transfer gate bypassed.',
+        pool: '⛏ Pool Earnings — real verified balance from connected mining pools. Amount cannot exceed verified balance.',
+        manual: '📝 Manual — manually initiated receive. Backend enforces real balance.',
+        external: '🌐 External — incoming funds from an external payer.',
         manual: '📝 Manual — manually initiated receive. Transfer gate bypassed.',
         external: '🌐 External — funds from external source. Transfer gate bypassed.'
       };
@@ -3563,56 +3467,21 @@ function pauseAllMining(){
   toast('⏸ Mining PAUSED — balances preserved');
 }
 function mineWithdrawToWallet(){
-  var pos = typeof getPositiveBalances==='function' ? getPositiveBalances() : [];
-  var total = pos.reduce(function(a,c){return a+(c.minedUSD||0);},0);
-  if(total<=0){ toast('⚠ No mined balance to receive yet'); return; }
-  collectAllPositive();
-  setTimeout(function(){
-    S.wallet.total = (S.wallet.total||0) + total;
-    updateWalletUI(); saveState();
-    toast('💸 $'+total.toFixed(2)+' received to OS Wallet!');
-    if(typeof renderWallet==='function') renderWallet();
-  }, 500);
+  // v5.0 REAL MODE — real verified balance only
+  if(typeof refreshRealBalances==='function') refreshRealBalances(true);
+  var realUSD=(S.wallet.real&&S.wallet.real.verified_usd)||0;
+  if(realUSD<=0){ toast('⚠ No real mining earnings yet — start a rig on your pool'); return; }
+  toast('✅ Real verified balance: $'+realUSD.toFixed(2)+' — ready to receive');
+  if(typeof updateWalletUI==='function') updateWalletUI();
+  if(typeof renderWallet==='function') renderWallet();
 }
-// ═══ COINBASE $5000 AUTO-APPROVAL ═══
+// ═══ v5.0 REAL MODE — $5,000 simulated auto-approval REMOVED ═══
 var CB_AUTO_SENT = false;
 async function coinbaseAutoApprove5000(){
-  var walletAddr = (document.getElementById('my-wallet-address')||{}).value||'0x833589fcd6edb6e08f4c7c32d4f71b54bda02913';
   var logEl = document.getElementById('cb-approval-log');
-  if(logEl) logEl.innerHTML = '<span style="color:#F1C40F">Sending $5,000 Coinbase approval...</span>';
-  toast('💰 Sending $5,000 Coinbase approval to ' + walletAddr.slice(0,10) + '...');
-  try {
-    var resp = await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'receive_paypal',amount_usd:'5000.00',email:'mccreary.bm@gmail.com',
-        note:'Coinbase OS Wallet $5000 auto-approval | addr:'+walletAddr+' | TaTatalicious v10'})});
-    var d = await resp.json();
-    CB_AUTO_SENT=true;
-    if(d.ok && d.approval_url){
-      showPayPalApprovalPopup(d.approval_url, 5000, d.payment_id);
-      if(logEl) logEl.innerHTML='<span style="color:#00E676">✅ $5,000 approval ready | '+d.payment_id+'</span>';
-      var arr=JSON.parse(localStorage.getItem('tata_cb_approvals')||'[]');
-      arr.unshift({ts:new Date().toISOString(),amount:5000,pid:d.payment_id,status:'approval_link',wallet:walletAddr});
-      localStorage.setItem('tata_cb_approvals',JSON.stringify(arr.slice(0,50)));
-      S.wallet.txs = S.wallet.txs||[];
-      S.wallet.txs.unshift({id:d.payment_id,ts:new Date().toLocaleTimeString(),type:'coinbase_approval',dest:'Coinbase',destAddr:walletAddr,coin:'USD',usd:5000,status:'approval_link',payment_id:d.payment_id});
-      S.wallet.txs = S.wallet.txs.slice(0,100);
-      saveState();
-      void fetch(PV_API,{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({action:'execute',amount:5000,rail:'paypal',destination:'mccreary.bm@gmail.com',
-          note:'Coinbase $5000 auto-approval | wallet:'+walletAddr})}).then(function(r){return r.json();}).then(function(vd){
-          if(vd.ok) toast('✅ Coinbase $5,000 verified: '+vd.tx_id);
-        }).catch(function(){});
-    } else {
-      if(logEl) logEl.innerHTML='<span style="color:#F44336">⚠ '+(d.error||'Check PayPal account')+'</span>';
-      toast('⚠ Approval: '+(d.error||'Check PayPal'));
-    }
-  } catch(e){
-    CB_AUTO_SENT=false;
-    if(logEl) logEl.innerHTML='<span style="color:#F44336">Error: '+e.message+'</span>';
-    toast('⚠ Error: '+e.message);
-  }
+  if(logEl) logEl.innerHTML = '<span style="color:#F1C40F">Simulation removed — real verified balance required.</span>';
+  toast('⚠ Auto-approval removed — real earnings only');
 }
-
 function setMiningAgents(n){
     n = Math.max(1, Math.min(10101, parseInt(n)||1));
     S.agents.assignedToWork = n;
@@ -5114,6 +4983,9 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
 
   // ── sendMinedTokens ──
   function sendMinedTokens(){
+    // v5.0 REAL MODE — only real verified balance may be sent
+    var realUSD=(S.wallet.real&&S.wallet.real.verified_usd)||0;
+    if(realUSD<=0){ toast('⚠ No real mining earnings — simulated balances removed'); return; }
     var coinSel = document.getElementById('token-send-coin');
     var destSel = document.getElementById('token-send-dest');
     var logEl = document.getElementById('token-send-log');
@@ -5179,14 +5051,9 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
     var coinSel=document.getElementById('token-send-coin');
     var avEl=document.getElementById('token-send-available');
     if(!coinSel||!avEl) return;
-    var coin=coinSel.value;
-    var total=0;
-    if(typeof S!=='undefined'&&S.mining&&S.mining.coins){
-      S.mining.coins.forEach(function(c){
-        if(coin==='all'||c.sym===coin) total+=(c.minedUSD||0);
-      });
-    }
-    avEl.textContent='$'+total.toFixed(4);
+    // v5.0 REAL MODE — real verified pool balance only
+    var total=(S.wallet&&S.wallet.real&&S.wallet.real.verified_usd)||0;
+    avEl.textContent='$'+total.toFixed(2);
   }
 
   // ── Populate token-send-coin select ──
@@ -5209,22 +5076,19 @@ function showPayPalApprovalPopup(approvalUrl, amount, paymentId){
 
   // ── updateHomeStats: refresh home tab quick stats ──
   function updateHomeStats(){
-  var sm = S.mining.speedMult||10000;
+  // v5.0 REAL MODE — real verified balance and real rig profitability only
   var agents = S.agents.assignedToWork||10101;
-  var perTick = S.mining.coins.reduce(function(a,c){
-    return a + (c.on||c.bot ? calcEarn(c)*(agents/10101) : 0);
-  }, 0);
-  var perSec = perTick * (1000/Math.max(50,3000/sm));
-  var perMin = perSec*60;
-  var perHr  = perMin*60;
-  txt('hs-speed',   sm.toLocaleString()+'x');
+  var realUSD = (S.wallet.real && S.wallet.real.verified_usd) || 0;
+  var profDay = (S.wallet.real && S.wallet.real.profit_usd_per_day) || 0;
+  var perHr = profDay/24, perMin = perHr/60, perSec = perMin/60;
+  txt('hs-speed',   'REAL');
   txt('hs-agents',  agents.toLocaleString());
   txt('hs-per-sec', '$'+perSec.toFixed(4)+'/s');
   txt('hs-per-min', '$'+perMin.toFixed(2)+'/min');
   txt('hs-per-hr',  '$'+perHr.toFixed(2)+'/hr');
-  txt('hs-wallet',  '$'+(S.wallet.total||0).toFixed(2));
-  txt('hs-earned',  '$'+(S.mining.totalEarnings||0).toFixed(2));
-  txt('ms-wal',     '$'+(S.wallet.total||0).toFixed(2));
+  txt('hs-wallet',  '$'+realUSD.toFixed(2));
+  txt('hs-earned',  '$'+realUSD.toFixed(2));
+  txt('ms-wal',     '$'+realUSD.toFixed(2));
   // Update verified pool balance from cache if available
   if(vbCache && vbCache.transferable_usd){
     txt('ms-vb', '$'+(vbCache.transferable_usd||0).toFixed(2));
@@ -5576,7 +5440,7 @@ function checkAdminAutoTransfer(){
   var lastMs = at.lastRun ? new Date(at.lastRun).getTime() : 0;
   var intervalMs = (at.intervalMins||30)*60*1000;
   if(now - lastMs < intervalMs) return;
-  var bal = S.wallet.total||0;
+  var bal = (S.wallet.real&&S.wallet.real.verified_usd)||0;
   if(bal < (at.threshold||10)) return;
 
   // Threshold crossed — fire or queue
@@ -5608,6 +5472,64 @@ function checkAdminAutoTransfer(){
     });
     toast('⚡ Auto-transfer fired: $'+amtToSend.toFixed(2)+' across '+at.rails.length+' rail(s)!');
   }
+}
+
+// ═══ v5.0 REAL MODE — live backend balances (simulation removed) ═══
+var _realFetchAt=0;
+async function refreshRealBalances(force){
+  var now=Date.now();
+  if(!force && now-_realFetchAt<30000) return;
+  _realFetchAt=now;
+  try{
+    var resp=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'verified_balance'})});
+    var d=await resp.json();
+    if(!d||!d.ok) return;
+    var profitBTC=0, btcPrice=97000;
+    (d.pools||[]).forEach(function(p){ if(p.name==='NiceHash') profitBTC=Number(p.profitability||0); });
+    if(profitBTC>0){
+      try{
+        var pr=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'crypto_prices'})}).then(function(r){return r.json();});
+        var bc=(pr.prices||[]).find(function(x){return x.sym==='BTC';});
+        if(bc) btcPrice=bc.price;
+      }catch(e){}
+    }
+    S.wallet=S.wallet||{};
+    S.wallet.real={
+      verified_usd:Number(d.transferable_usd||0),
+      verified_btc:Number(d.transferable_btc||0),
+      total_usd:Number(d.total_verified_usd||0),
+      profit_usd_per_day:profitBTC*btcPrice,
+      pools:d.pools||[],
+      ts:d.timestamp
+    };
+    txt('wallet-total','$'+S.wallet.real.verified_usd.toFixed(2));
+    txt('mine-wval','$'+S.wallet.real.verified_usd.toFixed(2));
+    txt('ms-wal','$'+S.wallet.real.verified_usd.toFixed(2));
+    var rb=document.getElementById('real-balance-note');
+    if(rb) rb.innerHTML=S.wallet.real.verified_usd>0
+      ? '<span style="color:#00E676">🟢 Real verified balance: $'+S.wallet.real.verified_usd.toFixed(2)+' from connected pools</span>'
+      : '<span style="color:#F1C40F">⚪ No real earnings yet — run a miner on your pool to start earning</span>';
+    if(typeof updateHomeStats==='function') updateHomeStats();
+    saveState('real-balance');
+  }catch(e){}
+}
+function purgeSimulatedBalances(){
+  try{
+    if(localStorage.getItem('tata_real_mode_v5')==='1') return;
+    S.wallet=S.wallet||{};
+    S.wallet.balances={}; S.wallet.total=0; S.wallet.incoming=0; S.wallet.outgoing=0; S.wallet.txs=[];
+    S.wallet.autoReceiveLog=[];
+    if(S.mining){
+      S.mining.totalEarnings=0; S.mining.totalHashrate=0;
+      (S.mining.coins||[]).forEach(function(c){
+        c.mined=0;c.minedUSD=0;c.wc=0;c.on=false;c.bot=false;c.hr=0;c.shares={v:0,i:0,s:0};c.mastery=0;
+      });
+    }
+    localStorage.removeItem('tata_collect_log');
+    localStorage.removeItem('tata_global_balances_v2');
+    localStorage.setItem('tata_real_mode_v5','1');
+    saveState('real-mode-purge');
+  }catch(e){}
 }
 
 // BOOT — DOMContentLoaded safe
@@ -5756,6 +5678,9 @@ document.addEventListener('click', function(e){
 
 // ═══ Transaction Panel — Send Mined Tokens (New IDs) ═══
 async function sendMinedTokensNew(){
+  // v5.0 REAL MODE — only real verified balance may be sent
+  var realUSD=(S.wallet.real&&S.wallet.real.verified_usd)||0;
+  if(realUSD<=0){ toast('⚠ No real mining earnings — simulated balances removed'); return; }
   var coinSel  = document.getElementById('coinSelect');
   var destSel  = document.getElementById('destinationSelect');
   var customEl = document.getElementById('customAddr');
@@ -5884,11 +5809,10 @@ function populateCoinSelect(){
 
 function updateAvailableSend(){
   var el = document.getElementById('availableSend');
-  if(!el || typeof S === 'undefined' || !S.mining || !S.mining.coins) return;
-  var total = S.mining.coins.reduce(function(a, c){
-    return a + (c.minedUSD || 0);
-  }, 0);
-  el.textContent = '$' + total.toFixed(4);
+  if(!el) return;
+  // v5.0 REAL MODE — real verified pool balance only
+  var total = (S.wallet && S.wallet.real && S.wallet.real.verified_usd) || 0;
+  el.textContent = '$' + total.toFixed(2);
   // Also update coin dropdown labels
   populateCoinSelect();
 }
@@ -6053,6 +5977,8 @@ loadState();
   updateBotUI();
   showPage('home');
 loadGlobalBalances(); // restore cached balances
+purgeSimulatedBalances(); // v5.0 REAL MODE — purge simulated balances once
+refreshRealBalances(true); // v5.0 REAL MODE — load real pool balances
 calcMastery();
 updateMasteryUI();
 updateBotUI();
@@ -6060,23 +5986,9 @@ renderRails();
 
 // Resume learning if it was active
 if(S.learning.active){S.learning.active=false;startLearning();}
-// AUTO-START mining — resume previous session OR start top 5 coins fresh
-var wasOn = S.mining.coins.some(function(c){ return c.on||c.bot; });
-if(!wasOn){
-  // First-time or fresh load — auto-enable top 5 coins + all bots
-  var topCoins = ['BTC','ETH','BNB','SOL','XRP'];
-  S.mining.coins.forEach(function(coin){
-    if(topCoins.indexOf(coin.sym) !== -1){
-      coin.on  = true;
-      coin.bot = true;  // AI bot mining
-    }
-  });
-  wasOn = true;
-}
-if(wasOn && !miningTmr) miningTmr = miningTmr=setInterval(miningTick, TICK);
-// Mark mining as running
-S.mining.running = true;
-S.mining.active  = true;
+// v5.0 REAL MODE — simulated mining auto-start removed
+S.mining.running = false;
+S.mining.active  = false;
 
 // Initial live data
 fetchPrices();setTimeout(function(){fetchMarket();fetchBinance();},800);
@@ -6085,12 +5997,9 @@ fetchPrices();setTimeout(function(){fetchMarket();fetchBinance();},800);
 setInterval(fetchPrices,30000);
 setInterval(saveState,30000);
 setInterval(function(){
-  // Recalc wallet every 5s for accuracy
-  S.wallet.total=Object.values(S.wallet.balances).reduce(function(a,b){b.usd=b.amount*b.price;return a+b.usd;},0);
+  // v5.0 REAL MODE — refresh real backend balances only
+  refreshRealBalances();
   calcMastery();updateMasteryUI();
-  txt('mine-wval','$'+S.wallet.total.toFixed(2));
-  txt('wallet-total','$'+S.wallet.total.toFixed(2));
-  txt('ms-wal','$'+S.wallet.total.toFixed(2));
   if(curPage==='mining')renderCoins();
   if(curPage==='learning'){updateLearningUI();updateLearnHeader();}
   if(curPage==='bots')updateBotUI();
@@ -6099,17 +6008,10 @@ setInterval(function(){
   checkAdminAutoTransfer();
 },5000);
 setInterval(runAutoReceives, 60000);
-setTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
+/* v5.0 REAL MODE — $5,000 simulated auto-approval removed */
 ; // Also check every 60s independently
-// AUTO-COLLECT: sweep mined balance into wallet every 30 minutes
-setInterval(function(){
-  var pos = typeof getPositiveBalances === 'function' ? getPositiveBalances() : [];
-  var total = pos.reduce(function(a,c){ return a+(c.minedUSD||0); },0);
-  if(total >= 0.01){
-    collectAllPositive();
-    setTimeout(updateWalletUI, 500);
-  }
-}, 30 * 60 * 1000);
+// v5.0 REAL MODE — refresh real balances every 5 minutes
+setInterval(function(){ refreshRealBalances(true); }, 5 * 60 * 1000);
 
 // Also run wallet UI refresh every 10 seconds when wallet tab open
 setInterval(function(){
@@ -6128,7 +6030,7 @@ setInterval(function(){
   },true);
 })();
 
-setTimeout(function(){try{coinbaseAutoApprove5000();}catch(e){}},8000);
+/* v5.0 REAL MODE — $5,000 simulated auto-approval removed */
 showPage('home');
   // Check URL for #approve hash
   checkUrlForApproval();
