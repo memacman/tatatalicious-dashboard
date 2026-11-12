@@ -3180,9 +3180,11 @@ function renderAutoReceiveStatus(){
       var html = pools.map(function(p){
         var statusIcon = p.verified ? '✅' : (p.status === 'connected' ? '⚠️' : '❌');
         var balStr = p.unpaid_usd ? ('$' + p.unpaid_usd.toFixed(2) + ' / ' + p.unpaid_btc + ' BTC')
+                   : (typeof p.balance_xmr === 'number') ? ('$' + (p.balance_usd||0).toFixed(2) + ' / ' + p.balance_xmr.toFixed(4) + ' XMR')
                    : p.balance_usd ? ('$' + p.balance_usd.toFixed(2) + ' / ' + p.balance_btc + ' BTC')
                    : p.estimated_usd ? ('~$' + p.estimated_usd.toFixed(2))
-                   : '—';
+                   : (p.status === 'wallet_not_set') ? 'set wallet' : '—';
+        if(typeof p.hashrate === 'number' && p.hashrate > 0){ balStr += ' · ' + (p.hashrate/1000).toFixed(1) + ' kH/s'; }
         var transferable = p.transferable ? '<span style="color:#00E676">TRANSFERABLE</span>' : '<span style="color:#555">locked</span>';
         var verifiedTag = p.verified ? '<span style="color:#00E676">verified</span>' : '<span style="color:#F1C40F">unverified</span>';
         return '<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #111">'
@@ -3197,7 +3199,7 @@ function renderAutoReceiveStatus(){
         if(transferableUSD > 0){
           gateEl.innerHTML = '<span style="color:#00E676">🟢 Transfer gate: OPEN — $' + transferableUSD.toFixed(2) + ' verified & transferable across ' + pools.filter(function(p){return p.transferable}).length + ' pool(s)</span>';
         } else {
-          gateEl.innerHTML = '<span style="color:#F1C40F">🟢 Pool earnings: $' + simulatedUSD.toFixed(2) + ' available from real mining pools. All sources transferable.</span>';
+          gateEl.innerHTML = '<span style="color:#F1C40F">⚪ No verified earnings yet — run open-source mining software on your rig and point it at a pool. Set your wallet address to track payouts.</span>';
         }
       }
     } catch(e) {
